@@ -6,6 +6,7 @@ services:
       context: ./x2iot
       args:
         BUILD_ARCH: amd64
+        BUILD_FROM: ghcr.io/home-assistant/amd64-base:latest
     ports:
       - "8356:8356"
     volumes:
