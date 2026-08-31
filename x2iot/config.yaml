@@ -1,5 +1,5 @@
 name: "x2iot Hub"
-version: "0.1.5"
+version: "1.5.1"
 slug: "x2iot"
 description: "IoT Integration Platform - Satel Integra, MQTT i więcej"
 url: "https://github.com/kroolik89/x2iot"
@@ -13,6 +13,9 @@ ports:
   "8356/tcp": 8356
 ports_description:
   "8356/tcp": "x2iot Web Interface"
-ingress: false
+ingress: true
+ingress_port: 8356
 panel_icon: "mdi:chip"
+panel_title: "x2iot Hub"
+panel_admin: false
 webui: "http://[HOST]:[PORT:8356]"
