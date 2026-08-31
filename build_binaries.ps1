@@ -35,7 +35,7 @@ if (!(Get-Command "cross" -ErrorAction SilentlyContinue)) {
 
 # 4. Instalacja targetów
 Write-Host "Dodawanie targetów kompilacji (musl)..." -ForegroundColor Cyan
-rustup target add aarch64-unknown-linux-musl x86_64-unknown-linux-musl
+rustup target add aarch64-unknown-linux-gnu x86_64-unknown-linux-gnu
 
 Write-Host "--- Środowisko gotowe. Przechodzę do budowania ---" -ForegroundColor Magenta
 
@@ -48,23 +48,23 @@ cargo leptos build --release
 
 # 2. Budowanie serwera dla amd64 (x86_64-unknown-linux-musl)
 Write-Host "Budowanie release x2iot-app (amd64/musl)..." -ForegroundColor Cyan
-cross build --package x2iot-app --features ssr --target x86_64-unknown-linux-musl --release
+cross build --package x2iot-app --features ssr --target x86_64-unknown-linux-gnu --release
 
 $TargetDirAmd64 = "$PSScriptRoot\x2iot\rootfs\app\bin\amd64"
 if (!(Test-Path -Path $TargetDirAmd64)) {
     New-Item -ItemType Directory -Force -Path $TargetDirAmd64
 }
-Copy-Item "$RootFolder\target\x86_64-unknown-linux-musl\release\x2iot-app" -Destination "$TargetDirAmd64\x2iot-app" -Force
+Copy-Item "$RootFolder\target\x86_64-unknown-linux-gnu\release\x2iot-app" -Destination "$TargetDirAmd64\x2iot-app" -Force
 
 # 3. Budowanie serwera dla aarch64 (aarch64-unknown-linux-musl)
 Write-Host "Budowanie release x2iot-app (aarch64/musl)..." -ForegroundColor Cyan
-cross build --package x2iot-app --features ssr --target aarch64-unknown-linux-musl --release
+cross build --package x2iot-app --features ssr --target aarch64-unknown-linux-gnu --release
 
 $TargetDirAarch64 = "$PSScriptRoot\x2iot\rootfs\app\bin\aarch64"
 if (!(Test-Path -Path $TargetDirAarch64)) {
     New-Item -ItemType Directory -Force -Path $TargetDirAarch64
 }
-Copy-Item "$RootFolder\target\aarch64-unknown-linux-musl\release\x2iot-app" -Destination "$TargetDirAarch64\x2iot-app" -Force
+Copy-Item "$RootFolder\target\aarch64-unknown-linux-gnu\release\x2iot-app" -Destination "$TargetDirAarch64\x2iot-app" -Force
 
 # 4. Kopiowanie assetów site/ (wygenerowanych w kroku 1)
 $TargetDirSite = "$PSScriptRoot\x2iot\rootfs\app\site"
