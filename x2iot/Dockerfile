@@ -1,7 +1,7 @@
-ARG BUILD_FROM=ghcr.io/home-assistant/amd64-base:latest
-FROM ${BUILD_FROM}
+ARG BUILD_FROM
+FROM $BUILD_FROM
 
-ARG BUILD_ARCH=amd64
+ARG BUILD_ARCH
 
 # Kopiuj pre-built binary odpowiedni dla architektury
 COPY rootfs/app/bin/${BUILD_ARCH}/x2iot-app /app/x2iot-app
