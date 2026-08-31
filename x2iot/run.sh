@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bashio
+#!/usr/bin/env bashio
 
 export X2IOT_CONFIG_PATH="/data/configuration.yaml"
 export LEPTOS_SITE_ADDR="0.0.0.0:8356"
