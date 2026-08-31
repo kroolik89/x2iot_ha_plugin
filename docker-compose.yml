@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  x2iot:
+    build:
+      context: ./x2iot
+      args:
+        BUILD_ARCH: amd64
+    ports:
+      - "8356:8356"
+    volumes:
+      - x2iot-data:/data
+    restart: unless-stopped
+
+volumes:
+  x2iot-data:

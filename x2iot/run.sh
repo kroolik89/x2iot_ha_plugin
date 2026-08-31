@@ -1,0 +1,15 @@
+#!/usr/bin/env bashio
+set -e
+
+echo "╔══════════════════════════════════════╗"
+echo "║            x2iot Hub v0.1.0          ║"
+echo "║     IoT Integration Platform         ║"
+echo "╚══════════════════════════════════════╝"
+
+export X2IOT_CONFIG_PATH="/data/configuration.yaml"
+export LEPTOS_SITE_ADDR="0.0.0.0:8356"
+export LEPTOS_SITE_ROOT="/app/site"
+export LEPTOS_OUTPUT_NAME="x2iot"
+export LEPTOS_SITE_PKG_DIR="pkg"
+
+exec /app/x2iot-app
