@@ -8,6 +8,7 @@ RUN chmod +x /app/x2iot-app
 COPY rootfs/app/site/ /app/site/
 
 COPY run.sh /
+COPY configuration.yaml /app/configuration.yaml
 RUN chmod a+x /run.sh
 
 CMD [ "/run.sh" ]

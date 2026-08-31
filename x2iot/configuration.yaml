@@ -1,0 +1,383 @@
+system:
+  theme: dark
+  language: en
+integrations:
+- id: INT:Satel:1
+  name: Centrala Dom
+  type: satel
+  connection:
+    transport: tcp
+    host: 10.20.30.5
+    port: 7094
+    encryption: false
+  user_code: '3258'
+  auto_reconnect: true
+  names:
+    zones:
+      1: Pir Sien
+      2: Mag Sien Wej
+      5: Pir Syp Mala
+      6: Pozar Syp Mala
+      7: Mag Kuch Uchyl
+      8: Mag Kuch Lewe
+      9: Mag Kuch Prawe
+      10: wolne
+      11: wolne
+      12: wolne
+      13: Pozar przedpokoj
+      14: Pozar salon
+      15: Czad salon
+      16: Kominek Grzeje
+      19: T Przedpokoj H
+      20: T Przedpokoj L
+      21: T Salon Kuchn H
+      22: T Salon Kuchn L
+      23: T Salon Komin H
+      24: T Salon Komin L
+      25: T Lazienka H
+      26: T Lazienka L
+      27: T Syp Glowna H
+      28: T Syp Glowna L
+      29: ATD Gosia H
+      30: ATD Gosia L
+      31: T Syp Goscinna H
+      32: T Syp Goscinna L
+      33: T Sien H
+      34: T Sien L
+      115: Dzwonek
+      128: C.O. Ster Cieplo
+    outputs:
+      1: Syg wew piwnica
+      2: Syg Wew Sien
+      3: Wyjście   3
+      4: Wyjście   4
+      5: C.O Glowice
+      6: C.O. Grzalka
+      10: test
+      11: Wyjście  11
+      17: usk
+      18: usk
+      19: usk
+      20: C.O. Lazienka
+      21: C.O Przedpokoj
+      22: C.O. Duzy
+      23: C.O Syp M
+      24: C.O. Syp D
+      25: Wyjście  25
+      26: Wyjście  26
+      27: Wyjście  27
+      28: Wyjście  28
+      29: Wyjście  29
+      30: Wyjście  30
+      31: Wyjście  31
+      32: Wyjście  32
+      33: Wyjście  33
+      34: Wyjście  34
+      35: Wyjście  35
+      36: Wyjście  36
+      37: Wyjście  37
+      38: Wyjście  38
+      39: Wyjście  39
+      41: CO El Czasowo
+      42: C.O. EL Timer
+      43: C.O Ster Cieplo
+      44: CO EL stale
+      45: CO El czas_on
+      46: CO EL 44_glowice
+      47: CO suma 45-46
+      48: CO EL Lato
+      49: puste
+      50: puste
+      51: puste
+      52: puste
+      53: puste
+      54: puste
+      55: puste
+      56: puste
+      57: puste
+      58: puste
+      59: puste
+      60: puste
+      61: puste
+      62: puste
+      63: puste
+      64: puste
+      65: puste
+      66: puste
+      67: puste
+      68: puste
+      69: puste
+      70: puste
+      71: puste
+      72: puste
+      73: puste
+      74: puste
+      75: puste
+      76: puste
+      77: puste
+      78: puste
+      79: puste
+      80: puste
+      81: puste
+      82: puste
+      83: puste
+      84: puste
+      85: puste
+      86: puste
+      87: puste
+      88: puste
+      89: puste
+      90: puste
+      91: puste
+      92: puste
+      93: puste
+      94: puste
+      95: puste
+      96: puste
+      97: puste
+      98: puste
+      107: Glowice suma
+      108: Sien L
+      109: Sien H_on
+      110: Sien Glowica
+      111: Laz L
+      112: Laz H_on
+      113: Laz Glowica
+      114: Przed L
+      115: Przed H_on
+      116: Przed Glowica
+      117: Duzy Ku L
+      118: Duzy Ku H_on
+      119: Duzy Ku Glowica
+      120: Duzy Sal L
+      121: Duzy Sal H_on
+      122: Duzy Sal Glowica
+      123: Syp M L
+      124: Syp M H_on
+      125: Syp M Glowica
+      126: Syp D L
+      127: Syp D H_on
+      128: Syp D Glowica
+    partitions:
+      1: Pir
+      2: Magnetyczne
+      3: Pir Zwierzaki
+      4: Automatyka
+      5: Testy AI
+  temperature_sensors:
+  - zone_id: 19
+    enabled: true
+    max_timeout_errors: 3
+    max_sensor_errors: 3
+    interval_minutes: 5
+  - zone_id: 20
+    enabled: false
+    max_timeout_errors: 3
+    max_sensor_errors: 3
+    interval_minutes: 5
+  - zone_id: 21
+    enabled: true
+    max_timeout_errors: 3
+    max_sensor_errors: 3
+    interval_minutes: 5
+  - zone_id: 22
+    enabled: false
+    max_timeout_errors: 3
+    max_sensor_errors: 3
+    interval_minutes: 5
+  - zone_id: 25
+    enabled: true
+    max_timeout_errors: 3
+    max_sensor_errors: 3
+    interval_minutes: 5
+  - zone_id: 26
+    enabled: false
+    max_timeout_errors: 3
+    max_sensor_errors: 3
+    interval_minutes: 5
+  - zone_id: 27
+    enabled: true
+    max_timeout_errors: 3
+    max_sensor_errors: 3
+    interval_minutes: 5
+  - zone_id: 28
+    enabled: false
+    max_timeout_errors: 3
+    max_sensor_errors: 3
+    interval_minutes: 5
+  - zone_id: 31
+    enabled: true
+    max_timeout_errors: 3
+    max_sensor_errors: 3
+    interval_minutes: 5
+  - zone_id: 32
+    enabled: false
+    max_timeout_errors: 3
+    max_sensor_errors: 3
+    interval_minutes: 5
+  - zone_id: 33
+    enabled: true
+    max_timeout_errors: 3
+    max_sensor_errors: 3
+    interval_minutes: 5
+  - zone_id: 34
+    enabled: false
+    max_timeout_errors: 3
+    max_sensor_errors: 3
+    interval_minutes: 5
+  enabled: true
+  auto_start_logger: true
+- id: INT:Mqtt:1
+  name: mqtt_HA
+  type: mqtt
+  host: 10.20.30.4
+  port: 1883
+  topic_prefix: x2iot
+  username: mqtt
+  password: mqtt
+  auto_reconnect: true
+  use_tls: false
+  keepalive_secs: 30
+  discovery_prefix: homeassistant
+  di_templates:
+  - id: 1
+    name: Prosty Stan (Tekst)
+    topic: '{prefix}/sensor/{id}/state'
+    payload: '{state}'
+    qos: 0
+    retain: true
+  - id: 2
+    name: Pełny Stan (JSON)
+    topic: '{prefix}/sensor/{id}/state'
+    payload: '{"name": "{name}", "state": "{state}", "trouble": "{trouble}", "source": "{source}"}'
+    qos: 0
+    retain: true
+    ha_value_template: '{{ value_json.state }}'
+  ti_templates:
+  - id: 1
+    name: Prosta Wartość (Liczba)
+    topic: '{prefix}/sensor/{id}/temperature'
+    payload: '{value}'
+    qos: 0
+    retain: true
+  - id: 2
+    name: Pełne Dane (JSON)
+    topic: '{prefix}/sensor/{id}/temperature'
+    payload: '{"name": "{name}", "value": {value}, "trouble": "{trouble}"}'
+    qos: 0
+    retain: true
+    ha_value_template: '{{ value_json.value }}'
+  enabled: true
+  auto_start_logger: true
+inputs:
+- id: DI:1
+  name: wej3 - odwrócone
+  integration_id: INT:Satel:1:violation:3
+  invert: true
+  enabled: true
+  startup_state: false
+  trouble_state: true
+  mqtt_outputs:
+  - mqtt_integration_id: INT:Mqtt:1
+    template_id: 1
+- id: DI:2
+  name: wej3 - bez odrócenia
+  integration_id: INT:Satel:1:violation:3
+  invert: false
+  enabled: true
+  startup_state: false
+  trouble_state: false
+  mqtt_outputs:
+  - mqtt_integration_id: INT:Mqtt:1
+    template_id: 1
+- id: DI:3
+  name: Wyjscie nr 5 - grzalka
+  integration_id: INT:Satel:1:output:2
+  invert: false
+  enabled: true
+  startup_state: false
+  trouble_state: false
+  mqtt_outputs:
+  - mqtt_integration_id: INT:Mqtt:1
+    template_id: 1
+- id: DI:4
+  name: Wyjscie 4
+  integration_id: INT:Satel:1:output:4
+  invert: false
+  enabled: true
+  startup_state: false
+  trouble_state: false
+  mqtt_outputs:
+  - mqtt_integration_id: INT:Mqtt:1
+    template_id: 1
+- id: DI:5
+  name: testowa w awarii
+  integration_id: INT:Satel:1:violation:253
+  invert: false
+  enabled: true
+  startup_state: false
+  trouble_state: true
+  mqtt_outputs:
+  - mqtt_integration_id: INT:Mqtt:1
+    template_id: 2
+temperature_inputs:
+- id: TI:1
+  name: Kuchnia
+  integration_id: INT:Satel:1:temperature:21
+  enabled: true
+  offset: 0.0
+  trouble_value: -99.0
+  stale_after_minutes: 15
+  mqtt_outputs:
+  - mqtt_integration_id: INT:Mqtt:1
+    template_id: 1
+- id: TI:3
+  name: Przedpokój
+  integration_id: INT:Satel:1:temperature:19
+  enabled: true
+  offset: 0.0
+  trouble_value: -99.0
+  stale_after_minutes: 15
+  mqtt_outputs:
+  - mqtt_integration_id: INT:Mqtt:1
+    template_id: 1
+- id: TI:4
+  name: Lazienka
+  integration_id: INT:Satel:1:temperature:25
+  enabled: true
+  offset: 0.0
+  trouble_value: -99.0
+  stale_after_minutes: 15
+  mqtt_outputs:
+  - mqtt_integration_id: INT:Mqtt:1
+    template_id: 1
+- id: TI:5
+  name: Syp Glowna H
+  integration_id: INT:Satel:1:temperature:27
+  enabled: true
+  offset: 0.0
+  trouble_value: -99.0
+  stale_after_minutes: 15
+  mqtt_outputs:
+  - mqtt_integration_id: INT:Mqtt:1
+    template_id: 1
+- id: TI:6
+  name: Syp Goscinna
+  integration_id: INT:Satel:1:temperature:31
+  enabled: true
+  offset: 0.0
+  trouble_value: -99.0
+  stale_after_minutes: 15
+  mqtt_outputs:
+  - mqtt_integration_id: INT:Mqtt:1
+    template_id: 1
+- id: TI:7
+  name: Sien
+  integration_id: INT:Satel:1:temperature:33
+  enabled: true
+  offset: 0.0
+  trouble_value: -99.0
+  stale_after_minutes: 15
+  mqtt_outputs:
+  - mqtt_integration_id: INT:Mqtt:1
+    template_id: 1

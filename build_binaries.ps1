@@ -76,7 +76,14 @@ Copy-Item "$RootFolder\target\site\*" -Destination $TargetDirSite -Recurse -Forc
 
 if (Test-Path "$TargetDirSite\pkg\x2iot.wasm") {
     Write-Host "Renaming x2iot.wasm to x2iot_bg.wasm to match Leptos 0.7 expectations..." -ForegroundColor Yellow
-    Rename-Item -Path "$TargetDirSite\pkg\x2iot.wasm" -NewName "x2iot_bg.wasm" -Force
+    # Fix for rename error if file exists
+    if (Test-Path -Path "$TargetDirSite\pkg\x2iot_bg.wasm") {
+        Remove-Item -Path "$TargetDirSite\pkg\x2iot_bg.wasm" -Force
+    }
+    Rename-Item -Path "$TargetDirSite\pkg\x2iot.wasm" -NewName "x2iot_bg.wasm"
 }
+
+Write-Host "Kopiowanie konfiguracji..." -ForegroundColor Cyan
+Copy-Item "$RootFolder\config\configuration.yaml" -Destination "$PSScriptRoot\x2iot\configuration.yaml" -Force
 
 Write-Host "Gotowe. Można uruchomić docker build w katalogu ha-addon/x2iot" -ForegroundColor Green
