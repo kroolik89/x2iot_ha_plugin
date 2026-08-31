@@ -1,11 +1,12 @@
 name: "x2iot Hub"
-version: "0.1.3"
+version: "0.1.4"
 slug: "x2iot"
 description: "IoT Integration Platform - Satel Integra, MQTT i więcej"
 url: "https://github.com/kroolik89/x2iot"
 arch:
   - amd64
   - aarch64
+init: false
 startup: application
 boot: auto
 ports:
