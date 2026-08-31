@@ -10,14 +10,11 @@ RUN chmod +x /app/x2iot-app
 # Kopiuj site assets (WASM/CSS/JS - wspólne dla wszystkich architektur)
 COPY rootfs/app/site/ /app/site/
 
-# Kopiuj skrypt startowy
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
+# Standardowe uruchomienie jako demon za pomocą mechanizmów HA S6-Overlay
+COPY run.sh /etc/services.d/x2iot/run
+RUN chmod +x /etc/services.d/x2iot/run
 
 LABEL \
     io.hass.name="x2iot Hub" \
     io.hass.version="0.1.0" \
-    io.hass.type="addon" \
-    io.hass.arch="amd64|aarch64"
-
-CMD ["/run.sh"]
+    io.hass.type="addon"
