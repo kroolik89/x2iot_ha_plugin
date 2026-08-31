@@ -47,14 +47,14 @@ Write-Host "Budowanie frontend assets (cargo leptos)..." -ForegroundColor Cyan
 cargo leptos build --release
 
 # 2. Budowanie serwera dla amd64 (x86_64-unknown-linux-musl)
-Write-Host "Budowanie release x2iot-app (amd64/musl)..." -ForegroundColor Cyan
-cross build --package x2iot-app --features ssr --target x86_64-unknown-linux-gnu --release
+# Write-Host "Budowanie release x2iot-app (amd64/musl)..." -ForegroundColor Cyan
+# cross build --package x2iot-app --features ssr --target x86_64-unknown-linux-gnu --release
 
 $TargetDirAmd64 = "$PSScriptRoot\x2iot\rootfs\app\bin\amd64"
 if (!(Test-Path -Path $TargetDirAmd64)) {
     New-Item -ItemType Directory -Force -Path $TargetDirAmd64
 }
-Copy-Item "$RootFolder\target\x86_64-unknown-linux-gnu\release\x2iot-app" -Destination "$TargetDirAmd64\x2iot-app" -Force
+# Copy-Item "$RootFolder\target\x86_64-unknown-linux-gnu\release\x2iot-app" -Destination "$TargetDirAmd64\x2iot-app" -Force
 
 # 3. Budowanie serwera dla aarch64 (aarch64-unknown-linux-musl)
 Write-Host "Budowanie release x2iot-app (aarch64/musl)..." -ForegroundColor Cyan
@@ -73,5 +73,10 @@ if (!(Test-Path -Path $TargetDirSite)) {
 }
 Write-Host "Kopiowanie site assets..." -ForegroundColor Cyan
 Copy-Item "$RootFolder\target\site\*" -Destination $TargetDirSite -Recurse -Force
+
+if (Test-Path "$TargetDirSite\pkg\x2iot.wasm") {
+    Write-Host "Renaming x2iot.wasm to x2iot_bg.wasm to match Leptos 0.7 expectations..." -ForegroundColor Yellow
+    Rename-Item -Path "$TargetDirSite\pkg\x2iot.wasm" -NewName "x2iot_bg.wasm" -Force
+}
 
 Write-Host "Gotowe. Można uruchomić docker build w katalogu ha-addon/x2iot" -ForegroundColor Green
