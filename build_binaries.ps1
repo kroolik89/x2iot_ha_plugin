@@ -1,4 +1,4 @@
-# Skrypt wspomagający środowisko i budowanie binarek do rootfs dla Home Assistant (Alpine/musl)
+# Skrypt wspomagający środowisko i budowanie binarek do rootfs dla Home Assistant (Debian/glibc)
 
 $RootFolder = "$PSScriptRoot\.."
 Set-Location $RootFolder
@@ -34,7 +34,7 @@ if (!(Get-Command "cross" -ErrorAction SilentlyContinue)) {
 }
 
 # 4. Instalacja targetów
-Write-Host "Dodawanie targetów kompilacji (musl)..." -ForegroundColor Cyan
+Write-Host "Dodawanie targetów kompilacji (gnu/Debian)..." -ForegroundColor Cyan
 rustup target add aarch64-unknown-linux-gnu x86_64-unknown-linux-gnu
 
 Write-Host "--- Środowisko gotowe. Przechodzę do budowania ---" -ForegroundColor Magenta
@@ -46,8 +46,8 @@ Write-Host "--- Środowisko gotowe. Przechodzę do budowania ---" -ForegroundCol
 Write-Host "Budowanie frontend assets (cargo leptos)..." -ForegroundColor Cyan
 cargo leptos build --release
 
-# 2. Budowanie serwera dla amd64 (x86_64-unknown-linux-musl)
-# Write-Host "Budowanie release x2iot-app (amd64/musl)..." -ForegroundColor Cyan
+# 2. Budowanie serwera dla amd64 (x86_64-unknown-linux-gnu)
+# Write-Host "Budowanie release x2iot-app (amd64/gnu)..." -ForegroundColor Cyan
 # cross build --package x2iot-app --features ssr --target x86_64-unknown-linux-gnu --release
 
 $TargetDirAmd64 = "$PSScriptRoot\x2iot\rootfs\app\bin\amd64"
@@ -56,8 +56,8 @@ if (!(Test-Path -Path $TargetDirAmd64)) {
 }
 # Copy-Item "$RootFolder\target\x86_64-unknown-linux-gnu\release\x2iot-app" -Destination "$TargetDirAmd64\x2iot-app" -Force
 
-# 3. Budowanie serwera dla aarch64 (aarch64-unknown-linux-musl)
-Write-Host "Budowanie release x2iot-app (aarch64/musl)..." -ForegroundColor Cyan
+# 3. Budowanie serwera dla aarch64 (aarch64-unknown-linux-gnu / Debian)
+Write-Host "Budowanie release x2iot-app (aarch64/gnu - RPi 5)..." -ForegroundColor Cyan
 cross build --package x2iot-app --features ssr --target aarch64-unknown-linux-gnu --release
 
 $TargetDirAarch64 = "$PSScriptRoot\x2iot\rootfs\app\bin\aarch64"
