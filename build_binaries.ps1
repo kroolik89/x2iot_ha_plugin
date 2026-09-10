@@ -46,7 +46,7 @@ if (!(Get-Command "cross" -ErrorAction SilentlyContinue)) {
 rustup target add aarch64-unknown-linux-gnu x86_64-unknown-linux-gnu | Out-Null
 
 # 5. Odczyt i ewentualne podbicie wersji
-$ConfigContent = Get-Content $ConfigFile -Raw
+$ConfigContent = Get-Content $ConfigFile -Raw -Encoding UTF8
 if ($ConfigContent -match 'version:\s*"(\d+)\.(\d+)\.(\d+)"') {
     $Major = [int]$Matches[1]
     $Minor = [int]$Matches[2]
@@ -57,7 +57,7 @@ if ($ConfigContent -match 'version:\s*"(\d+)\.(\d+)\.(\d+)"') {
         $NewPatch = $OldPatch + 1
         $NewVersion = "$Major.$Minor.$NewPatch"
         $UpdatedConfig = $ConfigContent -replace 'version:\s*"\d+\.\d+\.\d+"', "version: `"$NewVersion`""
-        [System.IO.File]::WriteAllText($ConfigFile, $UpdatedConfig)
+        [System.IO.File]::WriteAllText($ConfigFile, $UpdatedConfig, [System.Text.Encoding]::UTF8)
         Write-Host "  -> Podbito wersje: $OldVersion -> $NewVersion" -ForegroundColor Green
     } else {
         $NewVersion = $OldVersion
@@ -71,9 +71,9 @@ if ($ConfigContent -match 'version:\s*"(\d+)\.(\d+)\.(\d+)"') {
 function Rollback-Version {
     if (!$NoBump) {
         Write-Host "`n[!] Wycofuje wersje w config.yaml do $OldVersion z powodu bledu..." -ForegroundColor Yellow
-        $Cur = Get-Content $ConfigFile -Raw
+        $Cur = Get-Content $ConfigFile -Raw -Encoding UTF8
         $Cur = $Cur -replace 'version:\s*"\d+\.\d+\.\d+"', "version: `"$OldVersion`""
-        [System.IO.File]::WriteAllText($ConfigFile, $Cur)
+        [System.IO.File]::WriteAllText($ConfigFile, $Cur, [System.Text.Encoding]::UTF8)
     }
 }
 
