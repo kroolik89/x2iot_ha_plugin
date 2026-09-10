@@ -132,8 +132,6 @@ if (!(Test-Path "$TargetDirSite\pkg\x2iot_bg.wasm")) {
     exit 1
 }
 
-# C. Konfiguracja domyślna
-Copy-Item "$RootFolder\config\configuration.yaml" -Destination "$PSScriptRoot\x2iot\configuration.yaml" -Force
 Write-Host "  -> Wszystkie artefakty skopiowane i zweryfikowane." -ForegroundColor Green
 
 # --- KROK 4: Git commit i push do obu repozytoriów ---

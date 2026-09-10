@@ -9,10 +9,9 @@ export LEPTOS_SITE_PKG_DIR="pkg"
 echo "Rozpoczynam serwer RUST x2iot na porcie 8356..."
 
 if [ ! -f /data/configuration.yaml ]; then
-    cp /app/configuration.yaml /data/configuration.yaml
-    echo "Skopiowano domyślną konfigurację do /data/configuration.yaml"
+    echo "Brak /data/configuration.yaml - serwer wygeneruje czysta konfiguracje domyslna."
 else
-    echo "Konfiguracja /data/configuration.yaml już istnieje, zachowuję istniejący plik."
+    echo "Konfiguracja /data/configuration.yaml juz istnieje, zachowuje istniejacy plik."
 fi
 
 exec /app/x2iot-app
