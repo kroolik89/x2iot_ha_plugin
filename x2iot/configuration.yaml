@@ -326,7 +326,7 @@ temperature_inputs:
   integration_id: INT:Satel:1:temperature:21
   enabled: true
   offset: 0.0
-  trouble_value: -99.0
+  trouble_value: unavailable
   stale_after_minutes: 15
   mqtt_outputs:
   - mqtt_integration_id: INT:Mqtt:1
@@ -336,7 +336,7 @@ temperature_inputs:
   integration_id: INT:Satel:1:temperature:19
   enabled: true
   offset: 0.0
-  trouble_value: -99.0
+  trouble_value: unavailable
   stale_after_minutes: 15
   mqtt_outputs:
   - mqtt_integration_id: INT:Mqtt:1
@@ -346,7 +346,7 @@ temperature_inputs:
   integration_id: INT:Satel:1:temperature:25
   enabled: true
   offset: 0.0
-  trouble_value: -99.0
+  trouble_value: unavailable
   stale_after_minutes: 15
   mqtt_outputs:
   - mqtt_integration_id: INT:Mqtt:1
@@ -356,7 +356,7 @@ temperature_inputs:
   integration_id: INT:Satel:1:temperature:27
   enabled: true
   offset: 0.0
-  trouble_value: -99.0
+  trouble_value: unavailable
   stale_after_minutes: 15
   mqtt_outputs:
   - mqtt_integration_id: INT:Mqtt:1
@@ -366,7 +366,7 @@ temperature_inputs:
   integration_id: INT:Satel:1:temperature:31
   enabled: true
   offset: 0.0
-  trouble_value: -99.0
+  trouble_value: unavailable
   stale_after_minutes: 15
   mqtt_outputs:
   - mqtt_integration_id: INT:Mqtt:1
@@ -376,7 +376,7 @@ temperature_inputs:
   integration_id: INT:Satel:1:temperature:33
   enabled: true
   offset: 0.0
-  trouble_value: -99.0
+  trouble_value: unavailable
   stale_after_minutes: 15
   mqtt_outputs:
   - mqtt_integration_id: INT:Mqtt:1
