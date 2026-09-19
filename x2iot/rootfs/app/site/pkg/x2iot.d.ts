@@ -61,8 +61,9 @@ export interface InitOutput {
     readonly wasm_bindgen_1e354aaa153758e___convert__closures_____invoke___wasm_bindgen_1e354aaa153758e___JsValue______true_: (a: number, b: number, c: any) => void;
     readonly wasm_bindgen_1e354aaa153758e___convert__closures_____invoke___wasm_bindgen_1e354aaa153758e___JsValue______true__1_: (a: number, b: number, c: any) => void;
     readonly wasm_bindgen_1e354aaa153758e___convert__closures_____invoke___web_sys_f807f9a9ce46ce40___features__gen_CloseEvent__CloseEvent______true_: (a: number, b: number, c: any) => void;
-    readonly wasm_bindgen_1e354aaa153758e___convert__closures_____invoke___wasm_bindgen_1e354aaa153758e___JsValue______true__1__4: (a: number, b: number, c: any) => void;
-    readonly wasm_bindgen_1e354aaa153758e___convert__closures_____invoke___web_sys_f807f9a9ce46ce40___features__gen_CloseEvent__CloseEvent______true__5: (a: number, b: number, c: any) => void;
+    readonly wasm_bindgen_1e354aaa153758e___convert__closures_____invoke___web_sys_f807f9a9ce46ce40___features__gen_CloseEvent__CloseEvent______true__4: (a: number, b: number, c: any) => void;
+    readonly wasm_bindgen_1e354aaa153758e___convert__closures_____invoke___wasm_bindgen_1e354aaa153758e___JsValue______true__1__5: (a: number, b: number, c: any) => void;
+    readonly wasm_bindgen_1e354aaa153758e___convert__closures_____invoke___web_sys_f807f9a9ce46ce40___features__gen_CloseEvent__CloseEvent______true__6: (a: number, b: number, c: any) => void;
     readonly wasm_bindgen_1e354aaa153758e___convert__closures_____invoke_______true_: (a: number, b: number) => void;
     readonly wasm_bindgen_1e354aaa153758e___convert__closures_____invoke_______true__1_: (a: number, b: number) => void;
     readonly __wbindgen_malloc: (a: number, b: number) => number;
