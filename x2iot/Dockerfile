@@ -7,6 +7,9 @@ RUN chmod +x /app/x2iot-app
 
 COPY rootfs/app/site/ /app/site/
 
+# Tlumaczenia dostarczane z programem (pl i inne; angielski jest wkompilowany)
+COPY rootfs/app/lang/ /app/lang/
+
 COPY run.sh /
 RUN chmod a+x /run.sh
 

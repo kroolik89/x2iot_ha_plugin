@@ -132,6 +132,19 @@ if (!(Test-Path "$TargetDirSite\pkg\x2iot_bg.wasm")) {
     exit 1
 }
 
+# C. Tlumaczenia programu (lang/) - angielski jest wkompilowany, reszta z plikow
+$TargetDirLang = "$PSScriptRoot\x2iot\rootfs\app\lang"
+if (Test-Path -Path $TargetDirLang) {
+    Remove-Item -Path $TargetDirLang -Recurse -Force
+}
+New-Item -ItemType Directory -Force -Path $TargetDirLang | Out-Null
+Copy-Item "$RootFolder\lang\*" -Destination $TargetDirLang -Recurse -Force
+if (!(Test-Path "$TargetDirLang\core\pl.json")) {
+    Write-Host "BLAD: Brak $TargetDirLang\core\pl.json - katalog lang/ nie zostal skopiowany!" -ForegroundColor Red
+    Rollback-Version
+    exit 1
+}
+
 Write-Host "  -> Wszystkie artefakty skopiowane i zweryfikowane." -ForegroundColor Green
 
 # --- KROK 4: Git commit i push do obu repozytoriów ---
@@ -161,7 +174,8 @@ if (!$NoPush) {
     # 2. Główne repozytorium (x2iot)
     Write-Host "  -> [2/2] Commit i push glownego repozytorium (x2iot)..." -ForegroundColor Yellow
     Set-Location $RootFolder
-    git add -A
+    # Tylko wskaznik submodulu ha-addon - NIE git add -A (lokalny config/, pliki z roznymi koncami linii)
+    git add ha-addon
     git diff --cached --quiet
     if ($LASTEXITCODE -ne 0) {
         git commit -m $CommitTitle
