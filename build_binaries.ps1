@@ -77,10 +77,17 @@ function Rollback-Version {
     }
 }
 
+# Osobny katalog kompilacji wydania (autor, 2026-10-07): `target` nalezy do dzialajacego `cargo leptos serve` / `watch`
+# (wspolny katalog = podmiana plikow strony pod dzialajacym serwerem i blokady). Strona trafia do target_ha/site.
+$BuildDir = "$RootFolder\target_ha"
+$env:CARGO_TARGET_DIR = $BuildDir
+$env:LEPTOS_SITE_ROOT = "target_ha/site"
+
 # --- KROK 1: Budowanie frontendu WASM ---
-Write-Host "`n[1/4] Budowanie frontendu WASM (cargo leptos build --release)..." -ForegroundColor Cyan
+Write-Host "`n[1/4] Budowanie frontendu WASM (cargo leptos build --release --frontend-only, katalog target_ha)..." -ForegroundColor Cyan
 Set-Location $RootFolder
-cargo leptos build --release
+# --frontend-only: serwer dla Windows nie jest potrzebny (serwer dla RPi5 buduje cross w kroku 2).
+cargo leptos build --release --frontend-only
 if ($LASTEXITCODE -ne 0) {
     Write-Host "BLAD: Budowanie cargo-leptos zakonczone niepowodzeniem!" -ForegroundColor Red
     Rollback-Version
@@ -104,7 +111,7 @@ $TargetDirAarch64 = "$PSScriptRoot\x2iot\rootfs\app\bin\aarch64"
 if (!(Test-Path -Path $TargetDirAarch64)) {
     New-Item -ItemType Directory -Force -Path $TargetDirAarch64 | Out-Null
 }
-$ServerBinSource = "$RootFolder\target\aarch64-unknown-linux-gnu\release\x2iot-app"
+$ServerBinSource = "$BuildDir\aarch64-unknown-linux-gnu\release\x2iot-app"
 if (!(Test-Path $ServerBinSource)) {
     Write-Host "BLAD: Nie znaleziono skompilowanego pliku: $ServerBinSource" -ForegroundColor Red
     Rollback-Version
@@ -117,7 +124,7 @@ $TargetDirSite = "$PSScriptRoot\x2iot\rootfs\app\site"
 if (!(Test-Path -Path $TargetDirSite)) {
     New-Item -ItemType Directory -Force -Path $TargetDirSite | Out-Null
 }
-Copy-Item "$RootFolder\target\site\*" -Destination $TargetDirSite -Recurse -Force
+Copy-Item "$BuildDir\site\*" -Destination $TargetDirSite -Recurse -Force
 
 if (Test-Path "$TargetDirSite\pkg\x2iot.wasm") {
     if (Test-Path -Path "$TargetDirSite\pkg\x2iot_bg.wasm") {
