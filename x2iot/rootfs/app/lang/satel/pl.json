@@ -190,7 +190,18 @@
     "category.output": "Wyjście",
     "category.partition": "Obszar",
     "category.trouble": "Awaria",
-    "category.system": "System"
+    "category.system": "System",
+    "section.zone": "Wejścia",
+    "section.output": "Wyjścia",
+    "section.partition": "Obszary",
+    "section.system": "System",
+    "section.trouble": "Awarie",
+    "template": "{category} {signal} {n} {name}"
+  },
+  "source_label": {
+    "with_name": "{signal} {n} – {name}",
+    "numbered": "{signal} {n}",
+    "single": "{signal}"
   },
   "cap_short": {
     "zone.violation": "Naruszenie",
