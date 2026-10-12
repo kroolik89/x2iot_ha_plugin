@@ -1,0 +1,409 @@
+{
+  "tabs": {
+    "info": "Informacje",
+    "settings": "Konfiguracja",
+    "pins": "Kody PIN",
+    "controllers": "Kontrolery",
+    "temperature": "Temperatury",
+    "input": "Wejścia",
+    "area": "Obszary",
+    "aux": "Aux",
+    "door": "Drzwi",
+    "module": "Moduły"
+  },
+  "info": {
+    "section": "Połączenie z Integriti",
+    "scan": "Skanuj obiekty",
+    "reset_stats": "Wyzeruj statystyki",
+    "reset_stats_success": "Statystyki wyzerowane.",
+    "state": "Połączenie",
+    "state_reason": "Powód",
+    "state_http": "Kod HTTP serwera",
+    "server_edition": "Edycja serwera",
+    "server_version": "Wersja serwera",
+    "protocol_version": "Wersja protokołu API",
+    "connected_since": "Połączono od",
+    "last_success_at": "Ostatnie udane zapytanie",
+    "reconnects": "Ponowne połączenia",
+    "requests": "Zapytania",
+    "long_polls": "Zapytania oczekujące (long poll)",
+    "bytes_sent": "Wysłane bajty",
+    "bytes_received": "Odebrane bajty",
+    "commands_ok": "Polecenia wykonane",
+    "commands_failed": "Polecenia nieudane",
+    "controller_offline_commands": "Polecenia do kontrolera offline",
+    "errors_network": "Błędy sieci",
+    "errors_auth": "Błędy autoryzacji (401)",
+    "errors_http": "Błędy HTTP (kod, liczba)",
+    "last_response_ms": "Ostatnia odpowiedź [ms]",
+    "avg_response_ms": "Średnia odpowiedź, ostatnie 50 [ms]",
+    "max_response_ms": "Najwolniejsza odpowiedź [ms]"
+  },
+  "config": {
+    "section": "Serwer Integriti",
+    "base_url": "Adres REST API",
+    "base_url_placeholder": "http://host/restApi",
+    "username": "Operator",
+    "password": "Hasło",
+    "api_key": "Klucz API",
+    "accept_invalid_certs": "Zaufaj certyfikatowi serwera",
+    "arm_pin_minimum": "Kod wymagany do uzbrojenia obszaru",
+    "disarm_pin_minimum": "Kod wymagany do pozostałych poleceń obszaru",
+    "pin_minimum_none": "Bez kodu",
+    "pin_minimum_any_code": "Dowolny poprawny kod (tej integracji lub globalny)",
+    "pin_minimum_integration": "Kod PIN tej integracji",
+    "pin_minimum_help": "Najmniej, czego ta integracja wymaga przy poleceniach obszaru. Obszar w x2iot może być tylko ostrzejszy: niezależnie od ustawienia obszaru polecenie bez kodu wymaganego tutaj zostanie odrzucone. „Pozostałe polecenia obszaru” to rozbrojenie i polecenia specjalne Integriti (wejścia 24 h, anulowanie czasu na wyjście, etapy).",
+    "save": "Zapisz"
+  },
+  "pins": {
+    "section": { "title": "Kody PIN integracji" },
+    "btn": { "add": "Dodaj kod PIN" },
+    "col": { "number": "Nr", "name": "Nazwa" },
+    "actions": { "edit": "Edytuj", "remove": "Usuń", "remove_confirm": "Usunąć ten kod PIN?" },
+    "empty": {
+      "text": "Brak kodów PIN",
+      "hint": "Kody są używane przy poleceniach obszaru, gdy obszar (albo ta integracja) wymaga kodu PIN integracji (4–8 cyfr). Sam Integriti nigdy ich nie dostaje."
+    }
+  },
+  "temp": {
+    "title": "Czujniki temperatury",
+    "search": "Wyszukaj",
+    "add": "Dodaj",
+    "forget": "Zapomnij",
+    "forget_confirm": "Usunąć to wejście z listy czujników temperatury? Elementy, które z niego korzystają, stracą źródło.",
+    "forget_success": "Czujnik usunięty z listy.",
+    "col": { "value": "Temperatura", "state": "Odczyt", "summary": "Tekst w Integriti" },
+    "state": {
+      "ok": "OK",
+      "no_match": "Tekst nie pasuje do wzorca",
+      "no_state": "Brak stanu",
+      "removed": "Usunięty w Integriti"
+    },
+    "empty": {
+      "text": "Brak czujników temperatury",
+      "hint": "„Wyszukaj” znajdzie wejścia, których tekst wygląda jak temperatura; „Dodaj” pozwala wybrać wejście ręcznie."
+    },
+    "pattern": {
+      "title": "Wzorce tekstu temperatury",
+      "add": "Dodaj wzorzec",
+      "edit": "Edytuj",
+      "remove": "Usuń",
+      "remove_confirm": "Usunąć ten wzorzec?",
+      "col": { "pattern": "Wzorzec" },
+      "empty": {
+        "text": "Brak wzorców",
+        "hint": "Bez wzorca żadne wejście nie zostanie odczytane jako temperatura."
+      }
+    }
+  },
+  "dialog": {
+    "pin_add": { "title": "Dodaj kod PIN" },
+    "pin_edit": { "title": "Edytuj kod PIN" },
+    "temp_add": { "title": "Dodaj czujnik temperatury" },
+    "pattern_add": { "title": "Dodaj wzorzec" },
+    "pattern_edit": { "title": "Edytuj wzorzec" }
+  },
+  "form": {
+    "pin": {
+      "name": "Nazwa",
+      "code": "Kod PIN (4–8 cyfr)",
+      "code_help": "Zostaw puste, aby zachować obecny kod."
+    },
+    "temp": {
+      "input": "Wejście",
+      "input_help": "Tylko wejścia, których nie ma jeszcze na liście."
+    },
+    "pattern": {
+      "pattern": "Wzorzec",
+      "placeholder": "{liczba} C",
+      "help": "Tekst, który Integriti pokazuje dla wejścia, z {liczba} w miejscu liczby (np. {liczba} C). Spacje i wielkość liter nie mają znaczenia; liczba może mieć znak oraz kropkę lub przecinek."
+    }
+  },
+  "area": {
+    "extra": {
+      "arm_if_secure": "Uzbrój, jeśli zamknięte",
+      "arm_stage1": "Uzbrój (etap 1)",
+      "arm_stage2": "Uzbrój (etap 2)",
+      "defer": "Odrocz uzbrojenie",
+      "cancel_exit_delay": "Anuluj czas na wyjście",
+      "arm_24h": "Uzbrój wejścia 24 h",
+      "disarm_24h": "Rozbrój wejścia 24 h"
+    }
+  },
+  "help": {
+    "accept_invalid_certs": "Przyjmuje dowolny certyfikat serwera, także samopodpisany. Używaj tylko dla serwera we własnej sieci, który nie ma certyfikatu publicznego urzędu: połączenie pozostaje szyfrowane, ale x2iot nie odróżni już prawdziwego serwera od podszywającego się."
+  },
+  "status": {
+    "unconfigured": "Nie skonfigurowano",
+    "config_fault": "Nieprawidłowa konfiguracja",
+    "disconnected": "Rozłączono",
+    "connecting": "Łączenie",
+    "connected": "Połączono",
+    "unreachable": "Serwer nie odpowiada",
+    "server_error": "Serwer zwrócił błąd",
+    "auth_failed": "Autoryzacja odrzucona"
+  },
+  "error": {
+    "not_running": "Integracja nie jest połączona z serwerem.",
+    "not_connected": "Brak połączenia z serwerem Integriti.",
+    "object_not_found": "Tego obiektu nie ma na liście.",
+    "object_not_removed": "Ten obiekt nadal istnieje w Integriti. Zapomnieć można tylko obiekt usunięty w Integriti.",
+    "sensor_not_found": "Tego wejścia nie ma na liście czujników temperatury.",
+    "pattern_not_found": "Tego wzorca nie ma na liście."
+  },
+  "command": {
+    "isolate_input": "Izoluj wejście",
+    "deisolate_input": "Zdejmij izolację wejścia",
+    "unlock_door": "Odblokuj drzwi",
+    "lock_door": "Zablokuj drzwi",
+    "override_unlocked": "Nadpisz drzwi: odblokowane",
+    "override_locked": "Nadpisz drzwi: zablokowane",
+    "remove_override": "Zdejmij nadpisanie drzwi",
+    "arm_away": "Uzbrój obszar",
+    "disarm": "Rozbrój obszar",
+    "arm_if_secure": "Uzbrój obszar, jeśli zamknięty",
+    "arm_stage1": "Uzbrój obszar (etap 1)",
+    "arm_stage2": "Uzbrój obszar (etap 2)",
+    "defer": "Odrocz uzbrojenie",
+    "cancel_exit_delay": "Anuluj czas na wyjście",
+    "arm_24h": "Uzbrój wejścia 24 h obszaru",
+    "disarm_24h": "Rozbrój wejścia 24 h obszaru"
+  },
+  "command_error": {
+    "not_connected": "Brak połączenia z serwerem Integriti.",
+    "unknown_object": "Obiekt nie jest znany bibliotece, przeskanuj obiekty ponownie.",
+    "controller_offline": "Kontroler jest offline.",
+    "not_accepted": "Serwer nie przyjął polecenia.",
+    "command_failed": "Integriti zgłosiło:",
+    "timeout": "Brak odpowiedzi serwera w czasie.",
+    "busy": "Kolejka poleceń jest pełna.",
+    "object_removed": "Obiekt został usunięty w Integriti.",
+    "other": "Błąd:"
+  },
+  "auth": {
+    "logged_out": "Wylogowano",
+    "success": "Sukces",
+    "invalid_operator_scheme": "Nieprawidłowy schemat uwierzytelniania operatora",
+    "authentication_scheme_not_configured": "Schemat uwierzytelniania nie jest skonfigurowany",
+    "authentication_scheme_not_licensed": "Schemat uwierzytelniania nie jest objęty licencją",
+    "unknown_operator_or_incorrect_password": "Nieznany operator lub błędne hasło",
+    "operator_disabled": "Operator jest wyłączony",
+    "insufficient_active_directory_group_membership": "Brak wymaganego członkostwa w grupie Active Directory",
+    "failure": "Autoryzacja nie powiodła się",
+    "server_locked_out": "Serwer jest zablokowany",
+    "operator_locked_out": "Operator jest zablokowany",
+    "two_factor_auth_code_required": "Wymagany kod dwuskładnikowy",
+    "two_factor_auth_code_invalid": "Nieprawidłowy kod dwuskładnikowy",
+    "backup_code_invalid": "Nieprawidłowy kod zapasowy",
+    "unable_to_communicate_with_authentication_server": "Brak łączności z serwerem uwierzytelniania",
+    "use_basic_auth": "Serwer wymaga uwierzytelniania podstawowego",
+    "rest_api_key_required": "Wymagany klucz REST API",
+    "invalid_rest_api_key": "Nieprawidłowy klucz REST API",
+    "insufficient_unlock_integration_license": "Brak licencji: integracja odblokowująca",
+    "insufficient_api_feature_type_license": "Brak licencji: funkcja API",
+    "unsupported_authentication_method": "Nieobsługiwana metoda uwierzytelniania",
+    "insufficient_operator_api_permission": "Operator nie ma uprawnienia do używania API",
+    "api_not_configured_for_service": "API nie jest skonfigurowane dla tej usługi",
+    "read_entity_not_allowed": "Operator nie może czytać obiektów",
+    "read_summary_not_allowed": "Operator nie może czytać skrótów obiektów",
+    "write_entity_not_allowed": "Operator nie może zmieniać obiektów",
+    "unknown": "Nieznany powód"
+  },
+  "controllers": {
+    "title": "Kontrolery serwera Integriti",
+    "col": {
+      "id": "Kontroler",
+      "name": "Nazwa",
+      "serial": "Numer seryjny",
+      "firmware": "Oprogramowanie",
+      "online": "Online"
+    },
+    "online": "Online",
+    "offline": "Offline",
+    "empty": {
+      "text": "Nie znamy jeszcze żadnych kontrolerów",
+      "hint": "Połącz się z serwerem i zeskanuj obiekty."
+    }
+  },
+  "objects": {
+    "input": { "title": "Wejścia" },
+    "area": { "title": "Obszary" },
+    "aux": { "title": "Aux" },
+    "door": { "title": "Drzwi" },
+    "module": { "title": "Moduły" },
+    "col": {
+      "address": "Adres",
+      "name": "Nazwa",
+      "controller": "Kontroler",
+      "state": "Stan",
+      "online": "Online",
+      "type": "Typ",
+      "type_text": "Typ w Integriti",
+      "removed": "Usunięty w Integriti"
+    },
+    "removed_mark": "Usunięty w Integriti",
+    "forget": "Zapomnij",
+    "forget_confirm": "Zapomnieć ten obiekt? Zniknął z Integriti; jego źródła znikną z x2iot, a elementy, które ich używają, stracą źródło.",
+    "forget_success": "Obiekt został zapomniany.",
+    "empty": {
+      "text": "Nie znamy jeszcze żadnych obiektów",
+      "hint": "Użyj „Skanuj obiekty” na zakładce Informacje."
+    }
+  },
+  "state": {
+    "unknown": "Nieznany",
+    "input": { "normal": "Norma", "alarm": "Naruszenie", "isolated": "Izolowane" },
+    "area": {
+      "disarmed": "Rozbrojony",
+      "disarmed_no_24h": "Rozbrojony, wejścia 24 h wyłączone",
+      "armed": "Uzbrojony",
+      "armed_no_24h": "Uzbrojony, wejścia 24 h wyłączone",
+      "entry": "Czas na wejście",
+      "exit": "Czas na wyjście",
+      "alarm": "Alarm"
+    },
+    "aux": { "on": "Włączony", "off": "Wyłączony" },
+    "door": {
+      "locked": "Zamknięte",
+      "unlocked": "Odblokowane",
+      "open": "Otwarte",
+      "forced": "Wyważone",
+      "dotl": "Za długo otwarte",
+      "module_missing": "Brak modułu drzwi",
+      "override_unlocked": "Nadpisanie: odblokowane",
+      "override_locked": "Nadpisanie: zablokowane"
+    },
+    "module": { "online": "Online", "offline": "Offline" }
+  },
+  "capability": {
+    "input": {
+      "state": "Stan wejścia",
+      "isolated": "Wejście izolowane",
+      "masked": "Wejście maskowane",
+      "tamper": "Sabotaż wejścia",
+      "fault": "Usterka wejścia",
+      "battery": "Słaba bateria wejścia",
+      "poll_fail": "Brak komunikacji z wejściem",
+      "isolate": "Sterowanie izolacją wejścia",
+      "temperature": "Temperatura wejścia"
+    },
+    "area": {
+      "state": "Stan obszaru",
+      "armed": "Obszar uzbrojony",
+      "alarm": "Alarm obszaru",
+      "entry": "Czas na wejście w obszarze",
+      "exit": "Czas na wyjście z obszaru",
+      "no_24h": "Wejścia 24 h obszaru wyłączone"
+    },
+    "aux": { "on": "Aux włączony" },
+    "door": {
+      "unlocked": "Drzwi odblokowane",
+      "open": "Drzwi otwarte",
+      "forced": "Drzwi wyważone",
+      "dotl": "Drzwi za długo otwarte",
+      "override_unlocked": "Nadpisanie drzwi: odblokowane",
+      "override_locked": "Nadpisanie drzwi: zablokowane",
+      "module_missing": "Brak modułu drzwi",
+      "unlock": "Sterowanie odblokowaniem drzwi",
+      "override_unlock": "Sterowanie nadpisaniem drzwi: odblokowane",
+      "override_lock": "Sterowanie nadpisaniem drzwi: zablokowane"
+    },
+    "module": { "missing": "Brak modułu" },
+    "controller": { "online": "Kontroler online" }
+  },
+  "cap_short": {
+    "input": {
+      "state": "Stan",
+      "isolated": "Izolacja",
+      "masked": "Maskowanie",
+      "tamper": "Sabotaż",
+      "fault": "Usterka",
+      "battery": "Bateria",
+      "poll_fail": "Brak komunikacji",
+      "isolate": "Sterowanie izolacją",
+      "temperature": "Temperatura"
+    },
+    "area": { "state": "Stan", "armed": "Uzbrojony", "alarm": "Alarm", "entry": "Czas na wejście", "exit": "Czas na wyjście", "no_24h": "Wejścia 24 h wyłączone" },
+    "aux": { "on": "Włączony" },
+    "door": {
+      "unlocked": "Odblokowane",
+      "open": "Otwarte",
+      "forced": "Wyważone",
+      "dotl": "Za długo otwarte",
+      "override_unlocked": "Nadpisanie: odblokowane",
+      "override_locked": "Nadpisanie: zablokowane",
+      "module_missing": "Brak modułu",
+      "unlock": "Sterowanie odblokowaniem",
+      "override_unlock": "Sterowanie nadpisaniem: odblokowane",
+      "override_lock": "Sterowanie nadpisaniem: zablokowane"
+    },
+    "module": { "missing": "Brak" },
+    "controller": { "online": "Kontroler online" }
+  },
+  "source_name": {
+    "category": { "input": "Wejście", "area": "Obszar", "aux": "Aux", "door": "Drzwi", "module": "Moduł" },
+    "section": { "input": "Wejścia", "area": "Obszary", "aux": "Aux", "door": "Drzwi", "module": "Moduły", "temperature": "Temperatury", "controller": "Kontrolery" },
+    "template": "{signal} {name}",
+    "template_module": "{signal} {type} {address}"
+  },
+  "module_type": {
+    "ControlModule": "Moduł kontrolera",
+    "GraphicTerminal": "Terminal graficzny",
+    "IntelligentReaderModule": "Inteligentny moduł czytnika",
+    "ReaderModule": "Moduł czytników",
+    "VirtualModule": "Moduł wirtualny",
+    "unknown": "Inny typ"
+  },
+  "source_label": {
+    "named": "{signal}: {name} ({place}) {removed}",
+    "unnamed": "{signal}: {place} {removed}",
+    "module": "{signal}: {type} {address} ({controller}) {removed}",
+    "controller": "{signal}: {name} ({id})",
+    "controller_unnamed": "{signal}: {id}",
+    "removed_mark": "[usunięty w Integriti]"
+  },
+  "log": {
+    "category_connection": "Połączenie",
+    "category_scan": "Skan",
+    "category_objects": "Obiekty",
+    "category_commands": "Polecenia",
+    "command_ok": "Polecenie wykonane",
+    "command_ok_desc": "{command}: {address} {name} ({controller})",
+    "command_failed": "Polecenie nieudane",
+    "command_failed_desc": "{command}: {address} {name} ({controller}) - {reason} {detail}",
+    "connected": "Połączono",
+    "connected_desc": "Połączono z serwerem Integriti",
+    "unreachable": "Serwer nie odpowiada",
+    "unreachable_desc": "Serwer Integriti nie odpowiada, ponawiam próbę",
+    "server_error": "Błąd serwera",
+    "server_error_desc": "Serwer Integriti zwrócił błąd (HTTP {code})",
+    "auth_failed": "Odmowa autoryzacji",
+    "auth_failed_desc": "Serwer Integriti odrzucił logowanie: {reason}",
+    "controller_offline": "Kontroler offline",
+    "controller_offline_desc": "Kontroler {number} {name} utracił łączność z serwerem Integriti; jego źródła są niedostępne",
+    "controller_online": "Kontroler wrócił online",
+    "controller_online_desc": "Kontroler {number} {name} ma łączność z serwerem Integriti",
+    "scan_finished": "Skan zakończony",
+    "scan_finished_desc": "{count} obiektów ({added} nowych, {removed} usuniętych w Integriti, {restored} przywróconych)",
+    "scan_failed": "Skan nieudany",
+    "scan_failed_desc": "Skan nie zakończył się: {error}",
+    "object_removed": "Obiekt usunięty w Integriti",
+    "object_removed_desc": "{address} {name} ({controller})",
+    "object_restored": "Obiekt wrócił do Integriti",
+    "object_restored_desc": "{address} {name} ({controller})",
+    "object_forgotten": "Obiekt zapomniany",
+    "object_forgotten_desc": "{address} {name} ({controller})",
+    "temperature_search": "Wyszukiwanie temperatur",
+    "temperature_search_desc": "{found} wejść pasuje do wzorca, {added} dopisano do listy"
+  },
+  "notice": {
+    "temp_search": {
+      "success": "Wyszukiwanie zakończone: znaleziono {found}, dopisano {added}"
+    },
+    "scan": {
+      "progress": "Skanowanie obiektów Integriti…",
+      "success": "Skan zakończony: {count} obiektów",
+      "error": "Skan nieudany: {error}"
+    }
+  }
+}

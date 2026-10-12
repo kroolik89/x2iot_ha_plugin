@@ -23,7 +23,8 @@
       "alarm_memory": "Pamięć alarmu strefy",
       "entry_time": "Czas na wejście",
       "exit_time_gt10s": "Czas na wyjście (>10s)",
-      "exit_time_lt10s": "Czas na wyjście (<10s)"
+      "exit_time_lt10s": "Czas na wyjście (<10s)",
+      "area_state": "Stan obszaru strefy"
     },
     "system": {
       "troubles_present": "Obecność awarii w systemie",
@@ -222,7 +223,8 @@
     "partition.alarm_memory": "Pamięć alarmu",
     "partition.entry_time": "Czas na wejście",
     "partition.exit_time_gt10s": "Czas na wyjście >10s",
-    "partition.exit_time_lt10s": "Czas na wyjście <10s"
+    "partition.exit_time_lt10s": "Czas na wyjście <10s",
+    "partition.area_state": "Stan obszaru"
   },
   "tabs": {
     "info": "Informacje",
@@ -230,7 +232,8 @@
     "zones": "Wejścia",
     "outputs": "Wyjścia",
     "partitions": "Strefy",
-    "temperatures": "Temperatury"
+    "temperatures": "Temperatury",
+    "pins": "Kody PIN"
   },
   "config": {
     "save": "Zapisz konfigurację",
@@ -243,7 +246,44 @@
     "integration_key": "Klucz integracji (maks. 12 znaków ASCII)",
     "path": "Ścieżka portu (COM3 / /dev/ttyUSB0)",
     "baud_rate": "Prędkość transmisji (Baud)",
-    "user_code": "Kod użytkownika (PIN)"
+    "user_code": "Kod użytkownika (PIN)",
+    "area_code_mode": "Kod poleceń obszaru",
+    "area_code_mode_x2iot": "Kod sprawdza x2iot",
+    "area_code_mode_panel": "Kod przekazywany do centrali",
+    "area_code_mode_help": "Jak traktowany jest kod wpisany przy poleceniu obszaru (uzbrój, rozbrój, kasuj alarm). „Kod sprawdza x2iot” (zalecane): x2iot porównuje wpisany kod z kodami PIN tej integracji lub globalnymi, a do centrali wysyła kod użytkownika ustawiony wyżej — wpisany kod nigdy nie trafia do centrali. „Kod przekazywany do centrali”: gdy zasada obszaru to „kody PIN integracji”, wpisany kod idzie do centrali i to ona go sprawdza (w dzienniku Satela widać wtedy prawdziwego użytkownika), ale kod podróżuje przez sieć, a przy poleceniach z MQTT także przez brokera. Zasada „globalne”: x2iot sprawdza kody globalne, a do centrali idzie kod użytkownika; zasada „dowolny”: najpierw kody globalne, inaczej kod idzie do centrali.",
+    "arm_pin_minimum": "Kod wymagany do uzbrojenia obszaru",
+    "disarm_pin_minimum": "Kod wymagany do pozostałych poleceń obszaru",
+    "pin_minimum_none": "Bez kodu",
+    "pin_minimum_any_code": "Dowolny poprawny kod (tej integracji lub globalny)",
+    "pin_minimum_integration": "Kod PIN tej integracji",
+    "pin_minimum_help": "Najmniej, czego ta integracja wymaga przy poleceniach obszaru. Obszar w x2iot może być tylko ostrzejszy: niezależnie od ustawienia obszaru polecenie bez kodu wymaganego tutaj zostanie odrzucone. „Pozostałe polecenia obszaru” to rozbrojenie, kasowanie alarmu i polecenia specjalne centrali (tryb 3, uzbrojenie wymuszone)."
+  },
+  "pins": {
+    "section": {
+      "title": "Kody PIN integracji"
+    },
+    "btn": {
+      "add": "Dodaj kod PIN"
+    },
+    "col": {
+      "number": "Nr",
+      "name": "Nazwa"
+    },
+    "actions": {
+      "edit": "Edytuj",
+      "remove": "Usuń",
+      "remove_confirm": "Usunąć ten kod PIN?"
+    },
+    "empty": {
+      "text": "Brak kodów PIN",
+      "hint": "Kody są używane przy poleceniach obszaru, gdy zasada obszaru to „kody PIN integracji” (4–8 cyfr)."
+    }
+  },
+  "area": {
+    "extra": {
+      "arm_mode3": "Uzbrój (tryb 3)",
+      "arm_force_home": "Uzbrój wymuszone (tryb 1)"
+    }
   },
   "info": {
     "connection_stats": "Statystyki połączenia",
@@ -388,9 +428,20 @@
     },
     "temp_search": {
       "title": "Wyszukiwanie czujników temperatury ABAX"
+    },
+    "pin_add": {
+      "title": "Dodaj kod PIN"
+    },
+    "pin_edit": {
+      "title": "Edytuj kod PIN"
     }
   },
   "form": {
+    "pin": {
+      "name": "Nazwa",
+      "code": "Kod PIN (4–8 cyfr)",
+      "code_help": "Zostaw puste, aby zachować obecny kod."
+    },
     "output_control": {
       "enabled": "Sterowanie aktywne",
       "is_controllable": "Sterowalne wg biblioteki",
@@ -540,7 +591,20 @@
       "sync_cancelled_title": "Przerwano synchronizację: {category}",
       "sync_cancelled_desc": "Przerwano — integracja zatrzymana",
       "config_updated": "Przeładowanie Konfiguracji",
-      "config_updated_desc": "Nowa konfiguracja została poprawnie wprowadzona"
+      "config_updated_desc": "Nowa konfiguracja została poprawnie wprowadzona",
+      "area_command_title": "Polecenie obszaru: strefa #{id}",
+      "area_command_sent": "Polecenie wysłane do centrali: {command}",
+      "area_command_failed": "Polecenie {command} nie powiodło się: {error}",
+      "area_command": {
+        "arm_away": "uzbrojenie",
+        "arm_home": "uzbrojenie (tryb 1)",
+        "arm_night": "uzbrojenie (tryb 2)",
+        "arm_force": "uzbrojenie wymuszone",
+        "disarm": "rozbrojenie",
+        "clear_alarm": "kasowanie alarmu",
+        "arm_mode3": "uzbrojenie (tryb 3)",
+        "arm_force_home": "uzbrojenie wymuszone (tryb 1)"
+      }
     }
   },
   "catalog": {

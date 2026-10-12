@@ -8,6 +8,7 @@
     "di": "Powiadomienie Pushover",
     "ti": "Powiadomienie Pushover",
     "do": "Powiadomienie Pushover",
+    "ar": "Powiadomienie Pushover",
     "content_mode": "Treść",
     "mode_template": "Szablon",
     "mode_custom": "Własna",
@@ -31,7 +32,8 @@
     "priority_default": "Domyślny integracji",
     "name": {
       "change": "Zmiana stanu",
-      "temperature": "Temperatura"
+      "temperature": "Temperatura",
+      "area": "Zmiana stanu obszaru"
     }
   },
   "template_warning": {

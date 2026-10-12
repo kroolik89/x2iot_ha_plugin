@@ -67,7 +67,9 @@
     "unused_list": "Identyfikatory (unique_id)",
     "unused_ha_entities": "Nieużywane encje w HA",
     "unused_notice_section": "Nieużywane encje",
-    "unused_notice_label": "Informacja"
+    "unused_notice_label": "Informacja",
+    "client_id_conflict_section": "Inny x2iot z tym samym identyfikatorem instancji używa tego brokera — zmień identyfikator instancji w jednym z nich (import konfiguracji: 'nowy identyfikator')",
+    "client_id_conflict_label": "Powtórzony client_id"
   },
   "config": {
     "save": "Zapisz konfigurację",
@@ -120,6 +122,10 @@
     "returning_to_primary": "Powrót na broker główny",
     "ha_restarted": "Restart Home Assistant",
     "ha_restarted_desc": "Home Assistant uruchomiony ponownie — wysyłam Discovery i stany",
+    "duplicate_client_id": "Ten sam identyfikator klienta na brokerze",
+    "duplicate_client_id_desc": "Inny x2iot z tym samym identyfikatorem instancji ({client_id}) używa tego brokera — zmień identyfikator instancji w jednym z nich (import konfiguracji: 'nowy identyfikator')",
+    "duplicate_client_id_cleared": "Połączenie stabilne",
+    "duplicate_client_id_cleared_desc": "Połączenie stabilne — brak oznak drugiego klienta o identyfikatorze {client_id}",
     "duplicate_unique_id": "Powtórzony unique_id",
     "duplicate_unique_id_desc": "Powtórzony unique_id '{unique_id}' w klockach {block1} i {block2}",
     "command_topic_conflict": "Konflikt tematu poleceń",
@@ -151,6 +157,8 @@
     "ti": "MQTT / Home Assistant",
     "do": "MQTT / Home Assistant",
     "doc": "MQTT / Home Assistant (sterowanie)",
+    "ar": "MQTT / Home Assistant (stan obszaru)",
+    "arc": "MQTT / Home Assistant (panel alarmowy)",
     "template_id": "Szablon",
     "unique_id_custom": "Własny unique_id",
     "unique_id": "Identyfikator unique_id (zostanie poprzedzony x2iot_<id>_i<nr>_)",

@@ -62,7 +62,9 @@
     "unused_list": "Identifiers (unique_id)",
     "unused_ha_entities": "Unused entities in HA",
     "unused_notice_section": "Unused Entities",
-    "unused_notice_label": "Notice"
+    "unused_notice_label": "Notice",
+    "client_id_conflict_section": "Another x2iot with the same instance ID is using this broker — change the instance ID in one of them (configuration import: 'new ID')",
+    "client_id_conflict_label": "Duplicated client_id"
   },
   "config": {
     "save": "Save Configuration",
@@ -105,6 +107,10 @@
     "returning_to_primary": "Returning to primary broker",
     "ha_restarted": "Home Assistant Restarted",
     "ha_restarted_desc": "Home Assistant restarted — sending Discovery and states",
+    "duplicate_client_id": "Same client ID on the broker",
+    "duplicate_client_id_desc": "Another x2iot with the same instance ID ({client_id}) is using this broker — change the instance ID in one of them (configuration import: 'new ID')",
+    "duplicate_client_id_cleared": "Connection stable",
+    "duplicate_client_id_cleared_desc": "Connection is stable — no sign of another client with ID {client_id}",
     "duplicate_unique_id": "Duplicated unique_id",
     "duplicate_unique_id_desc": "Duplicated unique_id '{unique_id}' in blocks {block1} and {block2}",
     "discovery_conflict": "Discovery Conflict",
