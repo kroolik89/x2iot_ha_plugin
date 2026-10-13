@@ -30,7 +30,14 @@ if [ -n "$LOAD_SECS" ] && [ "$LOAD_SECS" -gt 0 ] 2>/dev/null; then
     X2IOT_LOAD_DO=$(opt load_do) X2IOT_LOAD_DO_PERIOD_MS=$(opt load_do_period_ms) \
     X2IOT_LOAD_TI=$(opt load_ti) X2IOT_LOAD_TI_PERIOD_MS=$(opt load_ti_period_ms) \
         /app/x2iot-app --load-test "$LOAD_SECS"
-    echo "TEST WYDAJNOSCI zakonczony (kod $?). Ustaw load_test_secs = 0 w opcjach dodatku. Start normalnej pracy..."
+    CODE=$?
+    # Podsumowanie jeszcze raz na koniec (log dodatku pokazuje koniec, probki co 10 s sa wyzej i w pliku).
+    LAST=$(ls -t /data/load_test_*.txt 2>/dev/null | head -1)
+    if [ -n "$LAST" ]; then
+        echo "---------------- podsumowanie: $LAST ----------------"
+        sed '/^samples every/,$d' "$LAST"
+    fi
+    echo "TEST WYDAJNOSCI zakonczony (kod $CODE). Ustaw load_test_secs = 0 w opcjach dodatku. Start normalnej pracy..."
 fi
 
 exec /app/x2iot-app
