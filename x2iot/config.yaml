@@ -1,5 +1,5 @@
 name: "X2IOT Gateway"
-version: "1.5.27"
+version: "1.5.28"
 slug: "x2iot"
 description: "IoT Integration Platform - Satel Integra, MQTT i wiecej"
 url: "https://github.com/kroolik89/x2iot"
@@ -19,3 +19,19 @@ panel_icon: "mdi:chip"
 panel_title: "X2IOT Gateway"
 panel_admin: false
 webui: "http://[HOST]:[PORT:8356]"
+options:
+  load_test_secs: 0
+  load_di: 4000
+  load_di_period_ms: 2000
+  load_do: 2000
+  load_do_period_ms: 1000
+  load_ti: 1000
+  load_ti_period_ms: 60000
+schema:
+  load_test_secs: "int(0,86400)"
+  load_di: "int(1,1000000)"
+  load_di_period_ms: "int(1,3600000)"
+  load_do: "int(1,1000000)"
+  load_do_period_ms: "int(1,3600000)"
+  load_ti: "int(1,1000000)"
+  load_ti_period_ms: "int(1,3600000)"
