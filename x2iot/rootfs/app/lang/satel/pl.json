@@ -204,6 +204,11 @@
     "numbered": "{signal} {n}",
     "single": "{signal}"
   },
+  "action": {
+    "on": "Włącz wyjście",
+    "off": "Wyłącz wyjście",
+    "toggle": "Przełącz wyjście (centrala przełącza je na stan przeciwny)"
+  },
   "cap_short": {
     "zone.violation": "Naruszenie",
     "zone.tamper": "Sabotaż",

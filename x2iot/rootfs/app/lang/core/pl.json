@@ -75,8 +75,10 @@
   },
   "control": {
     "kind": {
-      "gui": "Sterowanie z GUI"
+      "gui": "Sterowanie z GUI",
+      "action": "Akcje x2iot"
     },
+    "action_block_hint": "Pozwala akcjom x2iot (klocki „Akcja” w wyzwalaczach) sterować tym wyjściem przez jego bramkę. Bez tego klocka (albo z bramką, która nie zezwala na polecenie) akcja na to wyjście zostanie odrzucona.",
     "action": {
       "on": "włącz",
       "off": "wyłącz",
@@ -558,6 +560,114 @@
     "locked": "Obszar zablokowany",
     "locked_details": "{count} błędnych kodów z rzędu - polecenia odrzucane przez {minutes} min, do {until}"
   },
+  "ak": {
+    "offer_title": "x2iot - Akcja",
+    "block_hint": "Wykonuje akcję źródła (włącz, wyłącz albo to, co oferuje wtyczka źródła), gdy ten wyzwalacz zadziała. Kilka akcji jednego wyzwalacza wykonuje się jedna po drugiej, w kolejności z listy.",
+    "source": "Sterowane źródło",
+    "pick_source": "Wybierz źródło…",
+    "change_source": "Zmień źródło…",
+    "no_source": "Wybierz źródło, którym akcja ma sterować - bez tego akcja się nie wykona.",
+    "command": "Polecenie",
+    "action": "Akcja",
+    "choose": "Wybierz…",
+    "no_actions": "To źródło nie oferuje żadnych akcji.",
+    "unknown_action": "To źródło nie oferuje akcji „{action}”. Klocek zostaje w pliku bez zmian, ale się nie wykona.",
+    "param_required": "{param}: pole wymagane",
+    "param_wrong_type": "{param}: zły typ wartości",
+    "param_range": "{param}: dozwolony zakres od {min} do {max}",
+    "param_option": "{param}: wybierz jedną z opcji",
+    "param_too_long": "{param}: najwyżej {max} znaków",
+    "param_invalid": "{param}: niepoprawna wartość",
+    "cmd_on": "Włącz",
+    "cmd_off": "Wyłącz",
+    "cmd_toggle": "Przełącz",
+    "target": "Cel akcji",
+    "target_source": "Źródło centrali",
+    "target_output": "Wyjście x2iot",
+    "output": "Sterowane wyjście",
+    "pick_output": "Wybierz wyjście…",
+    "no_output": "Wybierz wyjście x2iot, którym akcja ma sterować - bez tego akcja się nie wykona.",
+    "no_outputs": "Nie ma jeszcze żadnych wyjść x2iot.",
+    "output_hint": "Polecenie przechodzi przez bramkę wyjścia (klocek „Akcje x2iot”, tryb, stan wyjścia) i trafia do jego dziennika. „Przełącz” odwraca bieżący stan wyjścia; gdy stan jest nieznany, akcja się nie wykona.",
+    "output_gone": "Wyjście {output} już nie istnieje - akcja się nie wykona (brak celu).",
+    "out_disabled": "Wyjście jest wyłączone - bramka odrzuci polecenie.",
+    "out_control_off": "Wyjście jest w trybie „Bez sterowania” - akcja zostanie odrzucona, a „Akcje x2iot” trafią na listę chętnych wyjścia.",
+    "out_no_block_not_accepted": "Wyjście nie ma klocka „Akcje x2iot”, a „Akceptuj nowe sterowania” jest ustawione na „Nie” - pierwsza akcja zostanie odrzucona; klocek pojawi się w oknie wyjścia z bramką „Zablokowana” (do odblokowania ręcznie).",
+    "out_no_block_will_be_added": "Wyjście nie ma klocka „Akcje x2iot” - pierwsza akcja doda go sama (Akceptuj nowe sterowania = Tak).",
+    "out_single_taken": "Wyjście w trybie Single steruje już inny klocek (#{by_block}) - akcja zostanie odrzucona, a „Akcje x2iot” trafią na listę chętnych wyjścia.",
+    "out_block_disabled": "Klocek „Akcje x2iot” (#{block_id}) tego wyjścia jest wyłączony - akcja zostanie odrzucona.",
+    "out_gate_denies": "Bramka #{gate_id} wyjścia nie zezwala na to polecenie - akcja zostanie odrzucona.",
+    "out_gate_missing": "Klocek „Akcje x2iot” wskazuje nieistniejącą bramkę #{gate_id} - akcja zostanie odrzucona.",
+    "skip_if_previous_failed": "Nie wykonuj, jeśli nie wykonała się poprzednia akcja",
+    "skip_if_previous_failed_desc": "Akcja zostanie pominięta (wpis „pominięto” w dzienniku), gdy poprzednia akcja tego wyzwalacza zawiodła, nie dostała odpowiedzi albo została pominięta.",
+    "warn_single": "To źródło należy do {output} (Single) - nie powinno się nim sterować akcją.",
+    "info_multi": "To źródło jest też współdzielone przez {output} (Multi).",
+    "send_state_hint": "Akcja wykona się też przy starcie x2iot, ponownym połączeniu i zmianie konfiguracji (w tym wyzwalaczu włączone jest „wyślij bieżący stan”).",
+    "other_target": "Cel tej akcji ({target}) nie jest edytowalny w tej wersji; zostaje w pliku bez zmian.",
+    "log_button": "Dziennik akcji",
+    "log_this_element": "Tylko ten element",
+    "log_all_elements": "Wszystkie elementy"
+  },
+  "ak_log": {
+    "title": "Dziennik akcji",
+    "refresh": "Odśwież",
+    "empty": "Brak wpisów.",
+    "executed": "Wykonano",
+    "executed_details": "Akcja {action} wysłana do {target}",
+    "failed": "Błąd",
+    "failed_details": "Akcja {action} dla {target} nie powiodła się: {reason}",
+    "no_response": "Brak odpowiedzi",
+    "no_response_details": "Brak odpowiedzi na akcję {action} dla {target}; mogła zostać wykonana",
+    "skipped": "Pominięto",
+    "skipped_details": "Akcja {action} dla {target} niewykonana: poprzednia akcja się nie wykonała",
+    "dropped": "Odrzucono",
+    "dropped_details": "Niewykonane: na ten wyzwalacz czekało już więcej niż {limit} serii",
+    "expired": "Przeterminowano",
+    "expired_details": "Niewykonane: seria czekała zbyt długo",
+    "invalid": "Błędna akcja",
+    "invalid_details": "Nie można odczytać ustawień akcji: {reason}",
+    "unsupported": "Niewykonane",
+    "action_unsupported_details": "Źródło {target} nie oferuje akcji {action}",
+    "invalid_params_details": "Parametry akcji {action} są niepoprawne: {reason}",
+    "unknown_target_details": "Cel akcji jest nieznany tej wersji (zostaje w pliku)",
+    "target_unsupported_details": "Typ celu {target_type} nie jest jeszcze obsługiwany",
+    "no_trigger_details": "Akcja nie jest przypięta do wyzwalacza, więc nic jej nie uruchomi",
+    "output_action_unsupported_details": "Wyjście {target} nie oferuje akcji {action} (dostępne: włącz, wyłącz, przełącz)",
+    "refused": "Odmowa wyjścia",
+    "refused_details": "Wyjście {target} odrzuciło akcję {action}: {reason}",
+    "state_unknown": "Nieznany stan",
+    "state_unknown_details": "Akcja {action} dla {target} niewykonana: stan wyjścia jest nieznany",
+    "target_missing": "Brak celu",
+    "target_missing_details": "Akcja {action}: cel {target} nie istnieje",
+    "loop": "Wykryto pętlę",
+    "loop_details": "Akcja {action} dla {target} niewykonana: sygnał wrócił do kroku {step} (pętla)",
+    "path_too_long": "Zbyt długi ślad sygnału",
+    "path_too_long_details": "Akcja {action} dla {target} niewykonana: ślad sygnału jest zbyt długi ({len} z {limit} kroków)"
+  },
+  "plugin": {
+    "system": {
+      "action": {
+        "block_title": "Akcja",
+        "fault": {
+          "invalid_params": "Nie można odczytać ustawień akcji: {reason}",
+          "unknown_target": "Cel akcji jest nieznany tej wersji",
+          "action_unsupported": "Źródło nie oferuje akcji {action}",
+          "invalid_action_params": "Parametry akcji są niepoprawne: {reason}",
+          "target_unsupported": "Typ celu {target} nie jest jeszcze obsługiwany",
+          "target_missing": "Cel akcji ({target}) nie istnieje - akcja się nie wykona",
+          "state_unknown": "Stan wyjścia {target} jest nieznany - akcja się nie wykona",
+          "output_refused": "Wyjście {target} odrzuciło polecenie: {reason}",
+          "no_trigger": "Akcja nie jest przypięta do wyzwalacza",
+          "command_failed": "Polecenie nie powiodło się: {reason}",
+          "no_response": "Brak odpowiedzi urządzenia; polecenie mogło zostać wykonane",
+          "queue_overflow": "Akcje odrzucono: zbyt wiele czekało",
+          "expired": "Akcje odrzucono: czekały zbyt długo",
+          "loop": "Wykryto pętlę w kroku {step} - akcja nie została wykonana",
+          "path_too_long": "Ślad sygnału jest zbyt długi ({len} z {limit} kroków) - akcja nie została wykonana"
+        }
+      }
+    }
+  },
   "di": {
     "title": "Wejścia",
     "add_button": "+ Dodaj Wejście",
@@ -961,7 +1071,9 @@
       "output_conflict_title": "Wyjście {output_name}",
       "output_conflict_details": "Konflikt rezerwacji sterowania dla źródła {source_id}",
       "output_control_missing_title": "Wyjście {output_name}",
-      "output_control_missing_details": "Brak sterowania w integracji"
+      "output_control_missing_details": "Brak sterowania w integracji",
+      "action_command_title": "Akcja na #{id}",
+      "action_command": "Akcja {action} (zlecił: {requester}, nr {request_id})"
     },
     "integration": {
       "starting": "Uruchamianie",
@@ -987,7 +1099,13 @@
       "task_panic": "Panika zadania",
       "task_panic_desc": "Zadanie [{task}]: {error}",
       "subscriptions_changed": "Zmieniono subskrypcje",
-      "subscriptions_changed_desc": "Dodano: {added}, usunięto: {removed}"
+      "subscriptions_changed_desc": "Dodano: {added}, usunięto: {removed}",
+      "command_late_ok": "Polecenie wykonano z opóźnieniem",
+      "command_late_ok_desc": "Polecenie do źródła #{id} (zlecił: {requester}, nr {request_id}) zakończyło się po upływie limitu czasu",
+      "command_late_failed": "Błąd polecenia z opóźnieniem",
+      "command_late_failed_desc": "Polecenie do źródła #{id} (zlecił: {requester}, nr {request_id}) zakończyło się błędem po upływie limitu czasu: {error}",
+      "command_aborted": "Polecenie przerwane",
+      "command_aborted_desc": "Polecenie do źródła #{id} (zlecił: {requester}, nr {request_id}) nigdy się nie zakończyło i zostało przerwane przez rdzeń"
     }
   },
   "device_class": {

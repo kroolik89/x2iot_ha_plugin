@@ -167,7 +167,65 @@
     "defer": "Odrocz uzbrojenie",
     "cancel_exit_delay": "Anuluj czas na wyjście",
     "arm_24h": "Uzbrój wejścia 24 h obszaru",
-    "disarm_24h": "Rozbrój wejścia 24 h obszaru"
+    "disarm_24h": "Rozbrój wejścia 24 h obszaru",
+    "trigger_input": "Wyzwól wejście",
+    "restore_input": "Przywróć wejście",
+    "set_input_state": "Ustaw stan wejścia",
+    "clear_input_state": "Wyczyść stan wejścia",
+    "grant_access": "Odblokuj drzwi na czas",
+    "unlock_door_for": "Odblokuj drzwi na czas (akcja drzwi)",
+    "aux_on": "Włącz aux",
+    "aux_off": "Wyłącz aux",
+    "aux_toggle": "Przełącz aux",
+    "aux_on_for": "Włącz aux na czas",
+    "set_variable": "Ustaw zmienną ogólną"
+  },
+  "action": {
+    "on": "Włącz",
+    "off": "Wyłącz",
+    "toggle": "Przełącz",
+    "on_for": "Włącz na czas",
+    "isolate": "Izoluj wejście",
+    "deisolate": "Zdejmij izolację wejścia",
+    "trigger": "Wyzwól wejście",
+    "restore": "Przywróć wejście",
+    "input_state": "Ustaw lub wyczyść stan wejścia",
+    "unlock": "Odblokuj drzwi",
+    "lock": "Zablokuj drzwi",
+    "grant_access": "Odblokuj drzwi na czas",
+    "unlock_for": "Odblokuj drzwi na czas (akcja drzwi)",
+    "override_unlocked": "Nadpisz drzwi: odblokowane",
+    "override_locked": "Nadpisz drzwi: zablokowane",
+    "remove_override": "Zdejmij nadpisanie drzwi",
+    "set_variable": "Ustaw zmienną ogólną"
+  },
+  "action_desc": {
+    "trigger": "Wprowadza wejście w alarm, tak jakby jego czujnik został naruszony.",
+    "restore": "Wyprowadza wejście z alarmu.",
+    "input_state": "Ustawia lub czyści jeden z 16 stanów wejścia (stan 16 to izolacja).",
+    "unlock": "Odblokowuje drzwi do czasu ich ponownego zablokowania.",
+    "grant_access": "Odblokowuje drzwi na podany czas i blokuje je ponownie. „Także gdy nadpisane” odblokowuje również drzwi z nadpisaniem.",
+    "unlock_for": "Ten sam skutek co odblokowanie na czas, wysłane jako akcja drzwi kontrolera.",
+    "override_unlocked": "Dopóki drzwi są nadpisane, odblokowanie i zablokowanie nic nie robią. Jedyne wyjście to „Zdejmij nadpisanie drzwi”.",
+    "override_locked": "Dopóki drzwi są nadpisane, odblokowanie i zablokowanie nic nie robią. Jedyne wyjście to „Zdejmij nadpisanie drzwi”.",
+    "set_variable": "Ustawia zmienną ogólną kontrolera. Wartości nie da się odczytać z Integriti."
+  },
+  "action_param": {
+    "seconds": "Czas",
+    "force": "Także gdy nadpisane",
+    "state": "Numer stanu",
+    "mode": "Operacja",
+    "variable": "Numer zmiennej (GV)",
+    "value": "Wartość"
+  },
+  "action_unit": {
+    "seconds": "s"
+  },
+  "action_option": {
+    "force_no": "Nie",
+    "force_yes": "Tak",
+    "mode_set": "Ustaw stan",
+    "mode_clear": "Wyczyść stan"
   },
   "command_error": {
     "not_connected": "Brak połączenia z serwerem Integriti.",
