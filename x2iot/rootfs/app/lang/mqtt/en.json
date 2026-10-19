@@ -141,9 +141,7 @@
     "do": "MQTT / Home Assistant",
     "template_id": "Template",
     "unique_id_custom": "Custom unique_id",
-    "unique_id": "unique_id identifier (will be prefixed with x2iot_<id>_i<nr>_)",
-    "unique_id_duplicate_ok": "Do not warn when unique_id is duplicated",
-    "topic_conflict_ok": "Do not warn about topic conflicts"
+    "unique_id": "unique_id identifier (will be prefixed with x2iot_<id>_i<nr>_)"
   },
   "template_fields": {
     "cat_mqtt": "MQTT Integration",

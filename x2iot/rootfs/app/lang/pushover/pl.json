@@ -174,6 +174,12 @@
     "not_configured": "Najpierw wpisz token aplikacji i klucz użytkownika, a potem zapisz.",
     "not_running": "Integracja nie jest uruchomiona. Najpierw ją włącz."
   },
+  "issues": {
+    "paused": "Wysyłka Pushover wstrzymana (limit miesięczny) do {until}",
+    "paused_hint": "Wiadomości czekają w kolejce, najstarsze mogą wypaść. Limit odnawia się z początkiem okresu rozliczeniowego Pushover.",
+    "unknown_template": "{name}: klocek Pushover używa szablonu „{template}”, który nie istnieje - powiadomienie wyjdzie w prostej postaci zastępczej",
+    "unknown_template_hint": "Wybierz w klocku istniejący szablon albo przywróć usunięty (okno Pushover → Szablony). Wpis zniknie sam po poprawie."
+  },
   "log": {
     "category_send": "Wysyłka",
     "category_queue": "Kolejka i limity",

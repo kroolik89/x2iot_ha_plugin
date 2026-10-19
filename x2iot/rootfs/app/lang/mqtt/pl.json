@@ -92,6 +92,14 @@
     "send_discovery_now": "Wyślij Discovery teraz",
     "discovery_sent_success": "Wysłano konfigurację Discovery do brokera"
   },
+  "issues": {
+    "duplicate_client_id": "Ten sam client_id ({client_id}) prawdopodobnie używa drugi x2iot na tym brokerze",
+    "duplicate_client_id_hint": "Broker rozłącza starsze połączenie przy każdym nowym z tym samym client_id. Nadaj każdej instancji x2iot inny client_id.",
+    "state_file_corrupt": "Plik stanu integracji jest uszkodzony",
+    "state_file_corrupt_hint": "Zaczęto od pustego stanu. Wpis zniknie po zapisaniu nowego pliku stanu; encje z Discovery mogą pojawić się w „nieużywanych”.",
+    "unknown_template": "{name}: klocek MQTT używa szablonu „{template}”, który nie istnieje - nic z tego klocka nie zostanie opublikowane",
+    "unknown_template_hint": "Wybierz w klocku istniejący szablon albo przywróć usunięty (okno MQTT → Szablony). Wpis zniknie sam po poprawie."
+  },
   "log": {
     "category_connection": "Połączenie",
     "category_messages": "Komunikaty",
@@ -161,9 +169,7 @@
     "arc": "MQTT / Home Assistant (panel alarmowy)",
     "template_id": "Szablon",
     "unique_id_custom": "Własny unique_id",
-    "unique_id": "Identyfikator unique_id (zostanie poprzedzony x2iot_<id>_i<nr>_)",
-    "unique_id_duplicate_ok": "Nie ostrzegaj, gdy unique_id się powtarza",
-    "topic_conflict_ok": "Nie ostrzegaj o konfliktach tematów"
+    "unique_id": "Identyfikator unique_id (zostanie poprzedzony x2iot_<id>_i<nr>_)"
   },
   "template_warning": {
     "doc_state_static": "Treść stanu nie ma pola zmieniającego się po odrzuconym poleceniu (komunikat.numer, komunikat.odmowa_czas lub komunikat.odmowa_powod). Po odmowie Home Assistant nie zobaczy zmiany i przełącznik może zostać w złym położeniu."

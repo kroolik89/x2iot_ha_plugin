@@ -353,7 +353,7 @@
       "exit": "Czas na wyjście z obszaru",
       "no_24h": "Wejścia 24 h obszaru wyłączone"
     },
-    "aux": { "on": "Aux włączony" },
+    "aux": { "on": "Aux włączony", "switch": "Sterowanie włączeniem aux" },
     "door": {
       "unlocked": "Drzwi odblokowane",
       "open": "Drzwi otwarte",
@@ -382,7 +382,7 @@
       "temperature": "Temperatura"
     },
     "area": { "state": "Stan", "armed": "Uzbrojony", "alarm": "Alarm", "entry": "Czas na wejście", "exit": "Czas na wyjście", "no_24h": "Wejścia 24 h wyłączone" },
-    "aux": { "on": "Włączony" },
+    "aux": { "on": "Włączony", "switch": "Sterowanie włączeniem" },
     "door": {
       "unlocked": "Odblokowane",
       "open": "Otwarte",

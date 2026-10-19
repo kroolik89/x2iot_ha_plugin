@@ -3,6 +3,18 @@
     "language_name": "Polski"
   },
   "app_name": "(x)2IoT",
+  "trouble_reason": {
+    "label": "Awaria:",
+    "integration_disabled": "Integracja wyłączona",
+    "integration_missing": "Integracja nie istnieje",
+    "integration_disconnected": "Integracja rozłączona",
+    "no_source": "Nie wybrano źródła",
+    "source_missing": "Źródło nie istnieje w integracji",
+    "control_missing": "Brak źródła sterowania wyjściem",
+    "reservation_conflict": "Wyjście sterowane przez więcej niż jeden element",
+    "sensor_fault": "Czujnik zgłasza awarię",
+    "stale": "Brak odczytu temperatury"
+  },
   "connection": {
     "state": {
       "reconnecting": "Łączenie z serwerem..."
@@ -21,19 +33,10 @@
     "logical_temperatures": "Temperatury",
     "settings": "Ustawienia",
     "templates": "Szablony",
-    "warnings": "Ostrzeżenia"
+    "warnings": "Ostrzeżenia",
+    "logs": "Logi"
   },
   "config_warnings": {
-    "banner": {
-      "one": "Pominięto {count} wpis konfiguracji — zobacz Ostrzeżenia",
-      "few": "Pominięto {count} wpisy konfiguracji — zobacz Ostrzeżenia",
-      "many": "Pominięto {count} wpisów konfiguracji — zobacz Ostrzeżenia"
-    },
-    "title": "Ostrzeżenia konfiguracji",
-    "intro": "Poniższych wpisów z pliku konfiguracji nie udało się wczytać. Aplikacja działa bez nich, a w pliku zostają bez zmian. Popraw plik i uruchom aplikację ponownie.",
-    "empty": "Brak ostrzeżeń — konfiguracja wczytana w całości.",
-    "area_collisions_title": "Obszary luźniejsze niż minimum integracji",
-    "area_collisions_intro": "Integracja wymusza minimum kodu przy poleceniach obszaru, a poniższe obszary mają zasadę luźniejszą. Polecenia działają według minimum integracji (opis niżej), ale ustawienie obszaru nie mówi prawdy.",
     "col_section": "Sekcja",
     "col_id": "ID",
     "col_name": "Nazwa",
@@ -159,7 +162,9 @@
       "area_code_required": "To polecenie wymaga kodu",
       "area_unsupported": "Centrala nie obsługuje polecenia: {command}",
       "area_device_error": "Centrala odrzuciła polecenie: {reason}",
-      "area_locked": "Polecenia zablokowane po błędnych kodach do {until}"
+      "area_locked": "Polecenia zablokowane po błędnych kodach do {until}",
+      "area_code_missing": "Kod zapisany w akcji już nie istnieje (usunięty albo należy do innej integracji niż obszar)",
+      "action_not_accepted": "Obszar nie ma klocka „Akcje x2iot”, a „Akceptuj nowe sterowania” jest ustawione na „Nie” - dodaj klocek w oknie obszaru"
     }
   },
   "do_log": {
@@ -217,7 +222,38 @@
       "delete": "Usuń",
       "add": "+ Dodaj kod",
       "save": "Zapisz kody",
-      "saved": "Kody PIN zapisane."
+      "saved": "Kody PIN zapisane.",
+      "used_in_actions": "Kod „{name}” jest używany w {count} akcjach wyzwalaczy:",
+      "used_in_actions_hint": "Usunięcie nie jest blokowane. Po zapisie te akcje przestaną się wykonywać (usterka „brak kodu”), dopóki nie wybierzesz w nich innego kodu."
+    },
+    "logs": {
+      "section_title": "Logi",
+      "intro": "Wpisy dzienników są trzymane w pamięci (po restarcie zaczynają od zera). Tu ustawiasz, co zapisywać i ile wpisów zachować.",
+      "recording_title": "Zapis zmian stanu",
+      "record_di": "Zapisuj zmiany wejść cyfrowych (DI)",
+      "record_ti": "Zapisuj zmiany wejść temperatury (TI)",
+      "recording_desc": "Przełącznik działa od razu. Wyłączony zapis nie zajmuje pamięci ani czasu.",
+      "integrations_title": "Zapis logów integracji",
+      "integrations_empty": "Brak integracji.",
+      "integrations_desc": "Co jest zapisywane, ustalasz tylko tutaj. Okna logów (strona Logi, okna integracji i elementów) jedynie filtrują i pokazują to, co wpada — „Zatrzymaj” i „Wyczyść widok” w oknie nie zmieniają zapisu. Wybór jest zapamiętany, także po restarcie.",
+      "levels_title": "Zapisywane poziomy",
+      "level_debug": "Debug",
+      "level_info": "Info",
+      "level_warn": "Ostrzeżenie",
+      "level_error": "Błąd",
+      "levels_desc": "Odznaczony poziom nie jest w ogóle zapisywany (nie zajmuje miejsca). Zmiany stanu wejść mają poziom Debug.",
+      "limits_title": "Limity wpisów",
+      "limit_di": "Wejścia cyfrowe (DI)",
+      "limit_ti": "Wejścia temperatury (TI)",
+      "limit_do": "Wyjścia (DO)",
+      "limit_ar": "Obszary (AR)",
+      "limit_actions": "Akcje",
+      "limit_system": "System",
+      "limit_plugin_max": "Maksimum dla części pluginu (integracji)",
+      "limits_desc": "Liczba wpisów na część; po przekroczeniu najstarsze są usuwane. Każdy plugin ustawia własny limit, ale nie większy niż maksimum. Zakres: {min}–{max}.",
+      "limit_out_of_range": "Każdy limit musi być liczbą całkowitą od {min} do {max}.",
+      "save": "Zapisz limity i poziomy",
+      "saved": "Ustawienia logów zapisane."
     },
     "instance": {
       "section_title": "Instancja",
@@ -331,6 +367,64 @@
       "warning": {
         "unparsed_integration": "Integracja {integration} ma typ, którego ten x2iot nie zna — jej pliki zapisano bez zmian.",
         "unknown_integration_type": "Integracja {integration}: brak pluginu tego typu — jej plik zapisano bez zmian (może zawierać sekrety)."
+      },
+      "actions_title": "Akcje",
+      "actions_count": "Plik zawiera akcji wyzwalaczy: {count}. Podróżują razem z elementami; kod użyty w akcji jest zapisany tylko jako numer i nazwa, nigdy sam kod.",
+      "actions_none": "Plik nie zawiera akcji.",
+      "actions_ok": "Każda akcja wskazuje coś, co istnieje w pliku albo na tej maszynie.",
+      "actions_intro": "Te akcje wskazują coś, czego nie ma w pliku ani na tej maszynie. Import przebiegnie; akcje pokażą usterkę, dopóki ich nie poprawisz:",
+      "action_line": "{id} „{name}” (wyzwalacz {trigger}, klocek #{block}): {problem}",
+      "action_warning": {
+        "integration_missing": "integracja {target} nie istnieje",
+        "output_missing": "wyjścia {target} nie ma w pliku",
+        "area_missing": "obszaru {target} nie ma w pliku",
+        "code_missing": "kodu globalnego „{target}” nie ma w pliku",
+        "code_unknown": "zapisany kod jest rodzaju, którego ta wersja nie zna",
+        "target_unknown": "cel jest typu, którego ta wersja nie zna (zostaje w pliku)",
+        "target_obsolete": "cel jest przestarzały - wybierz źródło i akcję ponownie",
+        "invalid": "nie można odczytać ustawień ({target})"
+      }
+    },
+    "import_one": {
+      "mode_title": "Co zaimportować",
+      "mode_all": "Zastąp całość",
+      "mode_one": "Tylko ustawienia jednej integracji",
+      "intro": "Z pliku zostaną wzięte wyłącznie ustawienia wybranej integracji i wgrane do integracji tego samego typu. Elementy (DI / TI / DO / AR), inne integracje i reszta konfiguracji zostają bez zmian.",
+      "source_title": "Integracja z pliku",
+      "target_title": "Integracja docelowa",
+      "target_new": "Nowa integracja (kolejny wolny numer)",
+      "scan_label": "Razem z wynikami skanu",
+      "scan_hint": "Wyniki skanu to dane odczytane z urządzenia (obiekty, kontrolery, nazwy z centrali). Zaznaczone: biorę je z pliku. Odznaczone: zostają te z integracji docelowej (nowa integracja jest ich pozbawiona i zeskanuje urządzenie sama).",
+      "scan_not_applicable": "Ten typ integracji nie ma wyników skanu — cały plik integracji to ustawienia.",
+      "overwrite_warning": "Ustawienia integracji {target} zostaną nadpisane ustawieniami z pliku. Przed zapisem powstanie kopia, a integracja zostanie na chwilę zatrzymana i uruchomiona ponownie. Nazwa i to, czy jest włączona, zostają jak są.",
+      "new_info": "Powstanie nowa integracja (wyłączona) z ustawieniami z pliku. Włącz ją po sprawdzeniu adresu i danych logowania.",
+      "no_source": "W pliku nie ma integracji, którą ten x2iot potrafi zaimportować.",
+      "no_candidates": "W bieżącej konfiguracji nie ma integracji tego typu — wybierz „Nowa integracja”.",
+      "breakage_title": "Co może przestać działać",
+      "breakage_intro": "Te miejsca korzystają z integracji docelowej. Po zmianie serwera lub obiektów ich źródła mogą przestać istnieć — sprawdź je po imporcie:",
+      "breakage_none_new": "Nic nie korzysta z nowej integracji.",
+      "breakage_none_existing": "Żaden element nie korzysta z tej integracji.",
+      "secrets_title": "Sekrety",
+      "secrets_hint": "Bez hasła sekrety integracji docelowej (hasła, klucze) zostają, ale listy kodów PIN z pliku wchodzą bez kodów — wpisz je ponownie.",
+      "import_button": "Importuj ustawienia",
+      "confirm_existing": "Nadpisać ustawienia wybranej integracji ustawieniami z pliku? Integracja zostanie na chwilę zatrzymana. Przed zapisem powstanie kopia.",
+      "confirm_new": "Dodać nową integrację z ustawieniami z pliku? Przed zapisem powstanie kopia.",
+      "result_title": "Zaimportowano ustawienia integracji",
+      "result_done": "Ustawienia trafiły do integracji {target} ({name}). Kopia przed importem: {backup}.",
+      "result_created": "To nowa integracja — jest wyłączona. Sprawdź jej ustawienia i włącz ją.",
+      "result_restarted": "Integracja została zatrzymana i uruchomiona ponownie z nowymi ustawieniami (jeśli jest włączona, połączy się sama).",
+      "result_scan_included": "Wyniki skanu pochodzą z pliku.",
+      "result_scan_kept": "Wyników skanu z pliku nie wzięto — integracja zachowała własne (nowa nie ma żadnych; uruchom skan).",
+      "result_reenter": "Sekretów z pliku nie wczytano. Zachowano sekrety integracji docelowej, a kody PIN z listy wpisz ponownie.",
+      "err": {
+        "no_source": "W pliku nie ma wybranej integracji.",
+        "unknown_type": "Integracja z pliku ma typ, którego ten x2iot nie zna.",
+        "no_plugin": "Na tym serwerze nie ma wtyczki tego typu integracji.",
+        "no_file": "Plik zawiera integrację, ale nie zawiera jej ustawień.",
+        "unreadable_file": "Ustawień integracji w pliku nie da się odczytać.",
+        "target_missing": "Wybranej integracji docelowej już nie ma.",
+        "type_mismatch": "Integracja docelowa jest innego typu niż integracja z pliku.",
+        "busy": "Trwa przeładowanie konfiguracji lub inny import — spróbuj za chwilę."
       }
     }
   },
@@ -359,6 +453,8 @@
       "plugin_missing_modal": "Brak wtyczki dla tej integracji — nie jest zainstalowana lub została wyłączona."
     },
     "field_name": "Nazwa integracji",
+    "warn_dependent_off": "Przy wyłączeniu nie ostrzegaj o niedziałających elementach",
+    "warn_dependent_off_help": "Elementy korzystające z tej integracji nie zgłoszą ostrzeżenia, gdy wyłączysz ją celowo.",
     "field_transport": "Typ połączenia",
     "transport_tcp": "TCP / ETHM-1",
     "transport_uart": "UART / RS-232",
@@ -442,6 +538,10 @@
   },
   "ar": {
     "title": "Obszary",
+    "candidates_title": "Akcje czekające na miejsce ({count})",
+    "candidates_desc": "Te akcje wyzwalaczy prosiły o sterowanie tym obszarem, ale obszar nie ma klocka „Akcje x2iot” (i nie przyjmuje nowych sterowań albo jego tryb nie zostawia miejsca). Dodaj klocek i zapisz obszar, żeby je wpuścić.",
+    "candidate_add": "Dodaj klocek",
+    "action_block_hint": "Pozwala akcjom x2iot (klocki „Akcja” w wyzwalaczach) sterować tym obszarem. Bez tego klocka akcja na ten obszar zostanie odrzucona (albo poczeka na liście chętnych).",
     "add_button": "+ Dodaj Obszar",
     "no_areas": "Brak skonfigurowanych obszarów",
     "no_areas_desc": "Dodaj obszar, aby śledzić stan uzbrojenia partycji centrali Satel, Integriti lub innego systemu alarmowego.",
@@ -558,7 +658,11 @@
     "driver_failed": "Centrala: błąd",
     "area_refused": "Obszar: odmowa",
     "locked": "Obszar zablokowany",
-    "locked_details": "{count} błędnych kodów z rzędu - polecenia odrzucane przez {minutes} min, do {until}"
+    "locked_details": "{count} błędnych kodów z rzędu - polecenia odrzucane przez {minutes} min, do {until}",
+    "block_added": "Dodano klocek sterujący",
+    "block_added_details": "Klocek „{kind}” został dodany do obszaru przez pierwsze polecenie akcji (Akceptuj nowe sterowania = Tak)",
+    "candidate_added": "Źródło na liście chętnych",
+    "candidate_added_details": "{description} prosiło o sterowanie obszarem i nie dostało miejsca (prób: {attempts})"
   },
   "ak": {
     "offer_title": "x2iot - Akcja",
@@ -598,7 +702,15 @@
     "out_block_disabled": "Klocek „Akcje x2iot” (#{block_id}) tego wyjścia jest wyłączony - akcja zostanie odrzucona.",
     "out_gate_denies": "Bramka #{gate_id} wyjścia nie zezwala na to polecenie - akcja zostanie odrzucona.",
     "out_gate_missing": "Klocek „Akcje x2iot” wskazuje nieistniejącą bramkę #{gate_id} - akcja zostanie odrzucona.",
-    "skip_if_previous_failed": "Nie wykonuj, jeśli nie wykonała się poprzednia akcja",
+    "skip_if_previous_failed": "Pomiń, gdy poprzednia akcja zawiodła",
+    "grid_target": "Cel",
+    "grid_source": "Źródło",
+    "change_source_short": "Zmień źródło",
+    "info_aria_block": "Opis klocka",
+    "info_aria_option": "Wyjaśnienie opcji",
+    "expand": "Rozwiń klocek",
+    "collapse": "Zwiń klocek",
+    "sentence_empty": "Wybierz cel i akcję",
     "skip_if_previous_failed_desc": "Akcja zostanie pominięta (wpis „pominięto” w dzienniku), gdy poprzednia akcja tego wyzwalacza zawiodła, nie dostała odpowiedzi albo została pominięta.",
     "warn_single": "To źródło należy do {output} (Single) - nie powinno się nim sterować akcją.",
     "info_multi": "To źródło jest też współdzielone przez {output} (Multi).",
@@ -606,10 +718,386 @@
     "other_target": "Cel tej akcji ({target}) nie jest edytowalny w tej wersji; zostaje w pliku bez zmian.",
     "log_button": "Dziennik akcji",
     "log_this_element": "Tylko ten element",
-    "log_all_elements": "Wszystkie elementy"
+    "log_all_elements": "Wszystkie elementy",
+    "now": {
+      "button": "Wykonaj teraz",
+      "hint": "Wykonuje ten zapisany klocek raz, tak jak zrobiłby to wyzwalacz (ta sama kolejka, bramki i dziennik).",
+      "no_result": "Brak wyniku: serii nie ma w dzienniku (dziennik może nie zapisywać tego poziomu).",
+      "refusal": {
+        "no_block": "Najpierw zapisz element: tego klocka jeszcze nie ma w zapisanej konfiguracji.",
+        "unsaved": "Formularz różni się od zapisanego klocka - zapisz, aby wykonać.",
+        "element_disabled": "Element jest wyłączony - nic nie wykonano.",
+        "trigger_disabled": "Wyzwalacz jest wyłączony - nic nie wykonano.",
+        "block_disabled": "Klocek jest wyłączony - nic nie wykonano.",
+        "still_running": "Wciąż czeka: wcześniejsza seria tego wyzwalacza albo urządzenie jeszcze nie skończyło. Zobacz dziennik akcji.",
+        "request_failed": "Zapytanie do serwera nie powiodło się."
+      }
+    },
+    "target_area": "Obszar x2iot",
+    "area": "Obszar do sterowania",
+    "pick_area": "Wybierz obszar…",
+    "no_area": "Wybierz obszar x2iot, którym steruje ta akcja - do tego czasu akcja nie może się wykonać.",
+    "no_areas": "Nie ma jeszcze żadnych obszarów x2iot.",
+    "area_gone": "Obszar {area} już nie istnieje - akcja się nie wykona (brak celu).",
+    "area_pick_command": "Wybierz polecenie (uzbrój, rozbrój...) - do tego czasu akcja nie może się wykonać.",
+    "area_command_unsupported": "Centrala tego obszaru nie obsługuje polecenia „{command}” - akcja zostanie odrzucona.",
+    "area_hint": "Polecenie przechodzi przez bramkę obszaru (klocek „Akcje x2iot”, tryb, blokada po błędnych kodach, reguły kodów) i trafia do jego dziennika pod tym samym numerem co w dzienniku akcji. Kod zapisujesz po nazwie; akcja przechowuje tylko jego identyfikator, nigdy sam kod.",
+    "area_disabled": "Obszar jest wyłączony - polecenie zostanie odrzucone.",
+    "area_no_source": "Obszar nie ma źródła stanu, więc nie ma centrali do sterowania - polecenie zostanie odrzucone.",
+    "area_control_off": "Obszar jest w trybie „Bez sterowania” - akcja zostanie odrzucona, a „Akcje x2iot” trafią na listę chętnych obszaru.",
+    "area_no_block_not_accepted": "Obszar nie ma klocka „Akcje x2iot”, a „Akceptuj nowe sterowania” jest ustawione na „Nie” - pierwsza akcja zostanie odrzucona i poczeka na liście chętnych w oknie obszaru (klocek dodasz tam ręcznie).",
+    "area_no_block_will_be_added": "Obszar nie ma klocka „Akcje x2iot” - pierwsza akcja doda go sama (Akceptuj nowe sterowania = Tak).",
+    "area_single_taken": "Obszar w trybie Single jest już sterowany innym klockiem (#{by_block}) - akcja zostanie odrzucona, a „Akcje x2iot” trafią na listę chętnych obszaru.",
+    "area_block_disabled": "Klocek „Akcje x2iot” (#{block_id}) tego obszaru jest wyłączony - akcja zostanie odrzucona.",
+    "area_code_required": "To polecenie wymaga kodu (reguła: {rule}), a akcja go nie ma - zostanie odrzucona.",
+    "area_code_kind_refused": "To polecenie przyjmuje tylko kod wg reguły „{rule}”, a wybrany kod jest innego rodzaju - akcja zostanie odrzucona jako zły kod (i liczy się do blokady obszaru).",
+    "code": "Kod",
+    "code_none": "Bez kodu",
+    "codes_integration": "Kody integracji",
+    "codes_global": "Kody globalne",
+    "code_deleted_option": "{name} (usunięty)",
+    "code_gone": "Kod „{name}” już nie istnieje (usunięty albo obszar należy teraz do innej integracji) - akcja nie wykona się, dopóki nie wybierzesz kodu. Nic nie jest zgadywane po nazwie.",
+    "other_code": "Kod tej akcji jest rodzaju, którego ta wersja nie zna. Zostaje w pliku bez zmian, ale akcja się nie wykona."
+  },
+  "sys_log": {
+    "fault_raised": "Usterka klocka",
+    "fault_raised_details": "Klocek {block} ({integration}) zgłosił usterkę {code}: {message}",
+    "fault_cleared": "Usterka ustąpiła",
+    "fault_cleared_details": "Klocek {block} ({integration}): usterka {code} ustąpiła",
+    "started": "Start aplikacji",
+    "started_details": "x2iot został uruchomiony (wersja {version}, instancja {instance})",
+    "integration_imported": "Zaimportowano ustawienia integracji",
+    "integration_imported_details": "Ustawienia integracji {source} z pliku trafiły do integracji {target} ({name})",
+    "config_reloaded": "Przeładowanie konfiguracji",
+    "config_reloaded_details": "Konfiguracja wczytana z dysku: zatrzymano {stopped}, uruchomiono {started} z {integrations} integracji, ostrzeżeń: {warnings}",
+    "overload": "Przeciążenie: zgubiono zdarzenia",
+    "overload_details": "System nie nadąża: zgubiono {count} zdarzeń stanu (kolejki: {workers})",
+    "issue_acknowledged": "Potwierdzono ostrzeżenie",
+    "issue_acknowledged_details": "Użytkownik potwierdził wpis: {issue_title}",
+    "config_warning": "Pominięty wpis konfiguracji",
+    "config_warning_details": "Nie wczytano wpisu ({section} {parent} {id} {name}): {reason}. Wpis zostaje w pliku bez zmian"
+  },
+  "issues": {
+    "topbar_title": "Ostrzeżenia",
+    "tooltip_none": "Brak problemów",
+    "category": {
+      "integrations": "Integracje",
+      "elements": "Elementy",
+      "triggers": "Wyzwalacze",
+      "gates": "Bramki",
+      "interactive_blocks": "Klocki interakcyjne",
+      "notifications": "Powiadomienia",
+      "configuration": "Konfiguracja",
+      "system": "System"
+    },
+    "level": {
+      "error": "Błąd",
+      "warning": "Ostrzeżenie",
+      "info": "Informacja"
+    },
+    "count": {
+      "error": {
+        "one": "{count} błąd",
+        "few": "{count} błędy",
+        "many": "{count} błędów"
+      },
+      "warning": {
+        "one": "{count} ostrzeżenie",
+        "few": "{count} ostrzeżenia",
+        "many": "{count} ostrzeżeń"
+      },
+      "info": {
+        "one": "{count} informacja",
+        "few": "{count} informacje",
+        "many": "{count} informacji"
+      }
+    },
+    "config": {
+      "entry_skipped": "Pominięto wpis konfiguracji ({section} {parent} {id} {name}): {reason}",
+      "entry_skipped_hint": "Wpis zostaje w pliku bez zmian. Popraw go w pliku konfiguracji i uruchom aplikację ponownie albo przywróć z kopii."
+    },
+    "area_pin_collision": "Obszar {name} ({id}): reguły kodów są luźniejsze niż minimum integracji",
+    "mark": {
+      "title": {
+        "one": "{count} problem w tym elemencie lub jego klockach",
+        "few": "{count} problemy w tym elemencie lub jego klockach",
+        "many": "{count} problemów w tym elemencie lub jego klockach"
+      }
+    },
+    "area_lock": "Obszar {name} ({id}) jest zablokowany po błędnych kodach do {until}",
+    "area_lock_hint": "Blokada zdejmie się sama po upływie terminu. Wpisanie dobrego kodu jej nie przyspiesza.",
+    "area_pin_collision_hint":"Polecenia i tak stosują minimum integracji. Zaostrz reguły kodów obszaru, żeby ustawienie mówiło prawdę.",
+    "area_pin_collision_arm": "Uzbrajanie: obszar ma ustawione „{arm_rule}”, ale integracja wymaga ostrzejszej zasady — faktycznie obowiązuje „{arm_effective}”.",
+    "area_pin_collision_disarm": "Rozbrajanie i pozostałe polecenia: obszar ma ustawione „{disarm_rule}”, ale integracja wymaga ostrzejszej zasady — faktycznie obowiązuje „{disarm_effective}”.",
+    "checks": {
+      "no_trigger_hint": "Przypnij klocek akcji do wyzwalacza tego elementu (albo dodaj wyzwalacz). Bez wyzwalacza nic go nie uruchomi.",
+      "target_missing_hint": "Wybierz cel akcji jeszcze raz: wyjście, obszar albo źródło, na które wskazywała, już nie istnieje.",
+      "target_obsolete_hint": "Wybierz źródło i akcję jeszcze raz w edytorze klocka akcji.",
+      "code_missing_hint": "Wybierz kod w akcji jeszcze raz: zapisany został usunięty albo należy do innej integracji niż obszar.",
+      "invalid_code_hint": "Wybierz kod w akcji jeszcze raz: zapisany jest rodzaju, którego ta wersja nie zna.",
+      "unknown_target_hint": "Wybierz cel akcji jeszcze raz albo użyj wersji x2iot, która tę akcję zapisała.",
+      "action_unsupported_hint": "Wybierz inną akcję: cel nie oferuje już tej.",
+      "invalid_action_params_hint": "Otwórz akcję i popraw jej parametry tak, by pasowały do tego, co przyjmuje cel.",
+      "gate_missing_hint": "Otwórz wyjście i wybierz bramkę dla tego klocka sterującego albo dodaj bramkę od nowa.",
+      "trigger_no_blocks": "Wyzwalacz {trigger} elementu {name} nie ma klocków",
+      "trigger_no_blocks_hint": "Wyzwalacz bez klocków nic nie robi. Przypnij do niego klocek albo go usuń.",
+      "gate_template_missing": "Wyjście {name}: bramka {gate_id} używa szablonu {template}, który nie istnieje",
+      "gate_template_missing_hint": "Dopóki nie wybierzesz innego szablonu, bramka blokuje każde polecenie. Otwórz wyjście i wybierz dla bramki istniejący szablon.",
+      "gate_template_unused": "Szablon bramki {name} ({template}) nie jest używany przez żadne wyjście",
+      "gate_template_unused_hint": "Nic złego się nie dzieje. Usuń szablon w ustawieniach bramek, jeśli go nie potrzebujesz."
+    },
+    "mute": {
+      "hour": "Na godzinę",
+      "day": "Na dzień",
+      "month": "Na miesiąc",
+      "year": "Na rok",
+      "forever": "Zawsze",
+      "duration": "Na jak długo wyciszyć",
+      "button": "Wycisz",
+      "cancel": "Odwołaj wyciszenie",
+      "until": "wyciszone do {until}",
+      "until_forever": "wyciszone na zawsze",
+      "show": "Pokaż wyciszone ({count})",
+      "hide": "Ukryj wyciszone ({count})"
+    },
+    "event": {
+      "output_command_failed": "Wyjście {id}: polecenie nie powiodło się",
+      "output_command_failed_hint": "Urządzenie nie wykonało polecenia lub nie odpowiedziało. Powód: {reason}. Sprawdź połączenie z integracją, potem potwierdź.",
+      "output_config_not_saved": "Wyjście {id}: nie zapisano konfiguracji",
+      "output_config_not_saved_hint": "Zmiana sterowania wyjścia nie trafiła na dysk. Powód: {reason}. Sprawdź wpis „Nie zapisano konfiguracji na dysk”, potem potwierdź.",
+      "reload_stop_timeout": "Przeładowanie: integracja {id} nie zatrzymała się w czasie",
+      "reload_stop_timeout_hint": "Integracja została porzucona i uruchomiona od nowa. Jeśli problem wraca, sprawdź jej dziennik; potwierdź, gdy się z tym zapoznasz.",
+      "reload_quarantine": "Przeładowanie: uszkodzony plik integracji {id} został przeniesiony",
+      "reload_quarantine_hint": "Integracja wystartowała z domyślnymi parametrami. Uszkodzony plik leży obok pod nazwą z końcówką .corrupt-<data>; potwierdź, gdy się z tym zapoznasz.",
+      "default_config_start": "Start z konfiguracją domyślną: nie można było odczytać pliku konfiguracji",
+      "default_config_start_hint": "Aplikacja pracuje na pustej konfiguracji (tylko w pamięci). Uszkodzony plik: {backup}. Błąd odczytu: {error}. Napraw plik albo przywróć kopię zapasową i uruchom aplikację ponownie; potwierdź dopiero wtedy, gdy wiesz, co zrobić.",
+      "default_config_backup_none": "(nie udało się przenieść — plik został na miejscu)",
+      "overload": "Przeciążenie - zgubiono zdarzenia",
+      "overload_hint": "System nie nadąża: kolejka zdarzeń była pełna, więc zgubiono {count} zdarzeń stanu (pierwsze: {first}, ostatnie: {last}). Stany niektórych elementów mogą być nieaktualne do kolejnej zmiany. Zmniejsz liczbę zmian na sekundę i sprawdź klocki, które generują serie zdarzeń. Wpis zostaje, dopóki go nie potwierdzisz.",
+      "overload_detail_di": "Wejścia cyfrowe (DI): zgubiono {di_count}",
+      "overload_detail_ti": "Wejścia temperatury (TI): zgubiono {ti_count}",
+      "overload_detail_do": "Wyjścia (DO): zgubiono {do_count}",
+      "overload_detail_ar": "Strefy (AR): zgubiono {ar_count}",
+      "exec_fault_repeat": "Ostatnio: {last}, razy: {count}",
+      "exec_fault_hint": "Wpis zniknie przy następnym udanym wykonaniu klocka albo po potwierdzeniu.",
+      "config_save_failed": "Nie zapisano konfiguracji na dysk",
+      "config_save_failed_hint": "Zmiany działają, ale po restarcie zostaną utracone. Powód: {error}. Sprawdź miejsce na dysku i uprawnienia do katalogu config; wpis zniknie po pierwszym udanym zapisie."
+    },
+    "page": {
+      "acknowledge": "Potwierdź",
+      "detail_expires": "Wygasa",
+      "critical": "Wymaga potwierdzenia",
+      "action_failed": "Nie udało się: {error}",
+      "filters": "Filtry",
+      "pause": "Wstrzymaj",
+      "resume": "Wznów",
+      "paused": "Odświeżanie wstrzymane",
+      "paused_changes": {
+        "one": "{count} zmiana od wstrzymania",
+        "few": "{count} zmiany od wstrzymania",
+        "many": "{count} zmian od wstrzymania"
+      },
+      "expand_all": "Rozwiń wszystko",
+      "collapse_all": "Zwiń wszystko",
+      "types": "Rodzaje",
+      "types_hidden": "Rodzaje (ukryto {hidden})",
+      "types_title": "Rodzaje ostrzeżeń",
+      "types_hint": "Odznaczony rodzaj znika z listy i z kafli. Wybór zapamiętuje ta przeglądarka.",
+      "types_show_all": "Pokaż wszystkie",
+      "close": "Zamknij",
+      "filter_level": "Poziom",
+      "level_info": "Wszystkie poziomy",
+      "level_warning": "Ostrzeżenia i błędy",
+      "level_error": "Tylko błędy",
+      "filter_category": "Kategoria",
+      "filter_integration": "Integracja",
+      "all": "Wszystkie",
+      "tile_none": "Brak problemów",
+      "empty": "Brak problemów — wszystko działa.",
+      "none_match": "Żaden wpis nie pasuje do filtrów.",
+      "pick": "Wybierz wpis z listy, aby zobaczyć szczegóły.",
+      "source_system": "System",
+      "detail_since": "Od kiedy",
+      "detail_updated": "Ostatnia zmiana",
+      "detail_source": "Źródło",
+      "detail_integration": "Integracja",
+      "detail_hint": "Co zrobić:",
+      "detail_technical": "Szczegóły techniczne wpisu",
+      "go_to": "Idź do miejsca",
+      "logs_of_source": "Logi tego źródła",
+      "ago_now": "przed chwilą",
+      "ago_minutes": "{count} min temu",
+      "ago_hours": "{count} godz. temu",
+      "ago_days": "{count} dni temu",
+      "block": "klocek {n}",
+      "element_missing": "Element {id} już nie istnieje (mógł zostać usunięty)."
+    },
+    "integration": {
+      "disabled": "Integracja wyłączona",
+      "disabled_hint": "Włącz ją w oknie Integracje, jeśli ma pracować.",
+      "unconfigured": "Integracja nie jest skonfigurowana",
+      "unconfigured_hint": "Uzupełnij ustawienia integracji (okno Integracje).",
+      "config_error": "Błąd konfiguracji integracji lub odrzucone dane dostępu",
+      "config_error_hint": "Sprawdź ustawienia integracji (adres, hasło, token) i zapisz je ponownie.",
+      "hung": "Integracja nie odpowiada (zawieszona)",
+      "hung_hint": "Zostanie uruchomiona ponownie automatycznie. Jeśli problem wraca, sprawdź dziennik integracji.",
+      "plugin_missing": "Brak wtyczki tej integracji",
+      "plugin_missing_hint": "Zainstaluj wtyczkę albo usuń integrację.",
+      "restarting": "Integracja jest restartowana",
+      "restarting_hint": "Restart trwa dłużej niż minutę. Sprawdź dziennik integracji.",
+      "disconnected": "Integracja rozłączona",
+      "disconnected_hint": "Sprawdź połączenie z urządzeniem lub usługą oraz dziennik integracji."
+    },
+    "elements": {
+      "integration_disabled": {
+        "one": "{count} element nie działa, bo integracja jest wyłączona: {names}",
+        "few": "{count} elementy nie działają, bo integracja jest wyłączona: {names}",
+        "many": "{count} elementów nie działa, bo integracja jest wyłączona: {names}"
+      },
+      "integration_disabled_hint": "Włącz integrację albo wyłącz to ostrzeżenie w jej ustawieniach (okno Integracje).",
+      "integration_missing": {
+        "one": "{count} element nie działa, bo jego integracji nie ma w konfiguracji: {names}",
+        "few": "{count} elementy nie działają, bo ich integracji nie ma w konfiguracji: {names}",
+        "many": "{count} elementów nie działa, bo ich integracji nie ma w konfiguracji: {names}"
+      },
+      "integration_missing_hint": "Dodaj integrację o tym ID albo wskaż elementom inne źródło.",
+      "integration_disconnected": {
+        "one": "{count} element nie działa, bo integracja jest rozłączona: {names}",
+        "few": "{count} elementy nie działają, bo integracja jest rozłączona: {names}",
+        "many": "{count} elementów nie działa, bo integracja jest rozłączona: {names}"
+      },
+      "integration_disconnected_hint": "Przywróć połączenie z integracją. Elementy wrócą do pracy same."
+    },
+    "element": {
+      "no_source": "Element {name} ({id}) nie ma źródła",
+      "no_source_hint": "Wybierz źródło w ustawieniach elementu.",
+      "source_missing": "Źródło elementu {name} ({id}) nie istnieje w integracji",
+      "source_missing_hint": "Obiekt mógł zostać usunięty w urządzeniu. Wybierz inne źródło.",
+      "control_missing": "Wyjście {name} ({id}) nie ma źródła sterowania",
+      "control_missing_hint": "Wybierz źródło stanu, które ma parę sterującą, albo ustaw tryb sterowania na brak.",
+      "reservation_conflict": "Wyjście {name} ({id}): konflikt rezerwacji sterowania",
+      "reservation_conflict_hint": "Więcej niż jeden sterownik rezerwuje to wyjście. Zmień tryb wyjścia albo usuń zbędne klocki sterujące.",
+      "sensor_fault": "Czujnik {name} ({id}) zgłasza awarię",
+      "sensor_fault_hint": "Sprawdź czujnik w urządzeniu. Awaria ustąpi po poprawnym odczycie.",
+      "stale": "Brak odczytu temperatury z czujnika {name} ({id})",
+      "stale_hint": "Sprawdź czujnik i połączenie z integracją. Czas bez odczytu ustawia się w elemencie."
+    }
+  },
+  "logs": {
+    "title": "Logi",
+    "topbar_logs_title": "Logi - nowe ostrzeżenia i błędy od ostatniego otwarcia okna",
+    "topbar_warnings_title": "Ostrzeżenia konfiguracji",
+    "part": {
+      "di": "Wejścia",
+      "ti": "Temperatury",
+      "do": "Wyjścia",
+      "ar": "Obszary",
+      "ak": "Akcje",
+      "system": "System"
+    },
+    "filters": "Filtry",
+    "filters_active": "Filtry ({count})",
+    "parts": "Źródła",
+    "parts_all": "Wszystkie źródła",
+    "parts_some": "Źródła: {count}",
+    "min_level": "Poziom minimalny",
+    "element": "Element / integracja",
+    "element_placeholder": "np. DO:5 lub INT:Satel:1",
+    "trace": "Numer polecenia",
+    "trace_placeholder": "np. gui_17",
+    "text": "Tekst",
+    "text_placeholder": "Szukaj w tekście...",
+    "text_hint": "Przeszukiwane są tylko załadowane wpisy",
+    "clear_filters": "Wyczyść filtry",
+    "pause": "Wstrzymaj",
+    "resume": "Wznów",
+    "pending": {
+      "one": "{count} nowy wpis czeka",
+      "few": "{count} nowe wpisy czekają",
+      "many": "{count} nowych wpisów czeka"
+    },
+    "paused_note": "Podgląd na żywo wstrzymany",
+    "live": "Na żywo",
+    "reconnecting": "Łączenie ponownie...",
+    "load_older": "Pokaż starsze",
+    "show_more": "Pokaż więcej",
+    "loading": "Wczytywanie...",
+    "empty": "Brak wpisów dla tych filtrów.",
+    "dropped": {
+      "one": "Pominięto {count} wpis (za dużo naraz)",
+      "few": "Pominięto {count} wpisy (za dużo naraz)",
+      "many": "Pominięto {count} wpisów (za dużo naraz)"
+    },
+    "filter_rejected": "Serwer odrzucił filtr: {error}",
+    "load_failed": "Nie udało się wczytać wpisów.",
+    "shown": "Widocznych {shown} z {total} załadowanych wpisów",
+    "memory_note": "Dziennik jest tylko w pamięci i po restarcie zaczyna się od zera.",
+    "download": "Pobierz",
+    "download_csv": "Pobierz CSV (Excel)",
+    "download_txt": "Pobierz TXT",
+    "open_in_logs": "Otwórz w logach",
+    "path": {
+      "title": "Ścieżka polecenia",
+      "back": "Wstecz",
+      "open": "Pokaż ścieżkę tego polecenia",
+      "failed": "Nie udało się wczytać ścieżki polecenia.",
+      "empty": "Brak wpisów dla tego numeru polecenia (mogły już wypaść z pamięci).",
+      "missing_start": "Brakuje początku ścieżki - najstarsze wpisy wypadły z pamięci dziennika.",
+      "count": "Wpisów w ścieżce: {count}"
+    },
+    "level": {
+      "debug": "Debug",
+      "info": "Info",
+      "warn": "Ostrzeżenie",
+      "error": "Błąd"
+    },
+    "col": {
+      "time": "Czas",
+      "level": "Poziom",
+      "part": "Część",
+      "element": "Element",
+      "trace": "Numer",
+      "event": "Zdarzenie · szczegóły"
+    },
+    "weekday": {
+      "mon": "Poniedziałek",
+      "tue": "Wtorek",
+      "wed": "Środa",
+      "thu": "Czwartek",
+      "fri": "Piątek",
+      "sat": "Sobota",
+      "sun": "Niedziela"
+    },
+    "month": {
+      "jan": "stycznia",
+      "feb": "lutego",
+      "mar": "marca",
+      "apr": "kwietnia",
+      "may": "maja",
+      "jun": "czerwca",
+      "jul": "lipca",
+      "aug": "sierpnia",
+      "sep": "września",
+      "oct": "października",
+      "nov": "listopada",
+      "dec": "grudnia"
+    },
+    "day_format": "{weekday}, {day} {month} {year}",
+    "export": {
+      "time": "Czas",
+      "part": "Część",
+      "level": "Poziom",
+      "element": "Element / integracja",
+      "run": "Numer polecenia",
+      "step": "Krok",
+      "name": "Nazwa",
+      "details": "Szczegóły",
+      "params": "Parametry"
+    }
   },
   "ak_log": {
     "title": "Dziennik akcji",
+    "manual": "ręcznie z GUI",
     "refresh": "Odśwież",
     "empty": "Brak wpisów.",
     "executed": "Wykonano",
@@ -630,7 +1118,7 @@
     "action_unsupported_details": "Źródło {target} nie oferuje akcji {action}",
     "invalid_params_details": "Parametry akcji {action} są niepoprawne: {reason}",
     "unknown_target_details": "Cel akcji jest nieznany tej wersji (zostaje w pliku)",
-    "target_unsupported_details": "Typ celu {target_type} nie jest jeszcze obsługiwany",
+    "target_obsolete_details": "Cel akcji jest przestarzały (cel pluginu ze starszej wersji): wybierz źródło i akcję ponownie",
     "no_trigger_details": "Akcja nie jest przypięta do wyzwalacza, więc nic jej nie uruchomi",
     "output_action_unsupported_details": "Wyjście {target} nie oferuje akcji {action} (dostępne: włącz, wyłącz, przełącz)",
     "refused": "Odmowa wyjścia",
@@ -642,10 +1130,20 @@
     "loop": "Wykryto pętlę",
     "loop_details": "Akcja {action} dla {target} niewykonana: sygnał wrócił do kroku {step} (pętla)",
     "path_too_long": "Zbyt długi ślad sygnału",
-    "path_too_long_details": "Akcja {action} dla {target} niewykonana: ślad sygnału jest zbyt długi ({len} z {limit} kroków)"
+    "path_too_long_details": "Akcja {action} dla {target} niewykonana: ślad sygnału jest zbyt długi ({len} z {limit} kroków)",
+    "executed_code_details": "Akcja {action} wysłana do {target}, kod: {code_name}",
+    "area_action_unsupported_details": "Obszar {target} nie ma polecenia {action}",
+    "invalid_code_details": "Kod akcji {action} jest rodzaju, którego ta wersja nie zna",
+    "code_missing": "Brak kodu",
+    "code_missing_details": "Akcja {action} dla {target} niewykonana: kod zapisany w akcji już nie istnieje",
+    "area_refused": "Obszar odmówił",
+    "area_refused_details": "Obszar {target} odrzucił akcję {action}: {reason}"
   },
   "plugin": {
     "system": {
+      "check": {
+        "gate_missing": "Klocek sterujący używa bramki {gate_id}, która nie istnieje - polecenia przez ten klocek są odrzucane"
+      },
       "action": {
         "block_title": "Akcja",
         "fault": {
@@ -653,10 +1151,13 @@
           "unknown_target": "Cel akcji jest nieznany tej wersji",
           "action_unsupported": "Źródło nie oferuje akcji {action}",
           "invalid_action_params": "Parametry akcji są niepoprawne: {reason}",
-          "target_unsupported": "Typ celu {target} nie jest jeszcze obsługiwany",
+          "target_obsolete": "Cel akcji jest przestarzały - wybierz źródło i akcję ponownie; akcja nie zostanie wykonana",
           "target_missing": "Cel akcji ({target}) nie istnieje - akcja się nie wykona",
           "state_unknown": "Stan wyjścia {target} jest nieznany - akcja się nie wykona",
           "output_refused": "Wyjście {target} odrzuciło polecenie: {reason}",
+          "area_refused": "Obszar {target} odrzucił polecenie: {reason}",
+          "code_missing": "Kod zapisany w akcji już nie istnieje (cel {target}) - wybierz kod jeszcze raz, akcja się nie wykona",
+          "invalid_code": "Kod akcji jest rodzaju, którego ta wersja nie zna - akcja się nie wykona",
           "no_trigger": "Akcja nie jest przypięta do wyzwalacza",
           "command_failed": "Polecenie nie powiodło się: {reason}",
           "no_response": "Brak odpowiedzi urządzenia; polecenie mogło zostać wykonane",
@@ -941,7 +1442,7 @@
     "mixed": "różne",
     "help_more": "Więcej",
     "used_by": {
-      "warning": "⚠️ Źródło jest używane przez:",
+      "warning": "⚠️ Element jest używany przez:",
       "disabled": "(wyłączone)",
       "delete_anyway": "Usuń mimo to",
       "continue_anyway": "Kontynuuj mimo to",
@@ -958,9 +1459,11 @@
       "timeout": "❌ Brak odpowiedzi serwera w ciągu 5 s — zapis mógł nie dojść",
       "connection_interrupted": "⚠️ Połączenie przerwane, odświeżam dane…"
     },
-    "log_recording_active": "Nagrywanie aktywne",
-    "log_recording_paused": "Nagrywanie wstrzymane",
-    "log_clear": "Wyczyść",
+    "log_window_stop": "Zatrzymaj",
+    "log_window_resume": "Wznów",
+    "log_window_stopped_note": "Widok zatrzymany — nowe wpisy nadal są zapisywane, „Wznów” je wczyta",
+    "log_window_not_recorded_note": "Zapis tego dziennika jest wyłączony (Ustawienia → Logi) — nowe wpisy nie są pokazywane",
+    "log_clear": "Wyczyść widok",
     "log_empty": "Brak zdarzeń w dzienniku",
     "template_field": {
       "read_only": "(tylko do odczytu)"
@@ -1089,6 +1592,8 @@
       "shutdown": "Wyłączono",
       "task_failed": "Awaria zadania",
       "task_failed_desc": "{reason}",
+      "events_skipped": "Pominięte zdarzenia",
+      "events_skipped_desc": "Pominięto zdarzenia z powodu dużego obciążenia bufora (liczba: {count})",
       "restart_scheduled": "Zaplanowano restart",
       "restart_scheduled_desc": "Ponowny start za {seconds} s",
       "restarting": "Ponowny start",
@@ -1221,7 +1726,24 @@
     "delete_template": "Usuń szablon",
     "delete_builtin_disallowed": "Szablon wbudowany — nie można usunąć.",
     "delete_used_disallowed": "Szablon jest używany przez inne wyzwalacze.",
-    "footer_hint": "Zmiana szablonu działa od razu we wszystkich wyzwalaczach, które go używają."
+    "footer_hint": "Zmiana szablonu działa od razu we wszystkich wyzwalaczach, które go używają.",
+    "trigger_manual_tag": "ręczny",
+    "trigger_manual_note": "Ustawienia tylko dla tego elementu",
+    "trigger_edit": "Edytuj wyzwalacz",
+    "trigger_kind": "Rodzaj",
+    "trigger_kind_note": "Wybór szablonu zamienia ten wyzwalacz w zwykły (zapisany).",
+    "trigger_kind_change": "Zmień rodzaj wyzwalacza",
+    "trigger_open_template": "Otwórz szablon „{name}” (elementów, które go używają: {count})",
+    "trigger_will_use": "Wyzwalacz użyje szablonu „{name}”",
+    "save_as_template": "Zapisz jako szablon…",
+    "save_as_template_name": "Nazwa szablonu",
+    "save_as_template_ok": "Zapisz szablon",
+    "save_as_template_lost": "Szablon zapisano, ale nie udało się go podpiąć do wyzwalacza.",
+    "done": "Gotowe",
+    "for_col_state": "Stan ustalony",
+    "for_col_time": "Czas",
+    "for_col_send": "Wyślij po ustaleniu",
+    "for_how": "Jak działają czasy?"
   },
   "template_fields": {
     "cat_x2iot": "x2iot",
@@ -1286,6 +1808,14 @@
       "alias": "element.awaria",
       "desc": "Stan awarii (true / false)"
     },
+    "element_trouble_reason": {
+      "alias": "element.powod_awarii",
+      "desc": "Kod powodu awarii (np. integration_disconnected); brak pola bez awarii"
+    },
+    "element_trouble_text": {
+      "alias": "element.tekst_awarii",
+      "desc": "Powód awarii słowami, w języku systemu; brak pola bez awarii"
+    },
     "element_online": {
       "alias": "element.polaczony",
       "desc": "Czy element jest dostępny (odwrotność awarii)"
@@ -1317,6 +1847,10 @@
     "prev_trouble": {
       "alias": "poprz.awaria",
       "desc": "Stan awarii przed poprzednią zmianą"
+    },
+    "prev_trouble_reason": {
+      "alias": "poprz.powod_awarii",
+      "desc": "Kod powodu awarii przed poprzednią zmianą; brak pola, gdy awarii nie było"
     },
     "prev_changed_at": {
       "alias": "poprz.czas_zmiany",
