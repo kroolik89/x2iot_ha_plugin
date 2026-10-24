@@ -46,34 +46,48 @@ if (!(Get-Command "cross" -ErrorAction SilentlyContinue)) {
 rustup target add aarch64-unknown-linux-gnu x86_64-unknown-linux-gnu | Out-Null
 
 $Utf8NoBom = New-Object System.Text.UTF8Encoding $false
-$ConfigContent = Get-Content $ConfigFile -Raw -Encoding UTF8
-if ($ConfigContent -match 'version:\s*"(\d+)\.(\d+)\.(\d+)"') {
-    $Major = [int]$Matches[1]
-    $Minor = [int]$Matches[2]
-    $OldPatch = [int]$Matches[3]
-    $OldVersion = "$Major.$Minor.$OldPatch"
 
-    if (!$NoBump) {
-        $NewPatch = $OldPatch + 1
-        $NewVersion = "$Major.$Minor.$NewPatch"
-        $UpdatedConfig = $ConfigContent -replace 'version:\s*"\d+\.\d+\.\d+"', "version: `"$NewVersion`""
-        [System.IO.File]::WriteAllText($ConfigFile, $UpdatedConfig, $Utf8NoBom)
-        Write-Host "  -> Podbito wersje: $OldVersion -> $NewVersion" -ForegroundColor Green
-    } else {
-        $NewVersion = $OldVersion
-        Write-Host "  -> Wersja (bez podbijania): $NewVersion" -ForegroundColor Yellow
-    }
+# Jedna wersja x2iot (D-W-6, autor 2026-10-24): zrodlem jest [workspace.package] version w Cargo.toml;
+# skrypt ja podbija i przepisuje do config.yaml dodatku (wersja w programie = wersja dodatku).
+$CargoFile = "$RootFolder\Cargo.toml"
+$CargoVersionPattern = '(?m)^(version\s*=\s*)"(\d+)\.(\d+)\.(\d+)"'
+$CargoContent = Get-Content $CargoFile -Raw -Encoding UTF8
+$ConfigContent = Get-Content $ConfigFile -Raw -Encoding UTF8
+if ($CargoContent -match $CargoVersionPattern) {
+    $Major = [int]$Matches[2]
+    $Minor = [int]$Matches[3]
+    $OldPatch = [int]$Matches[4]
+    $OldVersion = "$Major.$Minor.$OldPatch"
 } else {
+    Write-Host "BLAD: Nie mozna odczytac wersji ([workspace.package] version) z $CargoFile!" -ForegroundColor Red
+    exit 1
+}
+if ($ConfigContent -notmatch 'version:\s*"\d+\.\d+\.\d+"') {
     Write-Host "BLAD: Nie mozna odczytac pola 'version' z $ConfigFile!" -ForegroundColor Red
     exit 1
 }
 
+function Set-Version([string]$Version) {
+    $Cargo = (Get-Content $CargoFile -Raw -Encoding UTF8) -replace $CargoVersionPattern, "`${1}`"$Version`""
+    [System.IO.File]::WriteAllText($CargoFile, $Cargo, $Utf8NoBom)
+    $Config = (Get-Content $ConfigFile -Raw -Encoding UTF8) -replace 'version:\s*"\d+\.\d+\.\d+"', "version: `"$Version`""
+    [System.IO.File]::WriteAllText($ConfigFile, $Config, $Utf8NoBom)
+}
+
+if (!$NoBump) {
+    $NewVersion = "$Major.$Minor.$($OldPatch + 1)"
+    Set-Version $NewVersion
+    Write-Host "  -> Podbito wersje (Cargo.toml + config.yaml): $OldVersion -> $NewVersion" -ForegroundColor Green
+} else {
+    $NewVersion = $OldVersion
+    Set-Version $NewVersion
+    Write-Host "  -> Wersja (bez podbijania, config.yaml = Cargo.toml): $NewVersion" -ForegroundColor Yellow
+}
+
 function Rollback-Version {
     if (!$NoBump) {
-        Write-Host "`n[!] Wycofuje wersje w config.yaml do $OldVersion z powodu bledu..." -ForegroundColor Yellow
-        $Cur = Get-Content $ConfigFile -Raw -Encoding UTF8
-        $Cur = $Cur -replace 'version:\s*"\d+\.\d+\.\d+"', "version: `"$OldVersion`""
-        [System.IO.File]::WriteAllText($ConfigFile, $Cur, $Utf8NoBom)
+        Write-Host "`n[!] Wycofuje wersje w Cargo.toml i config.yaml do $OldVersion z powodu bledu..." -ForegroundColor Yellow
+        Set-Version $OldVersion
     }
 }
 
@@ -187,8 +201,8 @@ if (!$NoPush) {
     # 2. Główne repozytorium (x2iot)
     Write-Host "  -> [2/2] Commit i push glownego repozytorium (x2iot)..." -ForegroundColor Yellow
     Set-Location $RootFolder
-    # Tylko wskaznik submodulu ha-addon - NIE git add -A (lokalny config/, pliki z roznymi koncami linii)
-    git add ha-addon
+    # Tylko wskaznik submodulu ha-addon i wersja (Cargo.toml, Cargo.lock) - NIE git add -A (lokalny config/, pliki z roznymi koncami linii)
+    git add ha-addon Cargo.toml Cargo.lock
     git diff --cached --quiet
     if ($LASTEXITCODE -ne 0) {
         git commit -m $CommitTitle
