@@ -83,6 +83,12 @@ $BuildDir = "$RootFolder\target_ha"
 $env:CARGO_TARGET_DIR = $BuildDir
 $env:LEPTOS_SITE_ROOT = "target_ha/site"
 
+# Wersja widoczna w programie (D-W-6, 2026-10-24): crates/core/build.rs sklada "wersja (skrot commita)".
+# Zmienne ida do kontenera cross przez passthrough w Cross.toml (w kontenerze moze nie byc gita).
+$env:X2IOT_VERSION = $NewVersion
+$env:X2IOT_GIT_HASH = (git -C $RootFolder rev-parse --short HEAD 2>$null)
+Write-Host "  -> Wersja programu: $NewVersion ($env:X2IOT_GIT_HASH)" -ForegroundColor Green
+
 # --- KROK 1: Budowanie frontendu WASM ---
 Write-Host "`n[1/4] Budowanie frontendu WASM (cargo leptos build --release --frontend-only, katalog target_ha)..." -ForegroundColor Cyan
 Set-Location $RootFolder
