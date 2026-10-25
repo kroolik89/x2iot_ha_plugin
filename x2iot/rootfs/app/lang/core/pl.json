@@ -21,8 +21,15 @@
     },
     "offline": {
       "title": "Brak połączenia z serwerem",
-      "hint": "Trwa próba ponownego połączenia..."
+      "hint": "Trwa próba ponownego połączenia...",
+      "connect_now": "Połącz teraz",
+      "connecting": "Łączenie..."
     }
+  },
+  "common": {
+    "loading": "Wczytywanie…",
+    "load_failed": "Nie udało się wczytać listy.",
+    "try_again": "Spróbuj ponownie"
   },
   "navigation": {
     "dashboard": "Panel Główny",
@@ -34,7 +41,8 @@
     "settings": "Ustawienia",
     "templates": "Szablony",
     "warnings": "Ostrzeżenia",
-    "logs": "Logi"
+    "logs": "Logi",
+    "performance": "Wydajność"
   },
   "config_warnings": {
     "col_section": "Sekcja",
@@ -450,8 +458,31 @@
     "status_offline": "Offline",
     "state": {
       "plugin_missing": "Brak wtyczki",
-      "plugin_missing_modal": "Brak wtyczki dla tej integracji — nie jest zainstalowana lub została wyłączona."
+      "plugin_missing_modal": "Brak wtyczki dla tej integracji — nie jest zainstalowana lub została wyłączona.",
+      "connected": "Połączono",
+      "disconnected": "Rozłączono",
+      "connecting": "Łączenie…",
+      "restarting": "Ponowne uruchamianie…",
+      "disabled": "Wyłączona",
+      "config_error": "Błąd konfiguracji",
+      "unconfigured": "Nieskonfigurowana",
+      "send_failed": "Błąd wysyłki",
+      "unreachable": "Nieosiągalna",
+      "server_error": "Błąd serwera",
+      "auth_failed": "Błąd logowania",
+      "hung": "Zawieszona",
+      "stopped": "Zatrzymana",
+      "ready": "Gotowa",
+      "unknown": "Nieznany stan ({code})",
+      "saving": "Zapisywanie…",
+      "deleting": "Usuwanie…",
+      "no_connection": "Brak połączenia"
     },
+    "switch_on": "Włączona",
+    "switch_off": "Wyłączona",
+    "card_edit": "Edytuj",
+    "err_toggle": "Błąd zmiany stanu integracji: {e}",
+    "err_delete": "Błąd usuwania integracji: {e}",
     "field_name": "Nazwa integracji",
     "warn_dependent_off": "Przy wyłączeniu nie ostrzegaj o niedziałających elementach",
     "warn_dependent_off_help": "Elementy korzystające z tej integracji nie zgłoszą ostrzeżenia, gdy wyłączysz ją celowo.",
@@ -624,7 +655,6 @@
       "edge_both": "oba",
       "settle": "Stan ustalony: zmiana liczy się, gdy nowy stan trwa",
       "settle_desc": "0 = od razu. Krótkie przejście przez stan (np. chwilowe uzbrajanie) nie wyśle powiadomienia, jeśli obszar zdąży wrócić przed upływem czasu.",
-      "on_trouble": "Niedostępność obszaru (utrata i powrót połączenia ze źródłem)",
       "tag_unavailable": "niedostępność",
       "states_count": "stanów: {n}",
       "no_trigger_title": "Bez wyzwalacza",      "block_label": "Wyzwalacz:",
@@ -714,7 +744,7 @@
     "skip_if_previous_failed_desc": "Akcja zostanie pominięta (wpis „pominięto” w dzienniku), gdy poprzednia akcja tego wyzwalacza zawiodła, nie dostała odpowiedzi albo została pominięta.",
     "warn_single": "To źródło należy do {output} (Single) - nie powinno się nim sterować akcją.",
     "info_multi": "To źródło jest też współdzielone przez {output} (Multi).",
-    "send_state_hint": "Akcja wykona się też przy starcie x2iot, ponownym połączeniu i zmianie konfiguracji (w tym wyzwalaczu włączone jest „wyślij bieżący stan”).",
+    "send_state_hint": "Akcja wykona się też po powrocie łączności integracji (w tym wyzwalaczu włączony jest „stan bieżący”). Zapis konfiguracji jej nie uruchamia, chyba że zmieni się stan.",
     "other_target": "Cel tej akcji ({target}) nie jest edytowalny w tej wersji; zostaje w pliku bez zmian.",
     "log_button": "Dziennik akcji",
     "log_this_element": "Tylko ten element",
@@ -810,6 +840,11 @@
         "one": "{count} informacja",
         "few": "{count} informacje",
         "many": "{count} informacji"
+      },
+      "muted": {
+        "one": "{count} wyciszony",
+        "few": "{count} wyciszone",
+        "many": "{count} wyciszonych"
       }
     },
     "config": {
@@ -822,6 +857,16 @@
         "one": "{count} problem w tym elemencie lub jego klockach",
         "few": "{count} problemy w tym elemencie lub jego klockach",
         "many": "{count} problemów w tym elemencie lub jego klockach"
+      },
+      "muted": {
+        "one": "Wyciszone problemy: {count}, do {until}",
+        "few": "Wyciszone problemy: {count}, do {until}",
+        "many": "Wyciszone problemy: {count}, do {until}"
+      },
+      "muted_forever": {
+        "one": "Wyciszone problemy: {count}, na stałe",
+        "few": "Wyciszone problemy: {count}, na stałe",
+        "many": "Wyciszone problemy: {count}, na stałe"
       }
     },
     "area_lock": "Obszar {name} ({id}) jest zablokowany po błędnych kodach do {until}",
@@ -841,6 +886,7 @@
       "gate_missing_hint": "Otwórz wyjście i wybierz bramkę dla tego klocka sterującego albo dodaj bramkę od nowa.",
       "trigger_no_blocks": "Wyzwalacz {trigger} elementu {name} nie ma klocków",
       "trigger_no_blocks_hint": "Wyzwalacz bez klocków nic nie robi. Przypnij do niego klocek albo go usuń.",
+      "multiple_event_kinds": "Akcja wykona się przy każdym z {count} zdarzeń wyzwalacza {trigger}: {kinds}. Jeśli ma reagować tylko na jedno, zostaw w wyzwalaczu jeden wiersz albo użyj osobnego wyzwalacza.",
       "gate_template_missing": "Wyjście {name}: bramka {gate_id} używa szablonu {template}, który nie istnieje",
       "gate_template_missing_hint": "Dopóki nie wybierzesz innego szablonu, bramka blokuje każde polecenie. Otwórz wyjście i wybierz dla bramki istniejący szablon.",
       "gate_template_unused": "Szablon bramki {name} ({template}) nie jest używany przez żadne wyjście",
@@ -966,7 +1012,12 @@
         "few": "{count} elementy nie działają, bo integracja jest rozłączona: {names}",
         "many": "{count} elementów nie działa, bo integracja jest rozłączona: {names}"
       },
-      "integration_disconnected_hint": "Przywróć połączenie z integracją. Elementy wrócą do pracy same."
+      "integration_disconnected_hint": "Przywróć połączenie z integracją. Elementy wrócą do pracy same.",
+      "disabled": {
+        "one": "{count} element wyłączony przez użytkownika: {names}",
+        "few": "{count} elementy wyłączone przez użytkownika: {names}",
+        "many": "{count} elementów wyłączonych przez użytkownika: {names}"
+      }
     },
     "element": {
       "no_source": "Element {name} ({id}) nie ma źródła",
@@ -1021,7 +1072,6 @@
     "reconnecting": "Łączenie ponownie...",
     "load_older": "Pokaż starsze",
     "show_more": "Pokaż więcej",
-    "loading": "Wczytywanie...",
     "empty": "Brak wpisów dla tych filtrów.",
     "dropped": {
       "one": "Pominięto {count} wpis (za dużo naraz)",
@@ -1137,7 +1187,25 @@
     "code_missing": "Brak kodu",
     "code_missing_details": "Akcja {action} dla {target} niewykonana: kod zapisany w akcji już nie istnieje",
     "area_refused": "Obszar odmówił",
-    "area_refused_details": "Obszar {target} odrzucił akcję {action}: {reason}"
+    "area_refused_details": "Obszar {target} odrzucił akcję {action}: {reason}",
+    "cause": {
+      "trouble_start": "początek awarii",
+      "trouble_end": "koniec awarii",
+      "rise": "zmiana 0→1",
+      "fall": "zmiana 1→0",
+      "value": "zmiana wartości",
+      "above": "przekroczenie progu w górę",
+      "below": "spadek poniżej progu",
+      "cyclic": "cykl czasowy",
+      "resend": "powrót łączności",
+      "availability": "zmiana dostępności",
+      "config": "zmiana konfiguracji",
+      "removed": "usunięcie elementu",
+      "any": "zmiana stanu",
+      "enter": "wejście w stan",
+      "leave": "wyjście ze stanu",
+      "manual": "ręczne uruchomienie"
+    }
   },
   "plugin": {
     "system": {
@@ -1153,7 +1221,7 @@
           "invalid_action_params": "Parametry akcji są niepoprawne: {reason}",
           "target_obsolete": "Cel akcji jest przestarzały - wybierz źródło i akcję ponownie; akcja nie zostanie wykonana",
           "target_missing": "Cel akcji ({target}) nie istnieje - akcja się nie wykona",
-          "state_unknown": "Stan wyjścia {target} jest nieznany - akcja się nie wykona",
+          "state_unknown": "{target}: akcja niewykonana, stan wyjścia jest nieznany — wyzwolenie: {cause} ({source})",
           "output_refused": "Wyjście {target} odrzuciło polecenie: {reason}",
           "area_refused": "Obszar {target} odrzucił polecenie: {reason}",
           "code_missing": "Kod zapisany w akcji już nie istnieje (cel {target}) - wybierz kod jeszcze raz, akcja się nie wykona",
@@ -1371,11 +1439,129 @@
     "save_error": "Błąd zapisu temperatury: {error}",
     "save_hint": "Integracje zapisują się razem z temperaturą."
   },
+  "performance": {
+    "topbar_title": "Wydajność x2iot",
+    "status": {
+      "live": "Na żywo",
+      "disconnected": "Brak połączenia na żywo",
+      "load_failed": "Nie udało się wczytać danych o wydajności."
+    },
+    "unit": {
+      "per_s": "/s",
+      "ms": "ms",
+      "us": "µs",
+      "pct": "%",
+      "mb": "MB",
+      "day": "d"
+    },
+    "hint": {
+      "cpu": "Obciążenie przez x2iot, % jednego rdzenia",
+      "memory": "Ilość RAM zajęta przez x2iot",
+      "browsers": "Karty przeglądarki połączone ze strumieniem zdarzeń na żywo",
+      "p50": "Typowy czas: połowa zdarzeń obsłużona szybciej",
+      "p99": "Prawie najgorszy czas: 99 na 100 zdarzeń obsłużonych szybciej",
+      "max": "Najdłuższy pojedynczy czas w oknie 10 s"
+    },
+    "process": {
+      "title": "Proces",
+      "uptime": "Czas działania",
+      "cpu": "Procesor (CPU)",
+      "memory": "Pamięć (RSS)",
+      "version": "Wersja",
+      "platform": "Platforma"
+    },
+    "output": {
+      "title": "Wyjście",
+      "commands": "Polecenia do urządzeń",
+      "mqtt_publish": "Publikacje MQTT",
+      "browsers": "Otwarte karty przeglądarki"
+    },
+    "flow": {
+      "title": "Przepływ zdarzeń",
+      "total": "Wszystkie zdarzenia"
+    },
+    "latency": {
+      "title": "Opóźnienie rdzenia",
+      "note": "Czas obsługi jednego zdarzenia przez rdzeń (ostatnie 10 s). Im mniej, tym lepiej. Czas oczekiwania w kanale wejściowym nie jest wliczony - jest w kolejkach poniżej.",
+      "col_kind": "Worker",
+      "col_max": "Maksimum"
+    },
+    "queues": {
+      "title": "Kolejki i przeciążenie",
+      "note": "Zdarzenia czekające w kanale wejściowym i w kanale każdego workera. Wyróżnione, gdy w ostatniej minucie coś odrzucono albo kolejka jest zapełniona powyżej połowy.",
+      "col_queue": "Kanał",
+      "col_now": "Teraz / pojemność",
+      "col_max": "Maksimum od startu",
+      "entry": "Wejście (wszystkie zdarzenia)",
+      "dropped_total": "Odrzucone od startu",
+      "dropped_minute": "Odrzucone w ostatniej minucie"
+    },
+    "resources": {
+      "title": "Zasoby"
+    },
+    "integrations": {
+      "title": "Integracje",
+      "col_name": "Nazwa",
+      "col_state": "Połączenie",
+      "col_events": "Zdarzenia /s",
+      "col_requests": "Zapytania /s",
+      "col_responses": "Odpowiedzi /s",
+      "col_errors": "Błędy /s",
+      "col_queue": "Kolejka (MQTT: kolejka / odrzucone)",
+      "online": "Połączona",
+      "offline": "Rozłączona",
+      "note": "Kreska oznacza, że wtyczka nie liczy swojego ruchu."
+    },
+    "chart": {
+      "events": "Zdarzenia na sekundę",
+      "latency": "Opóźnienie p99 (okno 10 s)",
+      "max": "Maksimum",
+      "no_history": "Brak historii - wykres pojawi się po kilku sekundach pomiarów.",
+      "axis_start": "-15 min",
+      "axis_now": "teraz"
+    },
+    "load_test": {
+      "button": "Wyniki testu wydajności",
+      "title": "Wyniki testu wydajności",
+      "close": "Zamknij",
+      "load_file": "Wczytaj plik z tego komputera",
+      "loading": "Wczytywanie...",
+      "select_hint": "Wybierz plik z listy albo wczytaj z tego komputera. Plik jest tylko pokazywany tutaj, nic nie jest wysyłane na serwer.",
+      "download": "Pobierz",
+      "empty": "Nie ma jeszcze wyników testu. Aby uruchomić test, użyj jednego z:",
+      "empty_ha": "opcja dodatku Home Assistant (liczba sekund)",
+      "empty_cli": "przy uruchomieniu x2iot-app (liczba sekund)",
+      "error": {
+        "unknown_file": "Nie ma takiego pliku z wynikiem testu wydajności.",
+        "unreadable": "Nie udało się odczytać pliku z wynikiem testu wydajności.",
+        "list": "Nie udało się wczytać listy wyników testu wydajności.",
+        "too_large": "Plik jest za duży jak na wynik testu wydajności."
+      }
+    }
+  },
   "system_source": {
     "group": "Stan integracji",
     "enabled": "{name}: Włączona",
     "connected": "{name}: Połączona",
-    "healthy": "{name}: Zdrowa"
+    "healthy": "{name}: Zdrowa",
+    "section_perf": "Wydajność",
+    "group_perf_rate": "Natężenie (na sekundę)",
+    "group_perf_latency": "Opóźnienie",
+    "group_perf_cpu": "Procesor",
+    "group_perf_memory": "Pamięć",
+    "group_perf_queue": "Kolejki",
+    "group_perf_alarm": "Przeciążenie",
+    "perf_events_per_s": "Zdarzenia na sekundę",
+    "perf_commands_per_s": "Polecenia do urządzeń na sekundę",
+    "perf_mqtt_publish_per_s": "Publikacje MQTT na sekundę",
+    "perf_latency_p99_ms": "Opóźnienie rdzenia (99. percentyl, 10 s)",
+    "perf_cpu_pct": "Użycie procesora przez x2iot",
+    "perf_rss_mb": "Pamięć x2iot",
+    "perf_entry_queue": "Kolejka wejściowa rdzenia",
+    "perf_dropped_last_minute": "Zdarzenia odrzucone w ostatniej minucie",
+    "perf_int_events_per_s": "{name}: zdarzenia na sekundę",
+    "perf_int_requests_per_s": "{name}: zapytania na sekundę",
+    "perf_int_responses_per_s": "{name}: odpowiedzi na sekundę"
   },
   "source_picker": {
     "title": "Wybierz źródło",
@@ -1435,9 +1621,11 @@
     "filter_all": "Wszystkie",
     "more_actions": "Więcej akcji",
     "no_options": "Brak dostępnych opcji",
+    "refresh_list": "Odśwież listę",
     "options_error": "Nie udało się wczytać listy",
     "options_error_hint": "Nie udało się wczytać listy: {details}",
     "option_missing": "⚠ {value} — brak na liście",
+    "option_custom": "Inny — wpisz ręcznie…",
     "out_of_range": "Wartość musi być z zakresu od {min} do {max}",
     "mixed": "różne",
     "help_more": "Więcej",
@@ -1650,21 +1838,59 @@
     "trigger_manual": "Ustawienie ręczne",
     "trigger_enabled": "Wyzwalacz włączony",
     "trigger_disabled_note": "Wyzwalacz wyłączony",
-    "field_send_current_state": "Wysyłaj stan bieżący (start, powrót łączności, zmiana konfiguracji)",
-    "field_state_0_for": "Stan 0 przez",
-    "field_state_1_for": "Stan 1 przez",
-    "field_trouble_for": "Awaria / dostępność przez",
-    "field_trouble_for_do": "Zmiana statusu przez",
-    "field_trouble_end_for": "Brak awarii / dostępność przez",
-    "field_trouble_end_for_do": "Brak zmiany statusu przez",
-    "send_label": "wysyłaj",
-    "field_above": "Większa niż",
-    "field_below": "Mniejsza niż",
-    "for_label": "przez",
-    "state_for_desc": "W odróżnieniu od zbocza, które reaguje od razu na każdą zmianę, „Stan … przez” działa na stanie ustalonym: czas zawsze decyduje, kiedy stan uznajemy za ustalony (nieprzerwane trwanie; krótki impuls nic nie zmienia), a pole „wysyłaj” tylko, czy przy ustaleniu wysłać wiadomość. Puste pole = 0 ms.",
-    "trouble_for_desc": "Czas zawsze decyduje, kiedy awaria (albo jej koniec) jest ustalona; „wysyłaj” decyduje tylko o wiadomości. Koniec awarii liczy się tylko po ustalonej awarii; krótki powrót lub zanik nic nie zmienia.",
-    "threshold_for_desc": "Wysyłane raz, gdy wartość utrzymuje się poza progiem przez podany czas. Ponownie uzbrajane po powrocie wartości na dozwoloną stronę. „Limit działań” ogranicza częstotliwość wysyłek.",
-    "send_current_state_desc":"Odznaczone: wysyłane są tylko rzeczywiste zmiany. Po powrocie łączności zmiana, która zaszła w międzyczasie, jest nadal wysyłana.",
+    "field_send_current_state": "Stan bieżący",
+    "send_current_state_desc": "Klocki pluginów (np. MQTT) dostają pełny stan przy starcie programu, po powrocie łączności i po zapisie ustawień. Klocki akcji reagują tylko na zdarzenia z tabeli — także gdy zapis ustawień zmieni stan (np. inwersja).",
+    "ev_col_event": "Zdarzenie",
+    "ev_col_on": "Wł.",
+    "ev_col_time": "Po utrzymaniu przez",
+    "ev_rise": "Zmiana 0→1",
+    "ev_fall": "Zmiana 1→0",
+    "ev_trouble_start": "Początek awarii",
+    "ev_trouble_end": "Koniec awarii",
+    "ev_value_change": "Zmiana wartości o ≥",
+    "ev_above": "Powyżej",
+    "ev_below": "Poniżej",
+    "ev_trouble_hint_do": "Dla wyjścia: konflikt, brak sterowania albo niedostępne źródło.",
+    "ev_trouble_end_hint": "Liczony tylko po awarii trwającej co najmniej czas z wiersza Początek awarii (także gdy ten wiersz jest wyłączony).",
+    "ev_table_note": "Każde zdarzenie wyzwala najwyżej raz. Dwie różne reakcje na tę samą zmianę (np. od razu i po 30 s) — dwa wyzwalacze.",
+    "time_at_once": "od razu",
+    "decimal_separator": ",",
+    "tag_after": "po",
+    "tag_every": "co",
+    "when_prefix": "Wykona się, gdy:",
+    "when_or": " albo ",
+    "when_never": "nigdy (wyzwalacz nie ma włączonych zdarzeń)",
+    "when_hold": " (po {time})",
+    "when_for": " przez {time}",
+    "subject": {
+      "di": "wejście",
+      "do": "wyjście",
+      "ti": "temperatura",
+      "ar": "obszar"
+    },
+    "when": {
+      "rise": "{subject} zmieni się 0→1{hold}",
+      "fall": "{subject} zmieni się 1→0{hold}",
+      "trouble_start": "zacznie się awaria{hold}",
+      "trouble_end": "skończy się awaria{hold}",
+      "value_change": "{subject} zmieni się o ≥ {delta} °C",
+      "above": "{subject} będzie powyżej {limit} °C{for}",
+      "below": "{subject} będzie poniżej {limit} °C{for}",
+      "cyclic": "upłynie kolejne {time} (cyklicznie)",
+      "area_enter": "{subject} wejdzie w stan: {state}",
+      "area_leave": "{subject} wyjdzie ze stanu: {state}"
+    },
+    "kind": {
+      "rise": "zmiana 0→1",
+      "fall": "zmiana 1→0",
+      "trouble_start": "początek awarii",
+      "trouble_end": "koniec awarii",
+      "value_change": "zmiana wartości",
+      "above": "powyżej progu",
+      "below": "poniżej progu",
+      "cyclic": "cyklicznie",
+      "area_state": "zmiana stanu obszaru"
+    },
     "trigger_unused": "(nieużywany)",
     "trigger_no_blocks": "Brak integracji — ten wyzwalacz nic nie wysyła",
     "delete_trigger": "Usuń wyzwalacz",
@@ -1675,20 +1901,11 @@
     "tag_trouble": "awaria",
     "tag_status": "status",
     "field_on_state": "Stan",
-    "field_on_rise": "Zbocze narastające (0→1)",
-    "field_on_fall": "Zbocze opadające (1→0)",
-    "field_on_trouble_di": "Awaria / dostępność",
-    "field_on_trouble_do": "Zmiana statusu",
-    "field_on_trouble_ti": "Awaria",
-    "field_value_delta": "Zmiana wartości o ≥",
     "field_cyclic": "Cyklicznie co",
     "field_limit_actions": "Limit działań",
     "field_min_interval": "Najczęściej co",
-    "unit_secs": "s",
     "unit_ms": "ms",
     "unit_celsius": "°C",
-    "min_interval_hint": "0 = bez ograniczenia",
-    "min_interval_hint_ms": "1000 ms = 1 s",
     "trigger_temp": "Wysyłaj przy każdej zmianie",
     "trigger_temp_desc": "Wyzwalacze do wyboru — wkrótce",
     "add_integration": "＋ Integracja",
@@ -1719,7 +1936,7 @@
     "copy_suffix": "kopia",
     "sec_conditions": "Kiedy wysyłać",
     "sec_rate_limit": "Ograniczenie",
-    "rate_limit_desc": "Po upływie limitu wysyłany jest ostatni stan. 1000 ms = 1 s.",
+    "rate_limit_desc": "Po upływie limitu wysyłany jest ostatni stan.",
     "sec_used_by": "Używany przez ({count})",
     "used_by_empty": "Żaden wyzwalacz nie korzysta z tego szablonu.",
     "builtin_note": "Szablon wbudowany — można go zmieniać, nie można usunąć.",
@@ -1739,11 +1956,7 @@
     "save_as_template_name": "Nazwa szablonu",
     "save_as_template_ok": "Zapisz szablon",
     "save_as_template_lost": "Szablon zapisano, ale nie udało się go podpiąć do wyzwalacza.",
-    "done": "Gotowe",
-    "for_col_state": "Stan ustalony",
-    "for_col_time": "Czas",
-    "for_col_send": "Wyślij po ustaleniu",
-    "for_how": "Jak działają czasy?"
+    "done": "Gotowe"
   },
   "template_fields": {
     "cat_x2iot": "x2iot",
@@ -1862,7 +2075,11 @@
     },
     "trigger_reason": {
       "alias": "wyzwalacz.powod",
-      "desc": "Przyczyna wyzwolenia (rise, fall, trouble, value, cyclic, state_0_for, state_1_for, trouble_for, trouble_for_end, above, below, resend, config)"
+      "desc": "Przyczyna wyzwolenia - pierwsza z listy (trouble_start, trouble_end, rise, fall, value, above, below, cyclic, enter, leave, resend, availability, config)"
+    },
+    "trigger_reasons": {
+      "alias": "wyzwalacz.powody",
+      "desc": "Wszystkie przyczyny jednego wyzwolenia jako lista JSON (np. [\"trouble_start\",\"rise\"])"
     },
     "trigger_id": {
       "alias": "wyzwalacz.id",
