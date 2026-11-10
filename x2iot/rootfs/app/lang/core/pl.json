@@ -2349,6 +2349,8 @@
     "trigger_temp": "Wysyłaj przy każdej zmianie",
     "trigger_temp_desc": "Wyzwalacze do wyboru — wkrótce",
     "add_integration": "＋ Integracja",
+    "add_integration_state": "＋ Integracja — tylko stan",
+    "add_integration_control": "＋ Integracja — stan i sterowanie (panel)",
     "pick_integration": "Wybierz integrację",
     "state_ok": "Działa",
     "state_disabled": "Wyłączony",
