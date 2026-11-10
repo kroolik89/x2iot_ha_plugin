@@ -102,6 +102,8 @@
     "quota_warn_below": "Ostrzeż, gdy zostanie mniej wiadomości w miesiącu niż (0 = nie ostrzegaj)",
     "quota_warn_message": "Wiadomość ostrzegawcza o kończącym się limicie Pushover (puste = nie wysyłaj)",
     "quota_warn_placeholder": "Uwaga, kończą Ci się darmowe wiadomości Pushover",
+    "availability_check": "Sprawdzaj co jakiś czas, czy Pushover jest osiągalny (odświeża też miesięczny limit)",
+    "availability_interval_s": "Odstęp między sprawdzeniami [s] (60-86400)",
     "save": "Zapisz",
     "send_test": "Wyślij test",
     "test_queued_success": "Wiadomość testowa w kolejce ({time}); wynik w dzienniku.",
@@ -237,6 +239,10 @@
     "test_refused": "Test niewysłany",
     "test_refused_desc": "Brak tokenu lub klucza użytkownika",
     "config_saved": "Ustawienia zapisane",
-    "config_saved_desc": "Zaktualizowano ustawienia Pushover"
+    "config_saved_desc": "Zaktualizowano ustawienia Pushover",
+    "unreachable": "Pushover nieosiągalny",
+    "unreachable_desc": "Okresowe sprawdzenie nie połączyło się z Pushover ({reason})",
+    "reachable": "Pushover znów osiągalny",
+    "reachable_desc": "Okresowe sprawdzenie połączyło się z Pushover"
   }
 }

@@ -1,0 +1,90 @@
+{
+  "_meta": { "language_name": "Polski" },
+  "group": {
+    "input": "Wejścia GPIO",
+    "output": "Wyjścia GPIO",
+    "output_control": "Sterowanie wyjść GPIO"
+  },
+  "action": {
+    "on": "Włącz",
+    "off": "Wyłącz",
+    "toggle": "Przełącz"
+  },
+  "issue": {
+    "pin_busy": {
+      "title": "GPIO{bcm} ({name}) jest zajęty przez „{consumer}”",
+      "hint": "Jądro oddało tę linię innemu sterownikowi (UART, I2C, SPI, 1-Wire albo innemu programowi), więc x2iot nie może jej użyć. Zwolnij linię (np. w config.txt) albo usuń pin; pozostałe piny działają."
+    }
+  },
+  "warning": {
+    "alt_function": "GPIO{bcm} może pełnić funkcję „{function}”. Jeśli system jej używa, pin nie będzie działał.",
+    "line_busy": "GPIO{bcm} jest zajęty w jądrze przez „{consumer}”. Pin zostaje zapisany, ale zadziała dopiero po zwolnieniu linii."
+  },
+  "alt": {
+    "uart": "UART (port szeregowy)",
+    "i2c": "I2C",
+    "spi": "SPI",
+    "one_wire": "1-Wire",
+    "id_eeprom": "EEPROM identyfikacyjny HAT"
+  },
+  "tabs": { "pins": "Piny" },
+  "pins": {
+    "title": "Skonfigurowane piny",
+    "btn": { "add": "Dodaj pin" },
+    "act": { "edit": "Edytuj", "remove": "Usuń" },
+    "remove_confirm": "Usunąć ten pin? Elementy, które go używają, przestaną dostawać jego stan.",
+    "empty": {
+      "text": "Nie skonfigurowano jeszcze żadnych pinów.",
+      "hint": "Przyciskiem „Dodaj pin” wybierz linię złącza 40-pin i użyj jej jako wejścia lub wyjścia."
+    }
+  },
+  "col": {
+    "gpio": "GPIO (BCM)",
+    "physical": "Pin na złączu",
+    "name": "Nazwa",
+    "direction": "Kierunek",
+    "bias": "Rezystor podciągający",
+    "debounce": "Odbijanie",
+    "active_low": "Aktywny niskim",
+    "restore_last": "Przywróć ostatni stan",
+    "state": "Stan",
+    "busy_by": "Zajęty przez"
+  },
+  "unit": { "ms": "ms" },
+  "common": { "yes": "tak", "no": "nie" },
+  "state": { "on": "ON", "off": "OFF", "unknown": "?" },
+  "direction": { "in": "wejście", "out": "wyjście" },
+  "bias": { "none": "brak", "up": "do plusa", "down": "do masy" },
+  "badge": {
+    "busy": "⛔ zajęty przez inny sterownik",
+    "alt": {
+      "uart": "⚠ UART",
+      "i2c": "⚠ I2C",
+      "spi": "⚠ SPI",
+      "one_wire": "⚠ 1-Wire",
+      "id_eeprom": "⚠ EEPROM HAT"
+    }
+  },
+  "dialog": {
+    "pin_add": { "title": "Dodaj pin" },
+    "pin_edit": { "title": "Ustawienia pinu" }
+  },
+  "form": {
+    "pin": {
+      "bcm": "Pin",
+      "bcm_help": "Numer GPIO i pin złącza. ⚠ = pin może pełnić też inną funkcję (pin i tak się zapisze, a znacznik zostaje na liście); 🔒 = jądro oddało linię innemu sterownikowi, więc zadziała dopiero po jej zwolnieniu.",
+      "name": "Nazwa",
+      "name_placeholder": "Domyślnie: numer GPIO i pin złącza",
+      "direction": "Kierunek",
+      "bias": "Rezystor podciągający",
+      "bias_help": "Tylko dla wejścia: utrzymuje linię na znanym poziomie, gdy nic jej nie napędza.",
+      "debounce": "Odbijanie (ms)",
+      "debounce_help": "Zmiany krótsze niż ten czas są pomijane (0 do 1000 ms).",
+      "active_low": "Aktywny niskim (odwrócony)",
+      "active_low_help": "Stan logiczny jest przeciwieństwem poziomu linii. Element, który używa pinu, może go odwrócić jeszcze raz; oba odwrócenia się znoszą.",
+      "restore_last": "Przywróć ostatni stan po restarcie Raspberry Pi",
+      "restore_last_help": "Tylko dla wyjścia."
+    }
+  },
+  "notice": { "pin_saved": "Pin zapisany ({time}). Znacznik na liście pokazuje, gdy pin ma inną funkcję albo jest zajęty przez inny sterownik." }
+}

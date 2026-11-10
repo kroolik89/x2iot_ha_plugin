@@ -1,0 +1,64 @@
+{
+  "_meta": { "language_name": "Polski" },
+  "group": {
+    "thermometers": "Termometry 1-Wire"
+  },
+  "issue": {
+    "sensor_fault": {
+      "title": "Nie można odczytać termometru {name} ({id})",
+      "hint": "Odczyt się nie udał: {error}. Sprawdź okablowanie i rezystor podciągający 4,7 kΩ magistrali 1-Wire; termometr, który zniknął z magistrali, jest odczytywany ponownie, gdy tylko wróci."
+    }
+  },
+  "tabs": { "sensors": "Termometry" },
+  "sensors": {
+    "title": "Termometry",
+    "act": { "rename": "Zmień nazwę", "remove": "Usuń" },
+    "remove_confirm": "Usunąć ten termometr, którego nie ma na magistrali? Elementy, które go używają, stracą źródło. Jeśli wróci, zostanie dodany od nowa, bez nazwy.",
+    "empty": {
+      "text": "Nie znaleziono jeszcze żadnych termometrów.",
+      "hint": "Podłącz DS18B20 do magistrali 1-Wire i użyj „Szukaj teraz”; nowe termometry dopisują się automatycznie."
+    }
+  },
+  "col": {
+    "id": "Identyfikator",
+    "name": "Nazwa",
+    "family": "Typ",
+    "temperature": "Temperatura",
+    "read_at": "Ostatni odczyt",
+    "status": "Stan"
+  },
+  "family": { "28": "DS18B20", "10": "DS18S20", "22": "DS1822", "other": "inny termometr" },
+  "status": {
+    "label": "Magistrala 1-Wire",
+    "detail": "Szczegóły",
+    "ok": "odczyt poprawny",
+    "waiting": "jeszcze bez odczytu",
+    "connected": "magistrala działa",
+    "starting": "uruchamianie",
+    "no_w1_bus": "brak magistrali 1-Wire: włącz ją przez dtoverlay=w1-gpio w config.txt (albo w raspi-config) i zrestartuj Raspberry Pi",
+    "error": "błąd magistrali"
+  },
+  "error": {
+    "crc_error": "błąd sumy kontrolnej (sprawdź okablowanie i rezystor podciągający)",
+    "sensor_gone": "nie ma go na magistrali",
+    "empty_frame": "czujnik nie odpowiada (zasilanie lub linia danych wyłączone)",
+    "read_failed": "nie można odczytać czujnika",
+    "no_value": "odczyt bez temperatury",
+    "power_on_reset": "dopiero włączony, jeszcze nie mierzył",
+    "other": "błąd odczytu"
+  },
+  "settings": {
+    "title": "Magistrala i odczyt",
+    "save": "Zapisz",
+    "scan": "Szukaj teraz"
+  },
+  "dialog": { "sensor_edit": { "title": "Zmień nazwę termometru" } },
+  "form": {
+    "sensor": { "name": "Nazwa", "name_placeholder": "Domyślnie: identyfikator czujnika" },
+    "period": {
+      "label": "Okres odczytu (s)",
+      "help": "Jak często odczytywany jest każdy termometr, 5 do 3600 sekund."
+    }
+  },
+  "notice": { "scan_started": "Szukanie uruchomione ({time}). Lista odświeży się za chwilę." }
+}

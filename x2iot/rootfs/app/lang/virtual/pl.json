@@ -1,0 +1,47 @@
+{
+  "_meta": { "language_name": "Polski" },
+  "group": {
+    "state": "Stan elementu wirtualnego",
+    "control": "Sterowanie elementu wirtualnego"
+  },
+  "action": {
+    "on": "Włącz",
+    "off": "Wyłącz",
+    "toggle": "Przełącz",
+    "on_for": "Włącz na czas"
+  },
+  "action_desc": {
+    "on_for": "Włącza teraz i wyłącza po podanym czasie. Kolejne włączenie w trakcie odlicza od nowa. Dokładność to kilka milisekund; urządzenie dalej w łańcuchu może być wolniejsze."
+  },
+  "action_param": {
+    "ms": "Czas"
+  },
+  "action_unit": {
+    "ms": "ms"
+  },
+  "tabs": {
+    "elements": "Elementy wirtualne"
+  },
+  "elements": {
+    "title": "Elementy wirtualne",
+    "btn": { "add": "Dodaj element" },
+    "col": { "number": "ID", "name": "Nazwa", "state": "Stan", "used_by": "Używany przez" },
+    "act": { "on": "Włącz", "off": "Wyłącz", "toggle": "Przełącz", "rename": "Zmień nazwę", "remove": "Usuń" },
+    "remove_confirm": "Usunąć element wirtualny „{name}”?",
+    "empty": {
+      "text": "Brak elementów wirtualnych",
+      "hint": "Dodaj element, a potem użyj go jako źródła wejścia lub wyjścia."
+    }
+  },
+  "state": {
+    "on": "Włączony",
+    "off": "Wyłączony"
+  },
+  "dialog": {
+    "element_add": { "title": "Dodaj element wirtualny" },
+    "element_edit": { "title": "Zmień nazwę elementu wirtualnego" }
+  },
+  "form": {
+    "element": { "name": "Nazwa" }
+  }
+}

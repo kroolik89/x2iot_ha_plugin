@@ -97,7 +97,9 @@
     "state_file_error": "Integration State File Error",
     "state_file_error_desc": "Error reading integration state file: {error}",
     "message_received": "Message",
-    "message_received_desc": "{message}",
+    "message_received_desc": "{number} · {element} · {reason}",
+    "message_received_value_desc": "{number} · {element} · {reason}: {value}",
+    "message_received_change_desc": "{number} · {element} · {reason}: {prev_value} → {value}",
     "connected": "Connected to broker",
     "disconnected": "Disconnected",
     "connection_lost": "Connection lost",
@@ -141,7 +143,9 @@
     "do": "MQTT / Home Assistant",
     "template_id": "Template",
     "unique_id_custom": "Custom unique_id",
-    "unique_id": "unique_id identifier (will be prefixed with x2iot_<id>_i<nr>_)"
+    "unique_id": "unique_id identifier (will be prefixed with x2iot_<id>_i<nr>_)",
+    "element_fields": "User-defined fields sent with the state (entity attributes in Home Assistant)",
+    "element_fields_none": "There are no user-defined fields for this kind of element (Settings → Elements → User-defined fields)."
   },
   "template_fields": {
     "cat_mqtt": "MQTT Integration",

@@ -41,6 +41,8 @@
     "di_binary_sensor": "Czujnik binarny (HA)",
     "ti_temperature": "Temperatura (HA)",
     "do_switch_state": "Stan przełącznika (HA)",
+    "di_event": "Zdarzenie wejścia (HA)",
+    "do_event": "Zdarzenie wyjścia (HA)",
     "doc_switch": "Przełącznik sterujący (HA)"
   },
   "info": {
@@ -98,7 +100,9 @@
     "state_file_corrupt": "Plik stanu integracji jest uszkodzony",
     "state_file_corrupt_hint": "Zaczęto od pustego stanu. Wpis zniknie po zapisaniu nowego pliku stanu; encje z Discovery mogą pojawić się w „nieużywanych”.",
     "unknown_template": "{name}: klocek MQTT używa szablonu „{template}”, który nie istnieje - nic z tego klocka nie zostanie opublikowane",
-    "unknown_template_hint": "Wybierz w klocku istniejący szablon albo przywróć usunięty (okno MQTT → Szablony). Wpis zniknie sam po poprawie."
+    "unknown_template_hint": "Wybierz w klocku istniejący szablon albo przywróć usunięty (okno MQTT → Szablony). Wpis zniknie sam po poprawie.",
+    "field_name_reserved": "{name}: pole dedykowane „{field}” ma nazwę zajętą przez stan encji - nie zostanie wysłane",
+    "field_name_reserved_hint": "Zmień nazwę pola w Ustawienia → Elementy → Pola dedykowane (zajęte nazwy: {reserved}) albo odznacz je w klocku. Wpis zniknie sam po poprawie."
   },
   "log": {
     "category_connection": "Połączenie",
@@ -110,7 +114,9 @@
     "state_file_error": "Błąd pliku stanu integracji",
     "state_file_error_desc": "Błąd odczytu pliku stanu integracji: {error}",
     "message_received": "Komunikat",
-    "message_received_desc": "{message}",
+    "message_received_desc": "{number} · {element} · {reason}",
+    "message_received_value_desc": "{number} · {element} · {reason}: {value}",
+    "message_received_change_desc": "{number} · {element} · {reason}: {prev_value} → {value}",
     "command_received": "Polecenie",
     "command_received_desc": "{number} polecenie {output} → {command}",
     "command_retained_ignored": "Zignorowano polecenie retain",
@@ -164,12 +170,16 @@
     "di": "MQTT / Home Assistant",
     "ti": "MQTT / Home Assistant",
     "do": "MQTT / Home Assistant",
+    "di_event": "Zdarzenie HA (przycisk)",
+    "do_event": "Zdarzenie HA (przycisk wyjścia)",
     "doc": "MQTT / Home Assistant (sterowanie)",
     "ar": "MQTT / Home Assistant (stan obszaru)",
     "arc": "MQTT / Home Assistant (panel alarmowy)",
     "template_id": "Szablon",
     "unique_id_custom": "Własny unique_id",
-    "unique_id": "Identyfikator unique_id (zostanie poprzedzony x2iot_<id>_i<nr>_)"
+    "unique_id": "Identyfikator unique_id (zostanie poprzedzony x2iot_<id>_i<nr>_)",
+    "element_fields": "Pola dedykowane wysyłane ze stanem (atrybuty encji w Home Assistant)",
+    "element_fields_none": "Brak pól dedykowanych dla tego rodzaju elementu (Ustawienia → Elementy → Pola dedykowane)."
   },
   "template_warning": {
     "doc_state_static": "Treść stanu nie ma pola zmieniającego się po odrzuconym poleceniu (komunikat.numer, komunikat.odmowa_czas lub komunikat.odmowa_powod). Po odmowie Home Assistant nie zobaczy zmiany i przełącznik może zostać w złym położeniu."

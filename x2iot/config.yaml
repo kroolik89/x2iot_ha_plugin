@@ -1,5 +1,5 @@
 name: "X2IOT Gateway"
-version: "1.5.32"
+version: "1.5.33"
 slug: "x2iot"
 description: "IoT Integration Platform - Satel Integra, MQTT i wiecej"
 url: "https://github.com/kroolik89/x2iot"
@@ -10,6 +10,12 @@ init: false
 startup: application
 boot: auto
 uart: true
+# GPIO Raspberry Pi: x2iot uses the kernel character device (gpiocdev, uAPI v2), so the chip itself is mapped;
+# `gpio` adds the legacy /sys/class/gpio. RPi 3 / 4 / 5 (current kernels): the header is on gpiochip0.
+# DS18B20 (1-Wire) is read from /sys/bus/w1 (read-only sysfs) - needs dtoverlay=w1-gpio on the host (DOCS.md).
+gpio: true
+devices:
+  - /dev/gpiochip0
 ports:
   "8356/tcp": 8356
 ports_description:
