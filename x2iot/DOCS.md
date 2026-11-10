@@ -24,3 +24,8 @@ Odczyt idzie przez sterownik jądra (`/sys/bus/w1/devices`, tylko do odczytu). M
 4. W x2iot dodaj integrację „1-Wire” — czujniki `28-…` pojawią się same; dodaj je jako temperatury.
 
 Pin 1-Wire należy wtedy do jądra — nie ustawiaj go jako wejścia / wyjścia w integracji GPIO.
+
+## Test wydajności
+W zakładce **Konfiguracja** dodatku ustaw `load_test_secs` (np. `600`) i uruchom dodatek ponownie. Zamiast zwykłej pracy x2iot wykona test na wbudowanych parametrach
+(4000 wejść, 2000 wyjść, 1000 temperatur, 32 obszary, mieszanka wyzwalaczy i akcji) i dopiero potem wystartuje normalnie. Integracje i interfejs w tym czasie nie działają.
+Opcja sama wraca na `0`, więc kolejny start jest już zwykły. Wynik: log dodatku i plik `load_test_*.txt` (strona „Wydajność” w x2iot).

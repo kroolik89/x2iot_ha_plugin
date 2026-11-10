@@ -17,19 +17,23 @@ else
 fi
 
 # Test wydajnosci (opcja dodatku load_test_secs > 0): x2iot robi test zamiast pracy, wynik w logu i w /data/load_test_*.txt,
-# potem zwykly start. Po tescie ustaw load_test_secs = 0 - inaczej test powtorzy sie przy kazdym starcie dodatku.
+# potem zwykly start. Parametry testu (liczby elementow, mieszanka, okresy) sa wbudowane w program - w dodatku tylko czas.
+# Opcja wraca na 0 PRZED testem (API Supervisora), zeby test nie powtarzal sie przy kolejnym starcie - takze gdy dodatek
+# zostanie zatrzymany albo padnie w trakcie testu.
 OPTIONS=/data/options.json
-opt() {
-    jq -r ".$1 // empty" "$OPTIONS" 2>/dev/null
-}
-LOAD_SECS=$(opt load_test_secs)
+LOAD_SECS=$(jq -r ".load_test_secs // empty" "$OPTIONS" 2>/dev/null)
 if [ -n "$LOAD_SECS" ] && [ "$LOAD_SECS" -gt 0 ] 2>/dev/null; then
+    if curl -sSf -X POST \
+        -H "Authorization: Bearer ${SUPERVISOR_TOKEN}" \
+        -H "Content-Type: application/json" \
+        -d '{"options":{"load_test_secs":0}}' \
+        http://supervisor/addons/self/options >/dev/null; then
+        echo "Opcja load_test_secs ustawiona z powrotem na 0 (nastepny start bez testu)."
+    else
+        echo "UWAGA: nie udalo sie ustawic load_test_secs = 0 przez API Supervisora - ustaw recznie w opcjach dodatku."
+    fi
     echo "TEST WYDAJNOSCI: ${LOAD_SECS} s - x2iot nie dziala w tym czasie (integracje i GUI wylaczone)."
-    # Puste zmienne program pomija (wartosci domyslne).
-    X2IOT_LOAD_DI=$(opt load_di) X2IOT_LOAD_DI_PERIOD_MS=$(opt load_di_period_ms) \
-    X2IOT_LOAD_DO=$(opt load_do) X2IOT_LOAD_DO_PERIOD_MS=$(opt load_do_period_ms) \
-    X2IOT_LOAD_TI=$(opt load_ti) X2IOT_LOAD_TI_PERIOD_MS=$(opt load_ti_period_ms) \
-        /app/x2iot-app --load-test "$LOAD_SECS"
+    /app/x2iot-app --load-test "$LOAD_SECS"
     CODE=$?
     # Podsumowanie jeszcze raz na koniec (log dodatku pokazuje koniec, probki co 10 s sa wyzej i w pliku).
     LAST=$(ls -t /data/load_test_*.txt 2>/dev/null | head -1)
@@ -37,7 +41,7 @@ if [ -n "$LOAD_SECS" ] && [ "$LOAD_SECS" -gt 0 ] 2>/dev/null; then
         echo "---------------- podsumowanie: $LAST ----------------"
         sed '/^samples every/,$d' "$LAST"
     fi
-    echo "TEST WYDAJNOSCI zakonczony (kod $CODE). Ustaw load_test_secs = 0 w opcjach dodatku. Start normalnej pracy..."
+    echo "TEST WYDAJNOSCI zakonczony (kod $CODE). Start normalnej pracy..."
 fi
 
 exec /app/x2iot-app
