@@ -44,7 +44,6 @@
       "id_invalid": "Identyfikator instancji musi być poprawnym UUID v4",
       "id_clash": "Ten identyfikator koliduje z inną instancją (pierwsze znaki „{short}” trafiają do tematów MQTT i encji Home Assistanta) — wybierz inny",
       "not_found": "Nie ma takiego x2iot wyniesionego",
-      "already_paired": "x2iot wyniesiony jest sparowany: unieważnij go przed ponownym parowaniem",
       "random_failed": "Systemowy generator losowy zawiódł",
       "save_failed": "Zapis nie powiódł się",
       "not_awaiting": "x2iot wyniesiony nie czeka na potwierdzenie",
@@ -53,6 +52,8 @@
       "bad_link_times": "Czas przełączenia to 1–60 s, czas powrotu 5–3600 s",
       "not_paired": "x2iot wyniesiony nie jest sparowany: tor można dodać tylko do sparowanego",
       "link_exists": "x2iot wyniesiony ma już tor na tej magistrali",
+      "probe_running": "Nowy tor jest właśnie sprawdzany; poczekaj na wynik albo go przerwij.",
+      "no_probe": "Żaden nowy tor nie jest teraz sprawdzany.",
       "no_working_link": "Żaden tor x2iot wyniesionego nie działa: ustawienie musi dojść działającym. Najpierw go połącz.",
       "no_such_bus": "Główny nie ma takiej magistrali",
       "bus_missing": "Karty sieciowej tej magistrali nie ma już w głównym",
@@ -66,7 +67,6 @@
       "bad_order": "Kolejność musi zawierać te same tory co lista",
       "bus_in_use": "Magistrali CAN, na której jest tor, nie można usunąć",
       "bad_code": "Kod ma 8 znaków",
-      "connect_failed": "Nie można połączyć się z głównym pod tym adresem",
       "can_not_found": "Tego x2iot nie słychać na magistrali (ogłoszenia ustały albo przepadły) — odśwież listę",
       "can_busy": "Parowanie po CAN już trwa",
       "can_blocked": "Zbyt wiele błędnych kodów: parowanie tego x2iot wyniesionego jest zablokowane na 10 minut („Odblokuj” w kreatorze)",
@@ -75,11 +75,15 @@
       "link_test_busy": "Test łącza już trwa — poczekaj na jego koniec",
       "link_test_not_connected": "To łącze x2iot wyniesionego nie jest połączone",
       "link_test_unsupported": "Ten x2iot wyniesiony nie umie testu łącza (starsza wersja)",
-      "pairing_locked": "Parowanie jest zablokowane do {until} po zbyt wielu błędnych kodach — użyj „Odblokuj” w kreatorze",
       "can_silent": "Brak odpowiedzi x2iot wyniesionego po CAN w wyznaczonym czasie",
       "bad_instance": "Nieprawidłowy identyfikator instancji",
       "bad_can_speed": "Taka prędkość CAN nie jest na liście",
       "pair_failed": "Parowanie nie powiodło się: sprawdź kod (ważny 10 minut, jednorazowy)",
+      "already_paired_x2iot": "x2iot jest już sparowany",
+      "already_paired_node": "Ten x2iot wyniesiony jest sparowany: najpierw go odłącz",
+      "lan_connect_failed": "x2iot wyniesiony nie odpowiedział pod tym adresem. Sprawdź adres i port, czy pokazuje ważny kod (nasłuchuje na parowanie tylko, gdy kod jest ważny) oraz zaporę",
+      "bad_port": "Port łącza musi być liczbą od 1024 do 65535",
+      "port_paired": "Sparowany x2iot wyniesiony używa portu swojego głównego: najpierw go odłącz, by ustawić jego własny port parowania",
       "keys_foreign_hardware": "Plik klucza powstał na innym sprzęcie (skopiowana karta, wymieniona płytka) i nie da się go tu otworzyć. Na x2iot wyniesionym użyj „Resetuj klucze” i sparuj ponownie; na głównym usuń node_keys/identity.key, uruchom ponownie i sparuj x2iot wyniesione od nowa",
       "rotation_unavailable": "x2iot wyniesiony nie jest teraz połączony: spróbuj, gdy będzie dostępny",
       "rotation_unsupported": "x2iot wyniesiony nie obsługuje wymiany kluczy (ma starszą wersję programu)",
@@ -147,6 +151,22 @@
         "name": "Odrzucono nieznany klucz",
         "details": "Klucz {fingerprint}, adres {ip}"
       },
+      "main_forgot_us": {
+        "name": "Główny nie zna tego x2iot",
+        "details": "Główny trzy razy z rzędu odmówił połączenia: ten x2iot dalej próbuje, ale rzadziej (co minutę)"
+      },
+      "removed_by_main": {
+        "name": "Usunięty przez głównego",
+        "details": "{name} usunął ten x2iot: klucz głównego i tory zapomniano, utworzono nowy kod parowania"
+      },
+      "farewell_confirmed": {
+        "name": "x2iot wyniesiony potwierdził usunięcie",
+        "details": "{node} dostał wiadomość o usunięciu i ją potwierdził"
+      },
+      "farewell_unanswered": {
+        "name": "x2iot wyniesiony nie potwierdził usunięcia",
+        "details": "{node} nie odpowiedział w czasie (przy następnym połączeniu dostanie odmowę)"
+      },
       "link_switched": {
         "name": "Dane przełączyły się na inne łącze",
         "details": "{node}: z {from} na {to} ({reason})"
@@ -162,6 +182,14 @@
       "link_bus_refused": {
         "name": "Odrzucono sesję z nieznanej karty",
         "details": "{node} przyszedł przez LAN {bus} ({ip}), żaden tor z jego listy nie pasuje"
+      },
+      "link_probe_ok": {
+        "name": "Nowy tor działa i został zachowany",
+        "details": "Tor {link}"
+      },
+      "link_probe_failed": {
+        "name": "Nowy tor nie nawiązał połączenia i został wycofany",
+        "details": "Tor {link}, powód: {reason}"
       },
       "link_removed": {
         "name": "Usunięto tor x2iot wyniesionego",
@@ -254,6 +282,18 @@
       "code_created": {
         "name": "Utworzono kod parowania",
         "details": "Kod jest ważny 10 minut"
+      },
+      "pairing_reverted": {
+        "name": "Parowanie cofnięte",
+        "details": "Po parowaniu żadna sesja z głównym się nie nawiązała: ten x2iot wyniesiony zapomniał główny i utworzył nowy kod"
+      },
+      "pairing_probe_failed": {
+        "name": "x2iot nie został dodany",
+        "details": "Pierwsze połączenie nie powstało ({reason}): wpis usunięto z konfiguracji"
+      },
+      "port_changed": {
+        "name": "Zmieniono port łącza",
+        "details": "Port łącza to teraz {port}"
       },
       "keys_reset": {
         "name": "Klucze zresetowane",
@@ -479,7 +519,6 @@
     "no_integrations": "brak integracji",
     "add_node": "+ Dodaj x2iot wyniesiony",
     "pairing_title": "Kod parowania",
-    "pairing_hint": "Wpisz ten kod na x2iot wyniesionym (strona „Urządzenia”). Ważny 10 minut, jednorazowy.",
     "wizard": {
       "title": "Dodaj x2iot wyniesiony",
       "choose": "Jak x2iot wyniesiony ma się połączyć z tym głównym?",
@@ -488,23 +527,13 @@
       "can_off": "Ten x2iot główny nie ma ustawionego interfejsu CAN. Ustaw go w oknie głównego (klik w jego nazwę w drzewie urządzeń, np. can0), potem wróć tutaj.",
       "can_unsupported": "Ten system nie ma obsługi CAN. Użyj LAN albo uruchom x2iot na urządzeniu z CAN.",
       "can_no_interface": "Interfejsu CAN ustawionego na tym głównym nie da się otworzyć (nie istnieje albo jest wyłączony). Sprawdź go w systemie (musi istnieć i być włączony) lub zmień nazwę w oknie głównego.",
-      "can_soon": "Parowanie przez CAN będzie dostępne wkrótce. Na razie sparuj przez LAN — potem x2iot wyniesiony może używać CAN jako łącza zapasowego lub głównego.",
-      "code_title": "Wpisz kod na x2iot wyniesionym",
-      "waiting": "Czekam, aż x2iot wyniesiony wpisze kod…",
       "consent_title": "x2iot „{name}” chce się połączyć",
       "lan_short": "LAN",
       "over_can": "przez CAN {bus}",
-      "can_found_title": "Wykryte x2iot wyniesione na CAN {bus}",
-      "can_none_found": "Nasłuchuję… Nie słychać żadnego x2iot. Wyniesiony x2iot musi być niesparowany i mieć ustawiony interfejs CAN (strona Urządzenia).",
-      "can_pick": "Wybierz",
       "locked": "Parowanie zablokowane do {time} po {tries} błędnych kodach",
       "can_node_locked": "zablokowany do {time} — odblokuj na tym x2iot (strona Urządzenia)",
       "can_main_locked": "Parowanie zablokowane do {time} po 3 błędnych kodach",
-      "can_code_title": "Wpisz kod pokazany na x2iot wyniesionym ({id}, odcisk {fingerprint}…, wersja {version})",
-      "can_code": "Kod wyniesionego",
-      "can_pair": "Paruj",
       "can_back": "Wstecz",
-      "can_pairing": "Parowanie po CAN…",
       "key_fingerprint": "Odcisk klucza",
       "consent_question": "Czy wyrażasz zgodę?",
       "consent_main_fingerprint": "Odcisk tego głównego (porównaj na x2iot wyniesionym)",
@@ -542,7 +571,7 @@
       "primary_title": "Łącze główne",
       "add": "＋ Dodaj",
       "add_title": "Dodaj tor: LAN albo CAN",
-      "add_choose": "Jakim torem x2iot wyniesiony ma się jeszcze łączyć?",
+      "no_nodes": "Brak x2iot wyniesionych",
       "add_lan_soon": "Dodawanie drugiego toru LAN do sparowanego x2iot wyniesionego będzie dostępne wkrótce (bez ponownego parowania). Na razie tor LAN powstaje przy parowaniu.",
       "add_can_soon": "Dodawanie toru CAN do sparowanego x2iot wyniesionego będzie dostępne wkrótce (bez ponownego parowania).",
       "more": "… jeszcze {count}",
@@ -557,7 +586,6 @@
       "bus_unsupported": "{bus}: ten system nie obsługuje CAN ({interface})",
       "bus_missing": "{bus}: brak karty {interface}"
     },
-    "buses_title": "Magistrale głównego",
     "buses_hint": "LAN 1, LAN 2 … to karty sieciowe głównego, CAN 1, CAN 2 … to jego interfejsy CAN. Numery są stałe; nazwa jest opcjonalna. Numer w gnieździe x2iot wyniesionego to magistrala głównego.",
     "bus_name": "nazwa (opcjonalnie)",
     "bus_add_can": "＋ Interfejs CAN",
@@ -597,18 +625,94 @@
     "failover_secs": "Przełącz na następny tor po (s bez wiadomości)",
     "return_secs": "Wróć na lepszy tor po (s jego stabilnej pracy)",
     "add_link": {
-      "choose_bus": "Wybierz magistralę głównego.",
       "no_can_on_node": "Wybierz interfejs CAN x2iot wyniesionego (jeśli lista jest pusta, nie zgłosił żadnego).",
-      "main_bus": "Magistrala głównego",
       "node_can": "Interfejs CAN x2iot wyniesionego",
-      "node_card": "Karta sieciowa x2iot wyniesionego",
-      "main_address": "Adres głównego (opcjonalnie)",
-      "main_address_hint": "puste = adres karty głównego; wpisz dla toru przez router",
-      "connected": "Połączone: {link}, {ms} ms",
-      "no_answer_can": "Brak odpowiedzi: sprawdź kabel i terminację magistrali oraz prędkość interfejsu po obu stronach.",
-      "no_answer_lan": "Brak odpowiedzi: brak trasy do głównego z tej karty (inna sieć?) albo zapora blokuje port łącza.",
-      "waiting": "Czekam na połączenie…"
+      "subtitle": "{name} ({id}) · dziś: {links}",
+      "kind": "Rodzaj toru",
+      "kind_lan_hint": "Sieć, TCP 8357",
+      "kind_can_hint": "Magistrala, kabel",
+      "main_card": "Karta głównego",
+      "internal": "(sieć wewnętrzna)",
+      "internal_warning": "x2iot wyniesiony tej karty nie zobaczy (sieć wewnętrzna maszyny). Wybierz inną.",
+      "node_address": "Adres x2iot wyniesionego",
+      "reported": "(zgłoszona)",
+      "manual": "Wpisz adres ręcznie…",
+      "manual_hint": "Adres IP albo nazwa hosta, np. Tailscale lub inna podsieć.",
+      "manual_placeholder": "100.64.12.7",
+      "address_required": "Wpisz adres IP albo nazwę hosta.",
+      "address_invalid": "To nie jest adres IP ani nazwa hosta (bez spacji, ukośników i protokołu).",
+      "advanced": "Zaawansowane",
+      "main_address_seen": "Adres głównego widziany z wyniesionego",
+      "main_address_seen_hint": "Tylko przy NAT albo przekierowaniu portu; puste = adres wybranej karty.",
+      "main_can": "Magistrala głównego",
+      "node_can_hint": "Prędkość wyniesiony przejmie z magistrali głównego.",
+      "no_free_bus": "Każda magistrala głównego ma już tor tego x2iot.",
+      "summary_lan": "Tor: {name} {address} → główny {main}",
+      "summary_can": "Tor: {name} {interface} → główny {bus}",
+      "footnote": "Kolejność torów zmienisz na liście torów.",
+      "cancel": "Anuluj"
     },
+    "pair": {
+      "steps": {
+        "link": "Tor",
+        "node": "Wyniesiony",
+        "code": "Kod",
+        "connect": "Łączenie"
+      },
+      "unnamed": "(bez nazwy)",
+      "node_title_lan": "x2iot wyniesione odpowiadające na {bus}",
+      "node_title_can": "x2iot wyniesione słyszane na {bus}",
+      "node_hint": "Na liście są tylko x2iot wyniesione z ważnym kodem: na swojej stronie Urządzenia pokazują kod („Ustaw jako x2iot wyniesiony” albo „Nowy kod”; kod jest ważny 10 minut).",
+      "node_none": "Szukam… żaden x2iot wyniesiony jeszcze nie odpowiedział.",
+      "locked_until": "zablokowany do {time}",
+      "manual": "Wpisz adres ręcznie…",
+      "manual_label": "Adres x2iot wyniesionego",
+      "manual_placeholder": "10.0.0.5 albo garaz.local:8357",
+      "manual_hint": "Adres IP albo nazwa hosta, opcjonalnie z portem (:8357). x2iot wyniesiony musi pokazywać ważny kod.",
+      "code_title": "Kod x2iot {name}",
+      "code_hint": "Wpisz kod pokazany na stronie Urządzenia tego x2iot wyniesionego (ważny 10 minut, działa raz).",
+      "code_label": "Kod (8 znaków)",
+      "code_pair": "Sparuj",
+      "code_pairing": "Parowanie…",
+      "connect_limit": "x2iot zostanie dodany tylko, gdy działa (limit {limit} s).",
+      "reason": {
+        "timeout_lan": "x2iot wyniesiony nie połączył się w {limit} s. Nic nie zapisano. Sprawdź, czy adres tego głównego jest dla niego osiągalny (router, zapora, port 8357) — x2iot wyniesiony ma nowy kod.",
+        "timeout_can": "x2iot wyniesiony nie odpowiedział na CAN w {limit} s. Nic nie zapisano. Sprawdź kabel, terminację magistrali i prędkość — x2iot wyniesiony ma nowy kod.",
+        "handshake_stuck": "Połączenie otwarto, ale klucze nie zostały uzgodnione w czasie. Nic nie zapisano — x2iot wyniesiony ma nowy kod.",
+        "cancelled": "Przerwano. Nic nie zapisano — x2iot wyniesiony ma nowy kod.",
+        "gone": "Wpis x2iot został w międzyczasie usunięty.",
+        "rejected": "x2iot wyniesiony został odrzucony. Nic nie zapisano — x2iot wyniesiony ma nowy kod."
+      }
+    },
+    "node_code_port": "Dopóki kod jest ważny, ten x2iot nasłuchuje na parowanie na porcie {port}.",
+    "node_code_hint": "Wybierz ten x2iot w kreatorze „Dodaj x2iot wyniesiony” na głównym (LAN albo CAN) i wpisz kod. Działa raz; jest też w pliku node_keys/pairing_code.txt.",
+    "node_code_none": "Bez ważnego kodu ten x2iot milczy: nie ogłasza się na CAN, nie odpowiada na wyszukiwanie, a jego port parowania jest zamknięty.",
+    "probe": {
+      "title": "Łączenie…",
+      "limit": "Tor zostanie zapisany tylko, gdy działa (limit {limit} s).",
+      "abort": "Przerwij",
+      "step": {
+        "sending": "Wysyłam ustawienie do x2iot wyniesionego…",
+        "waiting_lan": "Czekam, aż x2iot wyniesiony połączy się z {address}…",
+        "waiting_can": "Czekam na odpowiedź na {link}…",
+        "handshake": "Uzgadniam klucze…"
+      },
+      "reason": {
+        "timeout_lan": "Brak odpowiedzi w {limit} s. Tor nie został zapisany. Sprawdź adres, trasę i zaporę (czy port 8357 głównego jest otwarty?) oraz czy to na pewno ten x2iot.",
+        "timeout_can": "x2iot wyniesiony nie odpowiedział na CAN w {limit} s. Tor nie został zapisany. Sprawdź kabel, terminację magistrali, prędkość i czy interfejs CAN x2iot wyniesionego jest włączony.",
+        "handshake_stuck": "Połączenie się otworzyło, ale klucze nie zostały uzgodnione w czasie (inny klucz? to może nie być ten x2iot). Tor nie został zapisany.",
+        "cancelled": "Przerwano. Tor nie został zapisany.",
+        "gone": "Tor albo x2iot wyniesiony został w międzyczasie usunięty.",
+        "rejected": "x2iot wyniesiony został odrzucony. Tor nie został zapisany."
+      }
+    },
+    "links": {
+      "title_can": "Łącze CAN",
+      "title_mixed": "Łącza z głównym"
+    },
+    "last_seen": "ostatnio {ms} ms, {ago} temu",
+    "last_seen_no_delay": "ostatnia wiadomość {ago} temu",
+    "link_counters": "Szczegóły",
     "pairing_left": "Pozostało: {time}",
     "pairing_expired": "Kod wygasł. Wygeneruj nowy.",
     "new_code": "Nowy kod",
@@ -620,15 +724,12 @@
     "lan_link": "Łącze LAN",
     "can_link": "Łącze CAN FD",
     "can_none": "— (brak)",
-    "can_card": "CAN",
     "unlock": "Odblokuj",
     "can_locked": "Parowanie zablokowane do {time} ({tries} błędne kody)",
     "can_card_interface": "Interfejs CAN",
     "can_save": "Zapisz CAN",
     "bus_speed": "Prędkość magistrali (arbitraż / dane)",
     "can_speed_locked": "Łącze LAN z głównym działa: prędkość magistrali CAN ustawia główny (tu tylko do odczytu).",
-    "can_pair_code": "Kod parowania po CAN:",
-    "can_pair_code_hint": "Wpisz go w kreatorze na głównym x2iot (Dodaj x2iot wyniesiony → CAN). Kod jest jednorazowy; jest też w pliku node_keys/pairing_code.txt obok konfiguracji.",
     "link_role": { "primary": "główne", "backup": "zapasowe" },
     "link_active": "aktywne",
     "can_state": {
@@ -648,7 +749,6 @@
     "can_frames": "Ramki: wysłane {sent}, odebrane {received}",
     "can_errors": "duplikaty {duplicates}, błędy znacznika {tag}, za stare {old}, błędy magistrali {bus}, kawałki powtórzone {repeats}, przerwane wiadomości {aborts}",
     "can_interface": "Interfejs CAN",
-    "can_interface_hint": "Np. can0 lub vcan0; puste = CAN wyłączony.",
     "can_interface_save": "Zapisz interfejs",
     "can_hw": {
       "title": "Sprzęt CAN",
@@ -729,7 +829,18 @@
       "awaiting_confirmation": "czeka na potwierdzenie",
       "connected": "połączony",
       "lost": "łącze utracone",
-      "rejected": "odrzucony"
+      "rejected": "odrzucony",
+      "title": "Połączenia tej instancji",
+      "choose": "— wybierz —",
+      "not_detected": "(nie wykryto)",
+      "no_can_detected": "Nie wykryto interfejsu CAN — zobacz Sprzęt CAN",
+      "internal": "sieć wewnętrzna",
+      "link_port": "Port łącza x2iot",
+      "link_port_save": "Zapisz port",
+      "link_port_hint_main": "Port, na którym ten główny nasłuchuje x2iot wyniesionych (domyślnie 8357). Zmiana działa od razu: nowy port się otwiera, stary zostaje otwarty przez dwie minuty, a połączone x2iot wyniesione dostają nowy numer.",
+      "link_port_hint_node": "Port, który ten x2iot wyniesiony otwiera na parowanie, gdy jego kod jest ważny (domyślnie 8357); wyszukiwanie głównego używa tego samego numeru po UDP.",
+      "port_invalid": "Port musi być liczbą od 1024 do 65535.",
+      "can_row_empty": "CAN {row}: wybierz interfejs (albo usuń wiersz); wiersz bez interfejsu nie jest zapisywany."
     },
     "integration_state": {
       "online": "połączona",
@@ -781,10 +892,38 @@
     "connected_to": "Połączony z {address}:{port}",
     "change_address": "Zmień adres",
     "unpair": "Odłącz od x2iot głównego",
+    "main_forgot_us": "Główny nie zna tego x2iot (odmówił połączenia). x2iot dalej próbuje co minutę. Jeśli usunięto go na głównym celowo, kliknij „Zapomnij głównego”.",
+    "forget_main": "Zapomnij głównego",
+    "removed_by_main": "Odłączony przez głównego ({name}, {time})",
+    "net_stats": {
+      "loading": "Odczyt liczników…",
+      "unavailable": "Niedostępne na tym systemie",
+      "no_data": "brak liczników dla tej karty",
+      "reset_view": "Zeruj widok",
+      "reset_hint": "Zmiany są zaznaczone kolorem od otwarcia strony lub od tego przycisku; liczniki systemu nie są ruszane.",
+      "received": "Odebrano",
+      "sent": "Wysłano",
+      "packets_received": "Pakiety odebrane",
+      "packets_sent": "Pakiety wysłane",
+      "errors_rx": "Błędy odbioru",
+      "errors_tx": "Błędy nadawania",
+      "dropped_rx": "Odrzucone (odbiór)",
+      "dropped_tx": "Odrzucone (nadawanie)",
+      "frames_received": "Ramki odebrane",
+      "frames_sent": "Ramki wysłane",
+      "bad_frames": "Błędne ramki",
+      "bus_errors": "Błędy magistrali",
+      "arbitration_lost": "Przegrane arbitraże",
+      "error_warning": "Przejścia w ostrzeżenie",
+      "error_passive": "Przejścia w pasywny",
+      "bus_off": "Przejścia w bus-off",
+      "restarts": "Restarty",
+      "overruns": "Przepełnienia",
+      "bus_load": "Obciążenie magistrali (szacunek)"
+    },
     "unpair_confirm": "Odłączyć od x2iot głównego? Klucz głównego zostanie zapomniany, a ten x2iot wyniesiony będzie dalej pracował na ostatniej konfiguracji. Następne parowanie ją usunie.",
     "awaiting_main_consent": "Czeka na zgodę na x2iot głównym. Porównaj odcisk głównego poniżej z pokazanym na głównym.",
     "pair_warning": "Poprzednia konfiguracja tego x2iot (integracje, elementy, szablony) zostanie usunięta — konfigurację przyśle główny.",
-    "pair_confirm": "Sparować z tym głównym? Poprzednia konfiguracja tego x2iot (integracje, elementy, szablony, pliki integracji) zostanie usunięta, a nową przyśle główny. Zostają: adres głównego, ustawienia łączy i CAN, język, wygląd i logi.",
     "advanced": "Zaawansowane",
     "integration_type": "Typ",
     "integration_name": "Nazwa (opcjonalnie)",
@@ -797,9 +936,6 @@
     "main_port": "Port",
     "save_address": "Zapisz adres",
     "saved": "Zapisano",
-    "pair_code": "Kod parowania (8 znaków)",
-    "pair": "Sparuj",
-    "paired_ok": "Sparowano. Teraz wyraź zgodę na x2iot głównym.",
     "reset_keys": "Resetuj klucze",
     "reset_keys_confirm": "Utworzyć nową parę kluczy i zapomnieć klucz głównego? Trzeba będzie sparować od nowa.",
     "next_main_fingerprint": "Nowy odcisk głównego (okres przejściowy)",
@@ -2860,6 +2996,10 @@
     "log_window_resume": "Wznów",
     "log_window_stopped_note": "Widok zatrzymany — nowe wpisy nadal są zapisywane, „Wznów” je wczyta",
     "log_window_not_recorded_note": "Zapis tego dziennika jest wyłączony (Ustawienia → Logi) — nowe wpisy nie są pokazywane",
+    "log_window_node_note": "Logi z {name} — {mode}, od progu {threshold}",
+    "log_window_node_live": "na żywo",
+    "log_window_node_on_demand": "na żądanie",
+    "log_window_node_fetch": "Pobierz logi",
     "log_clear": "Wyczyść widok",
     "log_empty": "Brak zdarzeń w dzienniku",
     "template_field": {
