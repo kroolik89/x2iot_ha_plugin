@@ -66,6 +66,9 @@
       "no_such_link": "Nie ma takiego toru",
       "bad_order": "Kolejność musi zawierać te same tory co lista",
       "bus_in_use": "Używa: {nodes} — najpierw usuń ich tor",
+      "lan_in_use": "Używa: {nodes}",
+      "bad_list_entry": "To nie jest adres IP ani sieć: {entry}",
+      "too_many_entries": "Za dużo wpisów na liście",
       "speed_change_running": "Prędkość tej magistrali jest już zmieniana: poczekaj na koniec zmiany",
       "bad_code": "Kod ma 8 znaków",
       "can_not_found": "Tego x2iot nie słychać na magistrali (ogłoszenia ustały albo przepadły) — odśwież listę",
@@ -167,6 +170,14 @@
       "farewell_unanswered": {
         "name": "x2iot wyniesiony nie potwierdził usunięcia",
         "details": "{node} nie odpowiedział w czasie (przy następnym połączeniu dostanie odmowę)"
+      },
+      "farewell_no_link": {
+        "name": "Nie udało się powiadomić x2iot wyniesionego o usunięciu",
+        "details": "{node} nie miał działającego łącza w czasie oczekiwania (przy następnym połączeniu dostanie odmowę)"
+      },
+      "lan_rejected": {
+        "name": "Połączenia odrzucone przez listy adresów",
+        "details": "{bus}: zamknięto połączeń: {count}, ostatnie z adresu {last}"
       },
       "bus_speed_announced": {
         "name": "Zapowiedziano zmianę prędkości magistrali",
@@ -946,7 +957,26 @@
       "speed_changed": "CAN {bus}: prędkość zmieniona na {speed}",
       "party_acked": "{name}: potwierdził",
       "party_waiting": "{name}: czeka na potwierdzenie…",
-      "party_manual": "{name}: zmień prędkość ręcznie na wyniesionym na {speed}"
+      "party_manual": "{name}: zmień prędkość ręcznie na wyniesionym na {speed}",
+      "accept_title": "Karty przyjmujące x2iot wyniesione",
+      "accept_all": "Przyjmuj x2iot wyniesione na wszystkich kartach",
+      "accept_all_hint": "Także na karcie, która pojawi się później.",
+      "accept_some_hint": "Zaznacz karty, na których główny przyjmuje x2iot wyniesione. Nowa karta nie jest przyjmowana, dopóki jej nie zaznaczysz.",
+      "accept_card": "Przyjmuje x2iot wyniesione",
+      "rejected": "Odrzucone przez listę: {count}",
+      "rejected_title": "Połączenia zamknięte przez listy adresów od startu",
+      "lists_title": "Lista adresów",
+      "lists_hint": "Czarna lista ma pierwszeństwo. Pusta biała lista wpuszcza wszystkich poza czarną.",
+      "list_white": "Biała lista — wpuszczane",
+      "list_black": "Czarna lista — zablokowane",
+      "list_white_empty": "Pusta — wszyscy",
+      "list_black_empty": "Pusta — nikt nie jest blokowany",
+      "list_add": "Dodaj",
+      "list_remove": "Usuń wpis",
+      "bad_entry": "To nie jest adres IP ani sieć (np. 192.168.1.20 lub 192.168.1.0/24)",
+      "irq_disabled": "Przerwanie sterownika CAN wyłączone przez jądro (obsługa co 100 ms)",
+      "irq_storm": "Burza przerwań sterownika CAN",
+      "irq_hint": "Sprawdź pin przerwania — zworka na płytce / interrupt= w nakładce mcp251xfd."
     },
     "unpair_confirm": "Odłączyć od x2iot głównego? Klucz głównego zostanie zapomniany, a ten x2iot wyniesiony będzie dalej pracował na ostatniej konfiguracji. Następne parowanie ją usunie.",
     "awaiting_main_consent": "Czeka na zgodę na x2iot głównym. Porównaj odcisk głównego poniżej z pokazanym na głównym.",
@@ -2033,6 +2063,8 @@
     "node": {
       "keys_unreadable": "Nie można odczytać pliku klucza tej instancji ({file}); łącze x2iot wyniesionych jest wyłączone",
       "foreign_key": "Urządzenie z nieznanym kluczem próbowało połączyć się z łączem x2iot wyniesionych (klucz {fingerprint}, adres {ip})",
+      "can_irq_disabled": "Przerwanie sterownika CAN {interface} zostało wyłączone przez jądro: sterownik jest obsługiwany co 100 ms, więc ramki mają opóźnienie do 100 ms. Sprawdź pin przerwania — zworka na płytce / interrupt= w nakładce mcp251xfd",
+      "can_irq_storm": "Sterownik CAN {interface} zgłasza lawinę przerwań przy małym ruchu. Sprawdź pin przerwania — zworka na płytce / interrupt= w nakładce mcp251xfd",
       "speed_manual": "{node}: zmień ręcznie na wyniesionym prędkość {bus} na {speed} kbit/s (nie potwierdził zmiany)",
       "can_speed_failed": "Nie udało się ustawić prędkości interfejsu CAN {interface} ({reason}). Jeśli usługa nie może zmieniać interfejsu, nadaj jej uprawnienie CAP_NET_ADMIN albo ustaw prędkość narzędziami systemu",
       "pairing_blocked": "Parowanie {node} zatrzymano po zbyt wielu błędnych kodach (ostatnia próba z {ip}); blokada do {until} („Odblokuj” w kreatorze dodawania x2iot wyniesionego)",
