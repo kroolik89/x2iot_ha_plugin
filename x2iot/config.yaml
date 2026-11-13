@@ -1,5 +1,5 @@
 name: "X2IOT Gateway"
-version: "1.5.34"
+version: "1.5.35"
 slug: "x2iot"
 description: "IoT Integration Platform - Satel Integra, MQTT i wiecej"
 url: "https://github.com/kroolik89/x2iot"
@@ -10,6 +10,11 @@ init: false
 startup: application
 boot: auto
 uart: true
+# Remote x2iot (node link): the main listens on 8357 (LAN) and uses the CAN interfaces of the host (can0 ...), so the add-on
+# shares the network of the host; NET_ADMIN lets x2iot set the CAN speed and bring the interface up (netlink).
+host_network: true
+privileged:
+  - NET_ADMIN
 # GPIO Raspberry Pi: x2iot uses the kernel character device (gpiocdev, uAPI v2), so the chip itself is mapped;
 # `gpio` adds the legacy /sys/class/gpio. RPi 3 / 4 / 5 (current kernels): the header is on gpiochip0.
 # DS18B20 (1-Wire) is read from /sys/bus/w1 (read-only sysfs) - needs dtoverlay=w1-gpio on the host (DOCS.md).
