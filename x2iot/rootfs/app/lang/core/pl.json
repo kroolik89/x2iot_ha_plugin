@@ -66,6 +66,7 @@
       "no_such_link": "Nie ma takiego toru",
       "bad_order": "Kolejność musi zawierać te same tory co lista",
       "bus_in_use": "Używa: {nodes} — najpierw usuń ich tor",
+      "can_restart_failed": "Nie udało się uruchomić ponownie kontrolera CAN: {reason}",
       "lan_in_use": "Używa: {nodes}",
       "bad_list_entry": "To nie jest adres IP ani sieć: {entry}",
       "too_many_entries": "Za dużo wpisów na liście",
@@ -104,6 +105,7 @@
     },
     "read_only": "To jest x2iot wyniesiony — konfigurację zmienia się na głównym",
     "read_only_banner": "x2iot wyniesiony — tylko podgląd. Konfigurację zmienia się na głównym.",
+    "transport_failed": "Brak połączenia z serwerem — ponawiam…",
     "error": {
       "unavailable": "x2iot wyniesiony jest teraz niepołączony, więc nie można tego wykonać",
       "update_needed": "x2iot wyniesiony ma starszą wersję programu: zaktualizuj go",
@@ -139,6 +141,22 @@
         "name": "x2iot wyniesiony nie odpowiedział na prośbę o swoją integrację",
         "details": "Integracja {integration}, prośba {name}"
       },
+      "clock_set": {
+        "name": "Zegar tego x2iot wyniesionego ustawiono według głównego",
+        "details": "Różnica {offset_ms} ms, nowy czas {to} (ms od 1970)"
+      },
+      "clock_ntp_off": {
+        "name": "NTP systemu wyłączono",
+        "details": "Opcja „Synchronizuj zegar systemu z głównym” jest włączona"
+      },
+      "clock_ntp_on": {
+        "name": "NTP systemu włączono z powrotem",
+        "details": "Opcja „Synchronizuj zegar systemu z głównym” jest wyłączona"
+      },
+      "catalog_fetch_failed": {
+        "name": "Główny nie pobrał katalogu integracji wyniesionego",
+        "details": "Integracja {integration}: {error}"
+      },
       "command_run": {
         "name": "Polecenie głównego wykonane przez x2iot wyniesiony",
         "details": "Polecenie numer {command_id}, element {element}: {result}"
@@ -154,6 +172,22 @@
       "foreign_key": {
         "name": "Odrzucono nieznany klucz",
         "details": "Klucz {fingerprint}, adres {ip}"
+      },
+      "can_bus_errors": {
+        "name": "Błędne ramki na magistrali CAN",
+        "details": "{interface}: {count} nowych błędnych ramek od ostatniego ostrzeżenia"
+      },
+      "can_bus_state": {
+        "name": "Kontroler CAN zmienił stan",
+        "details": "{interface}: {state} — kontroler widzi dużo błędów (sprawdź przewody, prędkość i czy na magistrali jest drugie urządzenie)"
+      },
+      "can_restarted": {
+        "name": "Kontroler CAN został zrestartowany",
+        "details": "{interface}: restart {count} raz(y) od ostatniego ostrzeżenia"
+      },
+      "lan_errors": {
+        "name": "Błędy na karcie sieciowej",
+        "details": "{interface}: {count} nowych błędnych pakietów od ostatniego ostrzeżenia"
       },
       "main_forgot_us": {
         "name": "Główny nie zna tego x2iot",
@@ -242,6 +276,10 @@
       "can_speed_set": {
         "name": "Ustawiono prędkość interfejsu CAN",
         "details": "Interfejs {interface}: {nominal} / {data} kbit/s"
+      },
+      "can_restarted": {
+        "name": "Kontroler CAN uruchomiony ponownie po BUS-OFF",
+        "details": "Interfejs {interface}"
       },
       "can_chunks_aborted": {
         "name": "Duża wiadomość po CAN porzucona",
@@ -586,6 +624,12 @@
       "flat": "lista",
       "main_name": "{name} (główny)",
       "main_no_can": "⚠ CAN 1: brak interfejsu {interface}",
+      "q_config": "⇣ Konfiguracja: {count}",
+      "q_catalog": "⇡ Katalog i ekrany: {percent} %",
+      "q_events": "⇅ Zdarzenia: {count}",
+      "q_logs": "⇡ Logi: {count}",
+      "q_synced": "✓ zsynchronizowane",
+      "link_silent": "{link}: przez chwilę nic nie nadeszło (sesja trwa, dane mogą iść innym łączem)",
       "integrations_count": { "one": "{count} integracja", "few": "{count} integracje", "many": "{count} integracji" },
       "elements_count": { "one": "{count} element", "few": "{count} elementy", "many": "{count} elementów" },
       "unavailable": "niedostępny",
@@ -915,6 +959,19 @@
       "bus_load": "Obciążenie magistrali (szacunek)"
     },
     "cw": {
+      "clock_title": "Zegar",
+      "clock_offset": "Różnica zegara z głównym: ±{ms} ms",
+      "clock_offset_unknown": "Różnica zegara z głównym: jeszcze nie zmierzona",
+      "clock_ntp_off": "NTP systemu: wyłączony przez x2iot (zegar idzie za głównym)",
+      "clock_ntp_free": "NTP systemu: poza zarządzaniem x2iot",
+      "clock_sync_label": "Synchronizuj zegar systemu z głównym",
+      "clock_sync_help": "NTP tego systemu ma pierwszeństwo, główny jest zapasem: x2iot ustawia zegar według głównego tylko wtedy, gdy NTP jest wyłączone, nie działa albo nie jest zsynchronizowane (a różnica przekracza 1 s). Gdy NTP jest zsynchronizowane, różnica powyżej 1 s jest tylko ostrzeżeniem.",
+      "clock_ntp_off_label": "Wyłącz synchronizację NTP na wyniesionym",
+      "clock_ntp_off_help": "Tylko razem z opcją powyżej. x2iot wyłącza NTP tego systemu, a główny jest jedynym źródłem jego zegara. Odznaczenie włącza NTP z powrotem, jeśli wyłączył je x2iot.",
+      "clock_ntp_synced": "NTP systemu: zsynchronizowane",
+      "clock_ntp_unsynced": "NTP systemu: niezsynchronizowane",
+      "clock_ha": "Na Home Assistant zegar ustawia Home Assistant",
+      "clock_unsupported": "x2iot nie ustawia zegara tego systemu",
       "open": "⚙ Łączność",
       "node_title": "Karty sieciowe i interfejsy CAN tego x2iot wyniesionego (tylko do odczytu)",
       "strip_lan": { "one": "LAN · {count} karta", "few": "LAN · {count} karty", "many": "LAN · {count} kart" },
@@ -939,6 +996,13 @@
       "since_open": "od otwarcia: {delta}",
       "tec_hint": "≥ 96 ostrzeżenie · ≥ 128 pasywny · 256 BUS-OFF",
       "speed": "Prędkość",
+      "hint_title": "Co daje ta prędkość (szacunek)",
+      "hint_full": "Pełne ramki (64 B): {frames100} /s = {kb100} kB/s danych przy 100 % magistrali; {frames30} /s = {kb30} kB/s przy celu 30 % dla ruchu w tle",
+      "hint_state": "Krótkie ramki stanu (8 B): {frames100} /s przy 100 %, {frames30} /s przy 30 %",
+      "hint_cable": "Najdłuższa skrętka, orientacyjnie: {metres} m — orientacyjnie, zależy od kabla, odgałęzień i terminacji",
+      "hint_cable_none": "Najdłuższa skrętka: przy tej prędkości brak zapasu, tylko bardzo krótkie połączenie — orientacyjnie, zależy od kabla, odgałęzień i terminacji",
+      "hint_load": "Przy obecnym ruchu (~{frames} ramek/s) obciążenie wyniosłoby ~{load} %",
+      "hint_load_unknown": "Obecny ruch nie jest jeszcze znany",
       "controller_details": "Szczegóły kontrolera (netlink)",
       "edit": "Edytuj",
       "undo": "Cofnij",
@@ -976,7 +1040,19 @@
       "bad_entry": "To nie jest adres IP ani sieć (np. 192.168.1.20 lub 192.168.1.0/24)",
       "irq_disabled": "Przerwanie sterownika CAN wyłączone przez jądro (obsługa co 100 ms)",
       "irq_storm": "Burza przerwań sterownika CAN",
-      "irq_hint": "Sprawdź pin przerwania — zworka na płytce / interrupt= w nakładce mcp251xfd."
+      "irq_hint": "Sprawdź pin przerwania — zworka na płytce / interrupt= w nakładce mcp251xfd.",
+      "no_free_can_title": "Dodawanie kolejnego CAN",
+      "no_free_can_text": "W tym systemie nie ma innych interfejsów CAN poza używanymi. Aby dodać kolejny, podłącz adapter USB (np. CANable — pojawi się jako can1) albo drugą płytkę CAN (wymaga nakładki mcp251xfd w konfiguracji systemu). Nowy interfejs pojawi się tutaj sam, z przyciskiem „+ Dodaj jako CAN n”.",
+      "no_free_can_text_win": "W tym systemie nie ma innych interfejsów CAN poza używanymi. Aby dodać kolejny, podłącz adapter USB (typu gs_usb lub slcan, np. CANable). Nowy interfejs pojawi się tutaj sam, z przyciskiem „+ Dodaj jako CAN n”.",
+      "state_note": {
+        "error_active": "magistrala działa",
+        "error_degraded": "dużo błędów — np. nikt nie potwierdza ramek (odpięty kabel, brak drugiego urządzenia)",
+        "bus_off_auto": "kontroler wyłączył nadawanie; samoczynny restart za ≤ 60 s — sprawdź przewody i prędkość",
+        "bus_off_manual": "kontroler wyłączył nadawanie; uruchom go przyciskiem — sprawdź przewody i prędkość"
+      },
+      "restart_button": "Restartuj kontroler",
+      "restart_auto": "samoczynny restart za ≤ 60 s (jedyny tor)",
+      "restart_done": "Kontroler uruchomiony ponownie."
     },
     "unpair_confirm": "Odłączyć od x2iot głównego? Klucz głównego zostanie zapomniany, a ten x2iot wyniesiony będzie dalej pracował na ostatniej konfiguracji. Następne parowanie ją usunie.",
     "awaiting_main_consent": "Czeka na zgodę na x2iot głównym. Porównaj odcisk głównego poniżej z pokazanym na głównym.",
@@ -1028,9 +1104,8 @@
     "instance_id_save": "Zapisz identyfikator",
     "instance_id_saved": "Identyfikator zapisany; x2iot wyniesiony dostanie go z najbliższą konfiguracją.",
     "instance_id_warning": "Od identyfikatora zależą tematy MQTT i encje w Home Assistant tego x2iot — po zmianie HA zobaczy nowe encje, stare zostaną jako nieaktywne. Zmienić identyfikator?",
-    "local_settings": "Ustawienia lokalne",
-    "local_language": "Język",
-    "local_look": "Wygląd",
+    "logs_of_main": "Logi: ustawienia jak na głównym ({name}) — zmienisz je na głównym w Ustawienia → Logi.",
+    "logs_of_main_unnamed": "Logi: ustawienia jak na głównym — zmienisz je na głównym w Ustawienia → Logi.",
     "inventory": {
       "title": "System i wtyczki",
       "system": "System:",
@@ -2074,6 +2149,10 @@
       "rotation_finished": "Klucze x2iot wyniesionego {node} zostały wymienione (nowy odcisk {fingerprint})",
       "config_outdated": "{node} wymaga aktualizacji, żeby dostawać konfigurację od głównego (używa starszego protokołu)",
       "instance_id_clash": "{node} zgłosił identyfikator instancji taki sam (w części idącej do tematów MQTT) jak inna instancja — nie został przyjęty. Ustaw mu inny identyfikator na stronie Urządzenia",
+      "clock_no_permission": "Zegara tego x2iot wyniesionego nie można ustawić według głównego: x2iot nie ma prawa zmieniać czasu systemu. Dodaj regułę polkit dla użytkownika usługi x2iot (opis w instrukcji) albo wyłącz opcję",
+      "clock_failed": "Nie udało się ustawić zegara tego x2iot wyniesionego według głównego (szczegóły w dzienniku x2iot wyniesionego)",
+      "clock_no_permission_windows": "Zegara tego x2iot wyniesionego nie można ustawić według głównego: x2iot nie ma prawa zmieniać czasu ani usługi czasu Windows. Uruchom x2iot jako administrator albo jako usługę (LocalSystem) albo wyłącz opcje",
+      "clock_differs": "Zegar tego x2iot wyniesionego różni się od głównego o więcej niż 1 s, choć jego NTP jest zsynchronizowane (NTP ma pierwszeństwo, więc zegara nie ruszono). Sprawdź serwer NTP tego systemu albo wyłącz jego NTP",
       "states_outdated": "{node} wymaga aktualizacji: stany jego elementów nie docierają do głównego, a główny nie może nimi sterować (używa starszego protokołu)",
       "link_switched": "{node}: dane przełączyły się z łącza {from} na łącze {to} ({reason})",
       "config_unsupported": "{node} nie umiał odczytać fragmentów swojej konfiguracji: {count} (zostają zapamiętane i tam nie działają)",
@@ -2745,6 +2824,36 @@
       "disconnected": "Brak połączenia na żywo",
       "load_failed": "Nie udało się wczytać danych o wydajności."
     },
+    "net": {
+      "can_title": "Magistrale CAN",
+      "lan_title": "Karty sieciowe",
+      "range_hour": "Ostatnia godzina",
+      "range_day": "Ostatnie 24 h",
+      "axis_hour": "-1 h",
+      "axis_day": "-24 h",
+      "note": "Rdzeń próbkuje liczniki co 10 s, także gdy ta strona jest zamknięta. Wykres pokazuje średnią (w widoku 24 h — średnią z minuty).",
+      "loading": "Wczytywanie historii…",
+      "can_none": "Brak interfejsów CAN na tym komputerze.",
+      "lan_none": "Brak kart sieciowych.",
+      "no_counters": "System nie podaje liczników dla tej karty.",
+      "load": "Obciążenie magistrali",
+      "frames": "Ramki",
+      "bad_frames": "Błędne ramki",
+      "bad_hour": "w ostatniej godzinie: +{count}",
+      "state": "Kontroler",
+      "tec_rec": "TEC / REC",
+      "speed": "Prędkość",
+      "down": "interfejs wyłączony",
+      "chart_load": "Obciążenie magistrali (szacunek)",
+      "chart_frames": "Ramki na sekundę",
+      "chart_bad": "Błędne ramki na sekundę",
+      "chart_traffic": "Ruch",
+      "received": "Odebrano",
+      "sent": "Wysłano",
+      "bad_packets": "Błędne pakiety",
+      "dropped": "Odrzucone",
+      "bad_packets_chart": "Błędne pakiety na sekundę"
+    },
     "unit": {
       "per_s": "/s",
       "ms": "ms",
@@ -3002,6 +3111,11 @@
       "empty": "(treść pusta)"
     },
     "no_screen": "Brak konfiguracji UI",
+    "remote_loading": "Wczytywanie ekranu z {node}…",
+    "remote_loading_via": "Wczytywanie ekranu z {node} (przez {link})…",
+    "remote_failed": "Nie udało się wczytać ekranu z {node}. Sprawdź łączność z nim i spróbuj ponownie.",
+    "remote_unavailable": "{node} nie przysłał swojego ekranu (brak łączności albo jeszcze się uruchamia). Spróbuj ponownie za chwilę.",
+    "screen_load_failed": "Nie udało się wczytać ekranu.",
     "secret_saved": "zapisany — wpisz nowy, aby zmienić",
     "secret_not_set": "nie ustawiony",
     "confirm": {
