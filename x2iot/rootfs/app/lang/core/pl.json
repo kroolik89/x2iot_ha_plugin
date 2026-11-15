@@ -15,6 +15,10 @@
       "major_too_old": "{node} używa protokołu {node_protocol}, który jest za stary: ten główny obsługuje wersje główne od {min_major} do {max_major} — zaktualizuj x2iot wyniesiony",
       "major_too_new": "{node} używa protokołu {node_protocol}, nowszego niż ten główny ({main_protocol}) — najpierw zaktualizuj główny"
     },
+    "command_route": {
+      "direct": "bezpośrednio od tego x2iot",
+      "main": "przez główny"
+    },
     "command_result": {
       "sent": "wysłane, czekam na x2iot wyniesiony",
       "done": "wykonane przez x2iot wyniesiony",
@@ -52,6 +56,7 @@
       "bad_link_times": "Czas przełączenia to 1–60 s, czas powrotu 5–3600 s",
       "not_paired": "x2iot wyniesiony nie jest sparowany: tor można dodać tylko do sparowanego",
       "link_exists": "x2iot wyniesiony ma już tor na tej magistrali",
+      "one_can_link": "x2iot wyniesiony ma już tor CAN: między x2iot jest jedna magistrala",
       "probe_running": "Nowy tor jest właśnie sprawdzany; poczekaj na wynik albo go przerwij.",
       "no_probe": "Żaden nowy tor nie jest teraz sprawdzany.",
       "no_working_link": "Żaden tor x2iot wyniesionego nie działa: ustawienie musi dojść działającym. Najpierw go połącz.",
@@ -59,7 +64,7 @@
       "bus_missing": "Karty sieciowej tej magistrali nie ma już w głównym",
       "bus_no_address": "Karta sieciowa tej magistrali nie ma adresu",
       "bus_no_interface": "Ta magistrala CAN głównego nie ma ustawionego interfejsu: ustaw go w oknie głównego",
-      "no_free_address": "Brak wolnego adresu CAN na tej magistrali",
+      "no_free_address": "Brak wolnego adresu CAN na tej magistrali (jedna magistrala mieści do 61 węzłów)",
       "bad_interface": "Nazwa interfejsu ma najwyżej 15 liter, cyfr lub znaków _ - . :",
       "last_working_link": "To jedyny działający tor: usunięcie go odcięłoby x2iot wyniesiony",
       "last_lan_link": "Ostatni tor LAN zostaje: przez niego idzie konfiguracja",
@@ -285,6 +290,10 @@
         "name": "Duża wiadomość po CAN porzucona",
         "details": "Brak potwierdzeń po kolejnych próbach, porzucone wiadomości: {count}"
       },
+      "can_foreign_frames": {
+        "name": "Ramki obcego urządzenia na magistrali CAN",
+        "details": "Ramki z identyfikatorem tego łącza, które nie przeszły uwierzytelnienia: {count} w ciągu minuty (są odrzucane, łącze działa dalej)"
+      },
       "can_disconnected": {
         "name": "Łącze CAN FD rozłączone",
         "details": "Adres CAN {address}, powód: {reason}"
@@ -432,6 +441,86 @@
       "integration_added": {
         "name": "Integracja dodana na węźle",
         "details": "{integration} ({type})"
+      },
+      "members_changed": {
+        "name": "Lista członków zmieniona",
+        "details": "Główny podpisał listę numer {epoch}"
+      },
+      "member_cut_off": {
+        "name": "x2iot wyniesiony odcięty",
+        "details": "Główny ogłosił odcięcie w liście numer {epoch}; jego sesje zamknięto"
+      },
+      "members_taken": {
+        "name": "Lista członków odebrana",
+        "details": "Lista numer {epoch} podpisana przez głównego została zapisana"
+      },
+      "cut_by_main": {
+        "name": "Odcięty przez głównego",
+        "details": "Główny ogłosił odcięcie tego x2iot w liście numer {epoch}; sesje zamknięto"
+      },
+      "signing_key_taken": {
+        "name": "Klucz podpisu głównego odebrany",
+        "details": "Główny przekazał w sesji klucz, który weryfikuje jego listy i rozgłoszenia; został zapisany"
+      },
+      "peer_connected": {
+        "name": "Sesja bezpośrednia z x2iot wyniesionym",
+        "details": "x2iot wyniesiony {peer} na magistrali {bus}"
+      },
+      "peer_disconnected": {
+        "name": "Sesja bezpośrednia z x2iot wyniesionym zakończona",
+        "details": "x2iot wyniesiony {peer} na magistrali {bus}, powód: {reason}"
+      },
+      "peer_refused": {
+        "name": "Wiadomość zarządcza w sesji bezpośredniej odrzucona",
+        "details": "x2iot wyniesiony {peer} przysłał wiadomość rodzaju {kind}; między wyniesionymi wolno tylko odpalenia, polecenia i stany — wiadomość odrzucono"
+      },
+      "peer_lan_refused": {
+        "name": "Połączenie z portem sesji bezpośrednich zamknięte",
+        "details": "Z {ip}: {why}. Nic nie odpowiedziano"
+      },
+      "peer_command_left_to_main": {
+        "name": "Akcja zostawiona głównemu",
+        "details": "{element}, klocek {block}: brak sesji bezpośredniej z drugim x2iot wyniesionym (albo brak potwierdzenia) — główny dostał prośbę o wykonanie akcji"
+      },
+      "peer_command_done": {
+        "name": "Polecenie wysłane bezpośrednio wykonane",
+        "details": "{element}: x2iot wyniesiony {peer} wykonał je bez głównego"
+      },
+      "peer_command_refused": {
+        "name": "Polecenie wysłane bezpośrednio odrzucone",
+        "details": "{element}: x2iot wyniesiony {peer} odmówił (powód jest w dzienniku akcji)"
+      },
+      "peer_command_no_session": {
+        "name": "Nie można wysłać polecenia bezpośrednio",
+        "details": "{element}: brak sesji bezpośredniej z x2iot wyniesionym {peer}; główny przekaże polecenie dalej"
+      },
+      "peer_command_no_ack": {
+        "name": "Polecenie wysłane bezpośrednio bez potwierdzenia",
+        "details": "{element}: x2iot wyniesiony {peer} nie potwierdził — mogło zostać wykonane albo nie; główny przekaże dalej, przebieg wykona się raz"
+      },
+      "peer_command_foreign": {
+        "name": "Odrzucono polecenie w imieniu obcego elementu",
+        "details": "x2iot wyniesiony {peer} wysłał polecenie dla {target} w imieniu elementu {element}, który nie jest jego"
+      },
+      "firing_direct_failed": {
+        "name": "Odpalenie wysłane bezpośrednio bez potwierdzenia",
+        "details": "{element}, wyzwalacz {trigger}: x2iot wyniesiony {peer} nie potwierdził; główny przekaże dalej, jeśli może"
+      },
+      "firing_direct_delivered": {
+        "name": "Odpalenie doręczone bezpośrednio",
+        "details": "{element}, wyzwalacz {trigger}: {from} doręczył je do {to} bez głównego"
+      },
+      "firing_direct_missed": {
+        "name": "Odpalenie niedoręczone bezpośrednio",
+        "details": "{element}, wyzwalacz {trigger}: {from} nie mógł doręczyć do {to}; główny przekaże dalej"
+      },
+      "group_key_rotated": {
+        "name": "Klucz magistrali został wymieniony",
+        "details": "Magistrala {bus}: klucz grupowy epoki {epoch} rozdany i przełączony"
+      },
+      "group_key_switched": {
+        "name": "Klucz magistrali został przełączony",
+        "details": "Magistrala {bus}: ta instancja nadaje stany kluczem grupowym epoki {epoch}"
       },
       "main_rotation_started": {
         "name": "Zlecono wymianę klucza głównego",
@@ -641,6 +730,8 @@
       "socket_lan_title": "Parametry łącza LAN 1",
       "socket_can_title": "Parametry łącza CAN 1",
       "primary_title": "Łącze główne",
+      "shared_card_warning": "Ten tor kończy się na tej samej karcie głównego co {links} - i tak kończą się wszystkie tory tego x2iot wyniesionego: to nie jest pełna redundancja",
+      "shared_card_info": "Ten tor kończy się na tej samej karcie głównego co {links} - to nie jest pełna redundancja LAN (jest jeszcze inna niezależna droga)",
       "add": "＋ Dodaj",
       "add_title": "Dodaj tor: LAN albo CAN",
       "no_nodes": "Brak x2iot wyniesionych",
@@ -695,6 +786,8 @@
       "kind_can_hint": "Magistrala, kabel",
       "main_card": "Karta głównego",
       "internal": "(sieć wewnętrzna)",
+      "shared_card_warning": "Ten tor kończy się na tej samej karcie głównego co {links} - to nie jest pełna redundancja: awaria tej karty odetnie x2iot wyniesiony",
+      "shared_card_info": "Ten tor kończy się na tej samej karcie głównego co {links} - to nie jest pełna redundancja LAN (jest jeszcze inna niezależna droga)",
       "internal_warning": "x2iot wyniesiony tej karty nie zobaczy (sieć wewnętrzna maszyny). Wybierz inną.",
       "node_address": "Adres x2iot wyniesionego",
       "reported": "(zgłoszona)",
@@ -709,6 +802,7 @@
       "main_can": "Magistrala głównego",
       "node_can_hint": "Prędkość wyniesiony przejmie z magistrali głównego.",
       "no_free_bus": "Każda magistrala głównego ma już tor tego x2iot.",
+      "one_can_link": "x2iot wyniesiony ma jeden tor CAN: między x2iot jest jedna magistrala, a drugi tor byłby drugą magistralą. Jeśli magistrala ma się zmienić, najpierw usuń jego tor CAN.",
       "summary_lan": "Tor: {name} {address} → główny {main}",
       "summary_can": "Tor: {name} {interface} → główny {bus}",
       "footnote": "Kolejność torów zmienisz na liście torów.",
@@ -957,6 +1051,41 @@
       "restarts": "Restarty",
       "overruns": "Przepełnienia",
       "bus_load": "Obciążenie magistrali (szacunek)"
+    },
+    "p2p": {
+      "tile": "P2P {alive}/{total}",
+      "none": "P2P: brak innych wyniesionych",
+      "title": "Sesje bezpośrednie z pozostałymi x2iot wyniesionymi (kliknij, by zobaczyć szczegóły)",
+      "window_title": "Sesje bezpośrednie: {name}",
+      "subtitle": "Każda strona mówi, co widzi; lista członków rozstrzyga, kto z kim rozmawia",
+      "peer": "x2iot wyniesiony",
+      "can": "CAN",
+      "lan": "LAN",
+      "route": "Dane idą przez",
+      "since": "Sesja od",
+      "last_end": "Ostatnia sesja zakończona",
+      "this_side": "{name} mówi",
+      "other_side": "{name} mówi",
+      "not_reported": "nie zgłosił stanu",
+      "mismatch": "Obie strony się nie zgadzają: jedna ma sesję, druga nie",
+      "up": "stoi",
+      "down": "brak",
+      "never": "—",
+      "route_none": "brak sesji",
+      "route_can": "CAN",
+      "route_lan": "LAN",
+      "close": "Zamknij",
+      "reason": {
+        "lost": "cisza: brak znaku życia",
+        "replaced": "zastąpiona nowszą sesją",
+        "not_listed": "poza listą członków",
+        "cut_off": "odcięty przez główny",
+        "closed": "łącze zamknięte",
+        "port_failed": "awaria portu",
+        "keys_expired": "klucze nie zostały odnowione w czasie",
+        "refused": "odmowa",
+        "other": "inny powód"
+      }
     },
     "cw": {
       "clock_title": "Zegar",
@@ -1255,6 +1384,8 @@
       "node_no_ack": "x2iot wyniesiony {node_id} nie potwierdził polecenia na czas - mogło zostać wykonane albo nie",
       "node_update_needed": "x2iot wyniesiony {node_id} używa starszego protokołu: zaktualizuj go, aby sterować jego elementami",
       "node_unsupported": "x2iot wyniesiony {node_id} nie obsługuje tego polecenia",
+      "peer_source_unknown": "Odmowa: element {element} nie należy do x2iot, który wysłał to polecenie",
+      "peer_consent_needed": "Odmowa: akcja innego x2iot nie ma jeszcze zgody na sterowanie tym wyjściem - zezwól na liście chętnych wyjścia na głównym",
       "command_failed": "Polecenie nie powiodło się: {reason}",
       "loop": "Polecenie zatrzymane: sygnał wraca do kroku {step}",
       "path_too_long": "Polecenie zatrzymane: ślad sygnału jest za długi ({len} > {limit})",
@@ -1281,6 +1412,8 @@
     "request_details": "Polecenie {action} z klocka {block_id}",
     "node_command": "Polecenie do x2iot wyniesionego",
     "node_command_details": "Polecenie {action} dla x2iot wyniesionego {node}: {result}",
+    "command_route": "Polecenie od innego x2iot",
+    "command_route_details": "Akcja {source} x2iot {x2iot}, {route}: {result}",
     "gate_allowed": "Bramka: zgoda",
     "gate_allowed_details": "Bramka {gate_id} zezwala na polecenie: {action}",
     "gate_refused": "Bramka: odmowa",
@@ -2138,6 +2271,12 @@
     "node": {
       "keys_unreadable": "Nie można odczytać pliku klucza tej instancji ({file}); łącze x2iot wyniesionych jest wyłączone",
       "foreign_key": "Urządzenie z nieznanym kluczem próbowało połączyć się z łączem x2iot wyniesionych (klucz {fingerprint}, adres {ip})",
+      "group_key_missing": "x2iot wyniesiony {node} nie ma bieżącego klucza swojej magistrali CAN: jego stany nie są czytane, dopóki nie dostanie klucza w najbliższej sesji z głównym",
+      "group_key_stale": "Ten x2iot wyniesiony był wyłączony zbyt długo, by nadrobić klucz swojej magistrali CAN {bus} (ponad 96 h od ostatniej widzianej ramki): nie czyta ani nie wysyła stanów, dopóki nie dostanie klucza od głównego",
+      "peer_unreachable": "x2iot wyniesiony {peer} nie potwierdził odpalenia wysłanego do niego bezpośrednio ({element}); główny przekaże dalej, jeśli może. Ostrzeżenie ustępuje, gdy sesja bezpośrednia wróci",
+      "p2p_down": "Brak połączenia bezpośredniego {a} ↔ {b} (polecenia idą przez główny): sesja między nimi nie stoi po obu stronach, mimo że oba są połączone z głównym. Ostrzeżenie ustępuje, gdy sesja wróci",
+      "extra_can_link": "{node} ma więcej niż jeden tor CAN ({links}): działa tylko pierwszy, pozostałe są pominięte i zostają w pliku. Między x2iot jest jedna magistrala — usuń nadmiarowy tor",
+      "peer_foreign_sender": "x2iot wyniesiony {peer} wysłał polecenie w imieniu elementu {element}, który nie jest jego - polecenie odrzucono",
       "can_irq_disabled": "Przerwanie sterownika CAN {interface} zostało wyłączone przez jądro: sterownik jest obsługiwany co 100 ms, więc ramki mają opóźnienie do 100 ms. Sprawdź pin przerwania — zworka na płytce / interrupt= w nakładce mcp251xfd",
       "can_irq_storm": "Sterownik CAN {interface} zgłasza lawinę przerwań przy małym ruchu. Sprawdź pin przerwania — zworka na płytce / interrupt= w nakładce mcp251xfd",
       "speed_manual": "{node}: zmień ręcznie na wyniesionym prędkość {bus} na {speed} kbit/s (nie potwierdził zmiany)",
@@ -2161,7 +2300,12 @@
       "main_rotation_finished": "Klucz głównego został wymieniony (nowy odcisk {fingerprint}); każdy x2iot wyniesiony go potwierdził",
       "main_rotation_expired": "Okres przejściowy klucza głównego się skończył (nowy odcisk {fingerprint}); x2iot wyniesione, które go nie potwierdziły: {unconfirmed} - sparuj je ponownie",
       "main_rotation_node_done": "Główny wymienił swój klucz; ten x2iot wyniesiony używa już nowego (odcisk {fingerprint})",
-      "main_key_rejected": "Główny nie przyjmuje tego x2iot wyniesionego (inny klucz głównego, został unieważniony albo odrzucono parowanie): sparuj go ponownie"
+      "main_key_rejected": "Główny nie przyjmuje tego x2iot wyniesionego (inny klucz głównego, został unieważniony albo odrzucono parowanie): sparuj go ponownie",
+      "redundancy_warning": "{node}: wszystkie tory kończą się na tej samej karcie głównego ({bus}: {links}) - awaria tej karty, kabla albo switcha odetnie x2iot wyniesiony",
+      "redundancy_info": "{node}: więcej niż jeden tor kończy się na tej samej karcie głównego ({bus}: {links}); jest jeszcze inna niezależna droga, więc awaria tej karty nie odetnie x2iot wyniesionego",
+      "redundancy_hint": "Dodaj tor przez CAN albo przez inną kartę głównego, albo przyjmij, że tory mają wspólny punkt awarii",
+      "bind_device_denied": "Tory LAN tego x2iot wyniesionego mogą iść tą samą kartą: x2iot nie ma uprawnienia CAP_NET_RAW, żeby przypiąć tor do jego karty",
+      "bind_device_denied_hint": "Dopisz AmbientCapabilities=CAP_NET_RAW do usługi x2iot (systemd) i uruchom ją ponownie"
     },
     "topbar_title": "Ostrzeżenia",
     "tooltip_none": "Brak problemów",
@@ -2526,6 +2670,8 @@
     "empty": "Brak wpisów.",
     "executed": "Wykonano",
     "executed_details": "Akcja {action} wysłana do {target}",
+    "deferred": "Zostawiono głównemu",
+    "deferred_details": "Akcja {action} dla {target}: brak sesji bezpośredniej z x2iot wyjścia, główny ją wykona",
     "failed": "Błąd",
     "failed_details": "Akcja {action} dla {target} nie powiodła się: {reason}",
     "no_response": "Brak odpowiedzi",
