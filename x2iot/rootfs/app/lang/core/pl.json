@@ -42,6 +42,7 @@
       "not_ready": "Łącze x2iot wyniesionych jeszcze nie działa",
       "main_only": "Dostępne tylko na głównej instancji",
       "node_only": "Dostępne tylko na x2iot wyniesionym",
+      "catalog_fetch_failed": "x2iot wyniesiony nie przysłał katalogu (brak połączenia albo brak odpowiedzi w czasie)",
       "keys_unreadable": "Nie można odczytać pliku klucza tej instancji",
       "name_too_long": "Nazwa x2iot wyniesionego jest za długa (maks. 64 znaki)",
       "name_invalid": "Nazwa instancji jest niedozwolona (1-64 znaki, bez znaków / + #)",
@@ -161,6 +162,14 @@
       "catalog_fetch_failed": {
         "name": "Główny nie pobrał katalogu integracji wyniesionego",
         "details": "Integracja {integration}: {error}"
+      },
+      "catalog_missing": {
+        "name": "Główny nadal nie ma katalogu integracji wyniesionego",
+        "details": "Integracja {integration}: główny ponawia żądanie do x2iot wyniesionego co kilka sekund"
+      },
+      "catalog_arrived": {
+        "name": "Katalog integracji wyniesionego dotarł",
+        "details": "Integracja {integration}"
       },
       "command_run": {
         "name": "Polecenie głównego wykonane przez x2iot wyniesiony",
@@ -337,6 +346,10 @@
       "removed": {
         "name": "Wpis x2iot wyniesionego usunięty",
         "details": "Wpis nie wraca; identyfikator nie jest używany ponownie"
+      },
+      "deleted": {
+        "name": "x2iot wyniesiony usunięty",
+        "details": "Usunięto jego wpis, integracji: {integrations}, elementów: {elements}; identyfikatory nie są używane ponownie"
       },
       "unpaired": {
         "name": "Odłączono od x2iot głównego",
@@ -517,6 +530,14 @@
       "group_key_rotated": {
         "name": "Klucz magistrali został wymieniony",
         "details": "Magistrala {bus}: klucz grupowy epoki {epoch} rozdany i przełączony"
+      },
+      "group_key_rotated_unconfirmed": {
+        "name": "Klucz magistrali wymieniony, nie każdy członek go przyjął",
+        "details": "Magistrala {bus}: klucz grupowy epoki {epoch} nie został potwierdzony przez {missing} członków; dostaną go w najbliższej sesji z głównym"
+      },
+      "group_key_too_old": {
+        "name": "Klucz magistrali jest zbyt stary, żeby go dogonić",
+        "details": "Magistrala {bus}: ta instancja była wyłączona dłużej niż {hours} h; czeka na nowy klucz od głównego"
       },
       "group_key_switched": {
         "name": "Klucz magistrali został przełączony",
@@ -714,7 +735,8 @@
       "main_name": "{name} (główny)",
       "main_no_can": "⚠ CAN 1: brak interfejsu {interface}",
       "q_config": "⇣ Konfiguracja: {count}",
-      "q_catalog": "⇡ Katalog i ekrany: {percent} %",
+      "q_catalog": "↓ Katalog i ekrany: {percent} %",
+      "q_catalog_waiting": "↓ Katalog i ekrany: czeka na katalog ({seconds} s)",
       "q_events": "⇅ Zdarzenia: {count}",
       "q_logs": "⇡ Logi: {count}",
       "q_synced": "✓ zsynchronizowane",
@@ -735,7 +757,7 @@
       "primary_title": "Łącze główne",
       "shared_card_warning": "Ten tor kończy się na tej samej karcie głównego co {links} - i tak kończą się wszystkie tory tego x2iot wyniesionego: to nie jest pełna redundancja",
       "shared_card_info": "Ten tor kończy się na tej samej karcie głównego co {links} - to nie jest pełna redundancja LAN (jest jeszcze inna niezależna droga)",
-      "add": "＋ Dodaj",
+      "add": "＋ Dodaj tor",
       "add_title": "Dodaj tor: LAN albo CAN",
       "no_nodes": "Brak x2iot wyniesionych",
       "add_lan_soon": "Dodawanie drugiego toru LAN do sparowanego x2iot wyniesionego będzie dostępne wkrótce (bez ponownego parowania). Na razie tor LAN powstaje przy parowaniu.",
@@ -778,8 +800,6 @@
       "fetched": "Pobrano wpisów: {count}.",
       "fetched_more": "Pobrano wpisów: {count}; na wyniesionym x2iot czekają kolejne — pobierz ponownie."
     },
-    "failover_secs": "Przełącz na następny tor po (s bez wiadomości)",
-    "return_secs": "Wróć na lepszy tor po (s jego stabilnej pracy)",
     "add_link": {
       "no_can_on_node": "Wybierz interfejs CAN x2iot wyniesionego (jeśli lista jest pusta, nie zgłosił żadnego).",
       "node_can": "Interfejs CAN x2iot wyniesionego",
@@ -825,9 +845,16 @@
       "node_none": "Szukam… żaden x2iot wyniesiony jeszcze nie odpowiedział.",
       "locked_until": "zablokowany do {time}",
       "manual": "Wpisz adres ręcznie…",
-      "manual_label": "Adres x2iot wyniesionego",
-      "manual_placeholder": "10.0.0.5 albo garaz.local:8357",
-      "manual_hint": "Adres IP albo nazwa hosta, opcjonalnie z portem (:8357). x2iot wyniesiony musi pokazywać ważny kod.",
+      "manual_label": "Adres x2iot wyniesionego (droga awaryjna, gdy wykrywanie nie działa)",
+      "manual_ip_label": "Adres IP",
+      "manual_port_label": "Port",
+      "manual_placeholder": "192.168.1.50",
+      "manual_hint": "Adres IP (albo nazwa hosta) i port łącza (domyślnie 8357). Wklejone „adres:port” rozdzieli się na oba pola. x2iot wyniesiony musi pokazywać ważny kod.",
+      "port_invalid": "Port musi być liczbą od 1024 do 65535.",
+      "card_label": "Karta głównego",
+      "card_all": "Wszystkie",
+      "all_cards": "wszystkich kartach",
+      "address_pick": "Adres x2iot {name} (odpowiedział z kilku)",
       "code_title": "Kod x2iot {name}",
       "code_hint": "Wpisz kod pokazany na stronie Urządzenia tego x2iot wyniesionego (ważny 10 minut, działa raz).",
       "code_label": "Kod (8 znaków)",
@@ -1023,6 +1050,9 @@
       "logs": "Odebrane wpisy logów",
       "logs_dropped": "Utracone wpisy logów na wyniesionym x2iot"
     },
+    "fetch_catalog": "Pobierz katalog",
+    "fetch_catalog_hint": "Pobiera teraz od x2iot wyniesionego cały katalog jego integracji",
+    "fetch_catalog_ok": "Katalog x2iot wyniesionego został pobrany.",
     "rotate_keys": "Wymień klucze x2iot wyniesionego",
     "rotate_keys_ok": "x2iot wyniesiony dostał polecenie utworzenia nowej pary kluczy.",
     "revoke": "Unieważnij x2iot wyniesiony",
@@ -1093,6 +1123,63 @@
         "other": "inny powód"
       }
     },
+    "nw": {
+      "remote_x2iot": "x2iot wyniesiony",
+      "version": "wersja",
+      "config_synced": "konfiguracja v{version} zsynchronizowana",
+      "state_up": "działa",
+      "state_silent": "milczy",
+      "state_connecting": "łączy się",
+      "state_down": "leży",
+      "role_in_use": "w użyciu",
+      "role_backup": "zapasowy",
+      "no_warn_node": "Nie ostrzegaj o braku łączności z tym x2iot (np. włączanym o wybranych godzinach)",
+      "links_title": "Tory połączenia",
+      "order_hint": "Dane idą pierwszym torem, który działa; gdy ten padnie — następnym, a wracają, gdy lepszy tor popracuje stabilnie przez ustalony czas. Nowy tor jest zapasowy (koniec listy).",
+      "link_settings": "Ustawienia toru i statystyki",
+      "failover_label": "Przełącz na inny tor po braku łączności (domyślnie {default} s)",
+      "return_label": "Wróć do tego toru po stabilnej pracy",
+      "always_send": "Zawsze wysyłaj tym torem (polecenia i stany)",
+      "always_send_hint": "Wyłączone: ruch idzie tylko torem w użyciu. Włączone: idzie też tym torem, gdy działa, więc nic nie czeka na wykrycie utraty toru głównego. Koszt: odbiorca obrabia każdą wiadomość dwa razy i zachowuje jedną kopię; polecenie wykonuje się raz.",
+      "no_warn_link": "Nie ostrzegaj o braku łączności (ten tor)",
+      "link_remove": "Usuń ten tor",
+      "copy": "Kopiuj",
+      "program_title": "Program i pluginy",
+      "advanced_title": "Zaawansowane",
+      "revoke": "Rozparuj",
+      "revoke_hint": "„Rozparuj” zapomina klucz: x2iot wyniesiony, jego integracje i elementy zostają w konfiguracji, można go sparować ponownie. „Usuń” usuwa go razem ze wszystkim, co na nim działa.",
+      "delete": "Usuń",
+      "delete_title": "Usunąć x2iot wyniesiony?",
+      "delete_summary": "Razem z tym x2iot wyniesionym główny usunie integracji: {integrations}, elementów: {elements}:",
+      "delete_more": "i jeszcze {count}",
+      "delete_hint": "Identyfikatory usuniętych integracji i elementów nie są używane ponownie. Połączony x2iot wyniesiony dostaje wiadomość, że został usunięty, i zapomina główny. Tego nie można cofnąć.",
+      "delete_confirm": "Usuń ze wszystkim",
+      "cancel": "Anuluj",
+      "no_changes": "Brak zmian",
+      "saved": "Zapisano",
+      "close_unsaved": "Są niezapisane zmiany. Zamknąć okno i je porzucić?",
+      "bad_failover": "Czas przełączenia musi mieścić się w przedziale od 0,5 s do 60 s, z krokiem 0,5 s.",
+      "bad_return": "Czas powrotu musi być liczbą całkowitą sekund od 5 do 3600."
+    },
+    "al": {
+      "steps": {
+        "kind": "Rodzaj",
+        "parameters": "Parametry",
+        "check": "Sprawdzenie"
+      },
+      "existing": "Tory tego x2iot wyniesionego teraz",
+      "new_is_backup": "Nowy tor jest zapasowy: trafia na koniec listy. Kolejność można potem zmienić.",
+      "back": "Wstecz",
+      "check_title": "Sprawdzenie przed zapisem",
+      "check_hint": "Tor jest najpierw sprawdzany: połączenie musi odpowiedzieć, a klucz się zgadzać. Zapisuje się dopiero, gdy działa; w przeciwnym razie nic się nie zmienia.",
+      "add_button": "Dodaj tor",
+      "added": "Tor {link} dodany",
+      "check_answers": "Połączenie odpowiada",
+      "latency": "Opóźnienie: {ms} ms",
+      "latency_unknown": "Opóźnienie: mierzone…",
+      "check_key": "Klucz się zgadza",
+      "done": "Gotowe"
+    },
     "cw": {
       "clock_title": "Zegar",
       "clock_offset": "Różnica zegara z głównym: ±{ms} ms",
@@ -1115,7 +1202,7 @@
       "subtitle_main": "główny · wartości na żywo, gdy okno jest otwarte",
       "subtitle_node": "x2iot wyniesiony · wartości na żywo, gdy okno jest otwarte",
       "subtitle_remote": "{name} · x2iot wyniesiony · tylko do odczytu · wartości na żywo, gdy okno jest otwarte",
-      "readonly_note": "Tylko do odczytu: liczniki przychodzą z x2iot wyniesionego łączem. Jego ustawienia zmienia się na jego własnej stronie.",
+      "readonly_note": "Tylko do odczytu: liczniki przychodzą z x2iot wyniesionego łączem.",
       "no_link": "Brak łącza z tym x2iot wyniesionym: nie ma co pokazać.",
       "no_settings": "x2iot wyniesiony zmienia się na jego własnej stronie.",
       "tab_lan": "Karty sieciowe",
@@ -1164,9 +1251,6 @@
       "link_cards_hint": "Automatycznie: ten x2iot odpowiada na wykrywanie adresem karty, z której przyszło pytanie, i ten adres podaje innym. Karta wirtualna (VPN, maszyna wirtualna, kontener) jest pomijana, chyba że ją zaznaczysz.",
       "link_card_virtual": "wirtualna: tak",
       "link_card_real": "wirtualna: nie",
-      "send_both_title": "Drogi ruchu",
-      "send_both_label": "Wysyłaj obiema drogami jednocześnie",
-      "send_both_hint": "Wyłączone (domyślnie): polecenia i stany tego x2iot idą po CAN, a po LAN dopiero po 1,5 s bez odpowiedzi na CAN. Włączone: idą jednocześnie po CAN i po LAN, gdy obie działają — pełna szybkość i zero czekania na wykrycie utraty drogi. Koszt: każdy inny x2iot (i główny) odszyfrowuje i obrabia każdy stan dwa razy i jedną kopię odrzuca; polecenie wykonuje się raz.",
       "accept_some_hint": "Zaznacz karty, na których główny przyjmuje x2iot wyniesione. Nowa karta nie jest przyjmowana, dopóki jej nie zaznaczysz.",
       "accept_card": "Przyjmuje x2iot wyniesione",
       "rejected": "Odrzucone przez listę: {count}",
@@ -2284,6 +2368,9 @@
     "node": {
       "keys_unreadable": "Nie można odczytać pliku klucza tej instancji ({file}); łącze x2iot wyniesionych jest wyłączone",
       "foreign_key": "Urządzenie z nieznanym kluczem próbowało połączyć się z łączem x2iot wyniesionych (klucz {fingerprint}, adres {ip})",
+      "paths_disconnected": "x2iot wyniesiony {node} jest rozłączony: wszystkie jego tory leżą ({links}). Ostrzeżenie ustępuje, gdy tor wróci",
+      "paths_one_left": "x2iot wyniesiony {node} ma tylko jeden działający tor i nie ma zapasowego: leży {links}. Ostrzeżenie ustępuje, gdy tor wróci",
+      "paths_lost": "x2iot wyniesiony {node} stracił tor ({links}); działają jeszcze {left}. Informacja ustępuje, gdy tor wróci",
       "group_key_missing": "x2iot wyniesiony {node} nie ma bieżącego klucza swojej magistrali CAN: jego stany nie są czytane, dopóki nie dostanie klucza w najbliższej sesji z głównym",
       "group_key_stale": "Ten x2iot wyniesiony był wyłączony zbyt długo, by nadrobić klucz swojej magistrali CAN {bus} (ponad 96 h od ostatniej widzianej ramki): nie czyta ani nie wysyła stanów, dopóki nie dostanie klucza od głównego",
       "peer_unreachable": "x2iot wyniesiony {peer} nie potwierdził odpalenia wysłanego do niego bezpośrednio ({element}); główny przekaże dalej, jeśli może. Ostrzeżenie ustępuje, gdy sesja bezpośrednia wróci",
@@ -2325,6 +2412,7 @@
     "category": {
       "integrations": "Integracje",
       "elements": "Elementy",
+      "remote_nodes": "x2iot wyniesione",
       "triggers": "Wyzwalacze",
       "gates": "Bramki",
       "interactive_blocks": "Klocki interakcyjne",

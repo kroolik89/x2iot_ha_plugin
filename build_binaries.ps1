@@ -4,7 +4,10 @@
 param (
     [string]$Message = "",
     [switch]$NoBump,
-    [switch]$NoPush
+    [switch]$NoPush,
+    # 2026-11-15: serwer domyslnie przez cargo-zigbuild (glibc 2.36, bez Dockera) - ta sama binarka idzie na RPi3
+    # (deploy_rpi.ps1 -FromHaAddon). -UseDocker = stara droga: cross build w Dockerze (Cross.toml).
+    [switch]$UseDocker
 )
 
 $ErrorActionPreference = "Stop"
@@ -19,14 +22,20 @@ Write-Host "==================================================================" 
 # --- KROK 0: Sprawdzanie i przygotowanie środowiska ---
 Write-Host "`n[0/4] Sprawdzanie srodowiska..." -ForegroundColor Cyan
 
-# 1. Sprawdzenie Dockera
-docker info >$null 2>&1
-if ($LASTEXITCODE -ne 0) {
-    Write-Host "BLAD: Docker Desktop nie jest uruchomiony!" -ForegroundColor Red
-    Write-Host "Uruchom Docker Desktop, poczekaj na jego start i sprobuj ponownie." -ForegroundColor Yellow
-    exit 1
+# 1. Narzedzia budowy serwera: Docker + cross (-UseDocker) albo cargo-zigbuild + zig (domyslnie)
+if ($UseDocker) {
+    docker info >$null 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host "BLAD: Docker Desktop nie jest uruchomiony!" -ForegroundColor Red
+        Write-Host "Uruchom Docker Desktop, poczekaj na jego start i sprobuj ponownie." -ForegroundColor Yellow
+        exit 1
+    }
+    Write-Host "  -> Docker dziala poprawnie (-UseDocker)." -ForegroundColor Green
+} else {
+    if (!(Get-Command "cargo-zigbuild" -ErrorAction SilentlyContinue)) { Write-Host "BLAD: brak cargo-zigbuild (cargo install cargo-zigbuild) - albo uzyj -UseDocker" -ForegroundColor Red; exit 1 }
+    if (!(Get-Command "zig" -ErrorAction SilentlyContinue)) { Write-Host "BLAD: brak zig w PATH (winget install zig.zig) - albo uzyj -UseDocker" -ForegroundColor Red; exit 1 }
+    Write-Host "  -> cargo-zigbuild i zig dostepne (bez Dockera)." -ForegroundColor Green
 }
-Write-Host "  -> Docker dziala poprawnie." -ForegroundColor Green
 
 # 2. Sprawdzenie cargo-leptos
 if (!(Get-Command "cargo-leptos" -ErrorAction SilentlyContinue)) {
@@ -35,8 +44,8 @@ if (!(Get-Command "cargo-leptos" -ErrorAction SilentlyContinue)) {
     if ($LASTEXITCODE -ne 0) { exit 1 }
 }
 
-# 3. Sprawdzenie cross
-if (!(Get-Command "cross" -ErrorAction SilentlyContinue)) {
+# 3. Sprawdzenie cross (tylko -UseDocker)
+if ($UseDocker -and !(Get-Command "cross" -ErrorAction SilentlyContinue)) {
     Write-Host "  -> Instalowanie cross..." -ForegroundColor Yellow
     cargo install cross --git https://github.com/cross-rs/cross
     if ($LASTEXITCODE -ne 0) { exit 1 }
@@ -114,11 +123,20 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-# --- KROK 2: Budowanie serwera dla RPi 5 (cross aarch64) ---
-Write-Host "`n[2/4] Budowanie serwera dla RPi 5 (cross build aarch64-unknown-linux-gnu)..." -ForegroundColor Cyan
-cross build --package x2iot-app --features ssr --target aarch64-unknown-linux-gnu --release
+# --- KROK 2: Budowanie serwera aarch64 ---
+if ($UseDocker) {
+    # Stara droga (do 2026-11-15): cross w Dockerze; RUSTFLAGS i wersja przez passthrough w Cross.toml.
+    Write-Host "`n[2/4] Budowanie serwera (cross build aarch64-unknown-linux-gnu, Docker)..." -ForegroundColor Cyan
+    cross build --package x2iot-app --features ssr --target aarch64-unknown-linux-gnu --release
+} else {
+    # Nowa droga (2026-11-15): cargo-zigbuild, glibc 2.36 - dziala w obrazie dodatku (aarch64-base-debian) i na Raspberry Pi OS.
+    # Wynik w target_ha\aarch64-unknown-linux-gnu\release (sufiks .2.36 nie trafia do sciezki) - KROK 3 bez zmian.
+    Write-Host "`n[2/4] Budowanie serwera (cargo zigbuild aarch64-unknown-linux-gnu.2.36, bez Dockera)..." -ForegroundColor Cyan
+    $env:CARGO_TARGET_AARCH64_UNKNOWN_LINUX_GNU_RUSTFLAGS = "--cfg erase_components"
+    cargo zigbuild --package x2iot-app --features ssr --target aarch64-unknown-linux-gnu.2.36 --release
+}
 if ($LASTEXITCODE -ne 0) {
-    Write-Host "BLAD: Budowanie serwera cross aarch64 zakonczone niepowodzeniem!" -ForegroundColor Red
+    Write-Host "BLAD: Budowanie serwera aarch64 zakonczone niepowodzeniem!" -ForegroundColor Red
     Rollback-Version
     exit 1
 }
