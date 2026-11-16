@@ -70,6 +70,7 @@
       "last_working_link": "To jedyny działający tor: usunięcie go odcięłoby x2iot wyniesiony",
       "last_lan_link": "Ostatni tor LAN zostaje: przez niego idzie konfiguracja",
       "no_such_link": "Nie ma takiego toru",
+      "last_link_enabled": "To jedyny włączony tor — x2iot wyniesiony straciłby połączenie",
       "bad_order": "Kolejność musi zawierać te same tory co lista",
       "bus_in_use": "Używa: {nodes} — najpierw usuń ich tor",
       "can_restart_failed": "Nie udało się uruchomić ponownie kontrolera CAN: {reason}",
@@ -103,6 +104,9 @@
       "main_rotation_in_progress": "Klucz głównego jest już wymieniany: poczekaj na koniec okresu przejściowego",
       "node_not_paired": "x2iot wyniesiony nie jest sparowany i potwierdzony: najpierw go sparuj",
       "integration_type_unknown": "Nieznany typ integracji (albo nie może działać na x2iot wyniesionym)",
+      "integration_id_invalid": "Nieprawidłowy format ID integracji (oczekiwano INT:Typ:numer, np. INT:Gpio:1)",
+      "integration_id_wrong_type": "ID integracji nie pasuje do wybranego typu",
+      "integration_id_taken": "To ID integracji jest już zajęte",
       "integration_type_unsupported": "x2iot wyniesiony nie zgłosił, że obsługuje ten typ integracji (może wymagać aktualizacji albo jeszcze się nie połączył)",
       "role_blocked": "Ten główny ma {integrations} integracji, {elements} elementów i {nodes} x2iot wyniesionych. Usuń je najpierw — nic nie jest kasowane automatycznie.",
       "role_already": "Instancja ma już tę rolę",
@@ -258,6 +262,10 @@
       "link_bus_refused": {
         "name": "Odrzucono sesję z nieznanej karty",
         "details": "{node} przyszedł przez LAN {bus} ({ip}), żaden tor z jego listy nie pasuje"
+      },
+      "link_off_refused": {
+        "name": "Odrzucono sesję na wyłączonym torze",
+        "details": "{node} przyszedł przez LAN {bus} ({ip}), ale ten tor jest wyłączony"
       },
       "link_probe_ok": {
         "name": "Nowy tor działa i został zachowany",
@@ -547,6 +555,10 @@
         "name": "x2iot zamyka się (restart lub wyłączenie)",
         "details": "x2iot {peer} pożegnał się na swoich łączach i zakończył sesje; połączy się ponownie zwykłą drogą"
       },
+      "link_closed": {
+        "name": "Tor {link} wyłączony",
+        "details": "Sesja na torze {link} została zamknięta celowo (tor wyłączono); pozostałe tory działają dalej"
+      },
       "main_rotation_started": {
         "name": "Zlecono wymianę klucza głównego",
         "details": "Okres przejściowy 7 dni: oba klucze są przyjmowane"
@@ -743,7 +755,17 @@
       "q_waiting_value": "czeka {seconds} s",
       "q_events": "⇅ Zdarzenia",
       "q_logs": "⇡ Logi",
-      "q_sending_now": "wysyła teraz",
+      "q_pulling": "pobieram",
+      "q_sends": "wysyła",
+      "q_elapsed": "{n} s",
+      "q_content_full": "pełny katalog",
+      "q_content_delta": "różnica",
+      "q_content_screen": "ekran pluginu",
+      "q_origin_request": "na żądanie",
+      "q_origin_push": "sam",
+      "q_version": "wersja {n}",
+      "q_entries": { "one": "{count} wpis", "few": "{count} wpisy", "many": "{count} wpisów" },
+      "q_events_detail": "stany, polecenia",
       "q_ago_moment": "przed chwilą",
       "q_ago_seconds": "{n} s temu",
       "q_ago_minutes": "{n} min temu",
@@ -780,6 +802,7 @@
       "role_other": "dalszy tor (po łączu głównym)",
       "link_down": "{link} rozłączone {ago}",
       "link_down_unknown": "{link} rozłączone",
+      "link_off": "Tor wyłączony ({link})",
       "bus_no_interface": "{bus}: brak interfejsu {interface}",
       "bus_unsupported": "{bus}: ten system nie obsługuje CAN ({interface})",
       "bus_missing": "{bus}: brak karty {interface}"
@@ -793,8 +816,7 @@
     "link_node_side": "Karta / interfejs x2iot wyniesionego",
     "can_bus_errors": "Błędy magistrali",
     "node_logs": {
-      "title": "Log wyniesionego x2iot po CAN",
-      "hint": "Po LAN wpisy wyniesionego x2iot zawsze same płyną na stronę Logi. Po CAN idą na bieżąco od progu w górę albo dopiero, gdy je pobierzesz.",
+      "hint":"Po LAN wpisy wyniesionego x2iot zawsze same płyną na stronę Logi. Po CAN idą na bieżąco od progu w górę albo dopiero, gdy je pobierzesz.",
       "mode": "Wysyłanie",
       "mode_live": "na bieżąco (od progu w górę)",
       "mode_on_demand": "na żądanie (przycisk poniżej)",
@@ -803,8 +825,6 @@
       "level_info": "Informacja",
       "level_warn": "Ostrzeżenie",
       "level_error": "Błąd",
-      "save": "Zapisz ustawienie",
-      "saved": "Zapisano. Trafi do wyniesionego x2iot przy następnej synchronizacji konfiguracji.",
       "fetch": "Pobierz logi",
       "fetching": "Pobieranie…",
       "fetched": "Pobrano wpisów: {count}.",
@@ -1141,6 +1161,9 @@
       "state_silent": "milczy",
       "state_connecting": "łączy się",
       "state_down": "leży",
+      "state_off": "wyłączony",
+      "link_enabled": "Włączony",
+      "last_enabled": "To jedyny włączony tor — x2iot wyniesiony straciłby połączenie",
       "role_in_use": "w użyciu",
       "role_backup": "zapasowy",
       "no_warn_node": "Nie ostrzegaj o braku łączności z tym x2iot (np. włączanym o wybranych godzinach)",
@@ -1155,6 +1178,7 @@
       "link_remove": "Usuń ten tor",
       "copy": "Kopiuj",
       "program_title": "Program i pluginy",
+      "logs_title": "Logi",
       "advanced_title": "Zaawansowane",
       "revoke": "Rozparuj",
       "revoke_hint": "„Rozparuj” zapomina klucz: x2iot wyniesiony, jego integracje i elementy zostają w konfiguracji, można go sparować ponownie. „Usuń” usuwa go razem ze wszystkim, co na nim działa.",
@@ -1863,6 +1887,13 @@
     "logs_btn": "Logi",
     "add_button": "+ Dodaj Integrację",
     "no_integrations": "Brak skonfigurowanych integracji",
+    "platform_unsupported": "Ten typ integracji nie działa na tym systemie",
+    "failure": {
+      "linux_only": {
+        "gpio": "GPIO działa tylko na Linuksie",
+        "one_wire": "1-Wire działa tylko na Linuksie"
+      }
+    },
     "no_integrations_desc": "Kliknij przycisk powyżej, aby podłączyć centralę Satel, broker MQTT, Modbus lub usługi HTTP.",
     "modal_title_select": "Dodaj Integrację - Wybierz Typ",
     "target_local": "Główny / lokalny",
@@ -1872,9 +1903,7 @@
       "go_devices": "Przejdź do strony Urządzenia",
       "node": "x2iot wyniesiony",
       "pick_node": "— wybierz —",
-      "no_types": "Ten x2iot wyniesiony jeszcze się nie zgłosił, więc nie znamy typów integracji, które potrafi uruchomić. Poczekaj, aż się połączy.",
-      "type": "Typ",
-      "back": "Wstecz"
+      "no_types": "Ten x2iot wyniesiony jeszcze się nie zgłosił, więc nie znamy typów integracji, które potrafi uruchomić. Poczekaj, aż się połączy."
     },
     "modal_title_config": "Konfiguracja Integracji",
     "cancel": "Anuluj",
@@ -1914,6 +1943,13 @@
     "err_toggle": "Błąd zmiany stanu integracji: {e}",
     "err_delete": "Błąd usuwania integracji: {e}",
     "field_name": "Nazwa integracji",
+    "field_id": "ID integracji",
+    "id_in_use": "ID zajęte przez działającą integrację",
+    "id_free_file": "ID wolne, plik istnieje (zostanie wczytany)",
+    "id_free_new": "ID wolne, pliku brak (powstanie nowa konfiguracja)",
+    "id_invalid": "Nieprawidłowy format ID (np. INT:Satel:1)",
+    "type_gui_demo": "GUI Demo",
+    "type_gui_demo_desc": "Integracja demonstracyjna, bez konfiguracji.",
     "warn_dependent_off": "Przy wyłączeniu nie ostrzegaj o niedziałających elementach",
     "warn_dependent_off_help": "Elementy korzystające z tej integracji nie zgłoszą ostrzeżenia, gdy wyłączysz ją celowo.",
     "field_transport": "Typ połączenia",
