@@ -808,7 +808,6 @@
       "bus_missing": "{bus}: brak karty {interface}"
     },
     "bus_name": "nazwa (opcjonalnie)",
-    "link_remove": "Usuń tor",
     "link_remove_confirm": "Usunąć ten tor? Nie można usunąć jedynego działającego.",
     "link_up": "Wyżej (bliżej G)",
     "link_down": "Niżej",
@@ -1176,6 +1175,9 @@
       "always_send_hint": "Wyłączone: ruch idzie tylko torem w użyciu. Włączone: idzie też tym torem, gdy działa, więc nic nie czeka na wykrycie utraty toru głównego. Koszt: odbiorca obrabia każdą wiadomość dwa razy i zachowuje jedną kopię; polecenie wykonuje się raz.",
       "no_warn_link": "Nie ostrzegaj o braku łączności (ten tor)",
       "link_remove": "Usuń ten tor",
+      "stat_chunk_repeats": "Kawałki powtórzone",
+      "stat_chunk_aborts": "Przerwane wiadomości",
+      "link_off_box": "Tor wyłączony — x2iot nie łączy się nim i nie liczy go do ostrzeżeń. Zaznacz „Włączony” i zapisz, żeby wrócił.",
       "copy": "Kopiuj",
       "program_title": "Program i pluginy",
       "logs_title": "Logi",
