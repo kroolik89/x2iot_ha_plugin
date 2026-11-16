@@ -543,6 +543,10 @@
         "name": "Klucz magistrali został przełączony",
         "details": "Magistrala {bus}: ta instancja nadaje stany kluczem grupowym epoki {epoch}"
       },
+      "peer_closing": {
+        "name": "x2iot zamyka się (restart lub wyłączenie)",
+        "details": "x2iot {peer} pożegnał się na swoich łączach i zakończył sesje; połączy się ponownie zwykłą drogą"
+      },
       "main_rotation_started": {
         "name": "Zlecono wymianę klucza głównego",
         "details": "Okres przejściowy 7 dni: oba klucze są przyjmowane"
@@ -734,12 +738,18 @@
       "flat": "lista",
       "main_name": "{name} (główny)",
       "main_no_can": "⚠ CAN 1: brak interfejsu {interface}",
-      "q_config": "⇣ Konfiguracja: {count}",
-      "q_catalog": "↓ Katalog i ekrany: {percent} %",
-      "q_catalog_waiting": "↓ Katalog i ekrany: czeka na katalog ({seconds} s)",
-      "q_events": "⇅ Zdarzenia: {count}",
-      "q_logs": "⇡ Logi: {count}",
-      "q_synced": "✓ zsynchronizowane",
+      "q_config": "⇣ Konfiguracja",
+      "q_catalog": "↓ Katalog i ekrany",
+      "q_waiting_value": "czeka {seconds} s",
+      "q_events": "⇅ Zdarzenia",
+      "q_logs": "⇡ Logi",
+      "q_sending_now": "wysyła teraz",
+      "q_ago_moment": "przed chwilą",
+      "q_ago_seconds": "{n} s temu",
+      "q_ago_minutes": "{n} min temu",
+      "q_ago_hours": "{n} h temu",
+      "expand": "▾ Rozwiń · {summary}",
+      "collapse": "▴ Zwiń",
       "q_last_config": "konfiguracja",
       "q_last_catalog": "katalog",
       "q_last_logs": "logi",
