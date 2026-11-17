@@ -2425,6 +2425,8 @@
       "p2p_down": "Brak połączenia bezpośredniego {a} ↔ {b} (polecenia idą przez główny): sesja między nimi nie stoi po obu stronach, mimo że oba są połączone z głównym. Ostrzeżenie ustępuje, gdy sesja wróci",
       "extra_can_link": "{node} ma więcej niż jeden tor CAN ({links}): działa tylko pierwszy, pozostałe są pominięte i zostają w pliku. Między x2iot jest jedna magistrala — usuń nadmiarowy tor",
       "peer_foreign_sender": "x2iot wyniesiony {peer} wysłał polecenie w imieniu elementu {element}, który nie jest jego - polecenie odrzucono",
+      "signal_loop": "Wykryto zapętlenie na x2iot wyniesionym {node}: akcja elementu {element} ({block}) nie została wykonana — sygnał wrócił do kroku {step}. Potwierdź, gdy przyjrzysz się pętli",
+      "signal_too_long": "Ślad sygnału na x2iot wyniesionym {node} jest za długi ({len} z {limit} kroków): akcja elementu {element} ({block}) nie została wykonana. Potwierdź, gdy przyjrzysz się pętli",
       "can_irq_disabled": "Przerwanie sterownika CAN {interface} zostało wyłączone przez jądro: sterownik jest obsługiwany co 100 ms, więc ramki mają opóźnienie do 100 ms. Sprawdź pin przerwania — zworka na płytce / interrupt= w nakładce mcp251xfd",
       "can_irq_storm": "Sterownik CAN {interface} zgłasza lawinę przerwań przy małym ruchu. Sprawdź pin przerwania — zworka na płytce / interrupt= w nakładce mcp251xfd",
       "speed_manual": "{node}: zmień ręcznie na wyniesionym prędkość {bus} na {speed} kbit/s (nie potwierdził zmiany)",
@@ -2576,6 +2578,7 @@
       "overload_detail_ar": "Strefy (AR): zgubiono {ar_count}",
       "exec_fault_repeat": "Ostatnio: {last}, razy: {count}",
       "exec_fault_hint": "Wpis zniknie przy następnym udanym wykonaniu klocka albo po potwierdzeniu.",
+      "signal_stop_hint": "Wpis zostaje, aż go potwierdzisz: udane wykonanie klocka go nie usuwa.",
       "config_save_failed": "Nie zapisano konfiguracji na dysk",
       "config_save_failed_hint": "Zmiany działają, ale po restarcie zostaną utracone. Powód: {error}. Sprawdź miejsce na dysku i uprawnienia do katalogu config; wpis zniknie po pierwszym udanym zapisie."
     },
