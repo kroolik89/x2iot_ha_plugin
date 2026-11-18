@@ -1,5 +1,5 @@
 name: "X2IOT Gateway"
-version: "1.5.48"
+version: "1.5.49"
 slug: "x2iot"
 description: "IoT Integration Platform - Satel Integra, MQTT i wiecej"
 url: "https://github.com/kroolik89/x2iot"
@@ -29,7 +29,7 @@ ingress: true
 ingress_port: 8356
 panel_icon: "mdi:chip"
 panel_title: "X2IOT Gateway"
-panel_admin: false
+panel_admin: true
 webui: "http://[HOST]:[PORT:8356]"
 # Supervisor API: the add-on sets its own option load_test_secs back to 0 once a load test starts (run.sh).
 hassio_api: true

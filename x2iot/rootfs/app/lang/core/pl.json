@@ -2270,6 +2270,178 @@
     "code_gone": "Kod „{name}” już nie istnieje (usunięty albo obszar należy teraz do innej integracji) - akcja nie wykona się, dopóki nie wybierzesz kodu. Nic nie jest zgadywane po nazwie.",
     "other_code": "Kod tej akcji jest rodzaju, którego ta wersja nie zna. Zostaje w pliku bez zmian, ale akcja się nie wykona."
   },
+  "auth": {
+    "required": "Sesja wygasła. Zaloguj się ponownie.",
+    "setup_required": "x2iot nie ma jeszcze żadnego konta. Najpierw utwórz Właściciela.",
+    "read_only_key": "Ten klucz API jest tylko do odczytu: niczego nie może zmienić.",
+    "common": {
+      "cancel": "Anuluj",
+      "close": "Zamknij",
+      "save": "Zapisz"
+    },
+    "role": {
+      "owner": "Właściciel",
+      "administrator": "Administrator"
+    },
+    "scope": {
+      "read_only": "tylko odczyt",
+      "full": "pełny"
+    },
+    "managed_by_main": "Konta tego x2iot zarządza główny x2iot — zmień je tam.",
+    "waiting_for_main": "Konta przyjdą z głównego x2iot — poczekaj na połączenie.",
+    "managed": {
+      "bar": "Konta zarządzane na głównym: {main} · ostatnia aktualizacja {time}"
+    },
+    "wait": {
+      "text": "Konta przychodzą z głównego x2iot ({main}). Zaloguj się po ich otrzymaniu.",
+      "text_no_main": "Konta przychodzą z głównego x2iot. Zaloguj się po ich otrzymaniu.",
+      "status": "czekam na połączenie z głównym"
+    },
+    "login": {
+      "name": "Nazwa użytkownika",
+      "password": "Hasło",
+      "remember": "Zapamiętaj mnie na tym urządzeniu (30 dni)",
+      "submit": "Zaloguj",
+      "busy": "Logowanie…",
+      "info": "Bez „Zapamiętaj” sesja kończy się po 12 godzinach bez aktywności. Nie ma „Nie pamiętam hasła”: zgubione hasło jedynego Właściciela oznacza usunięcie konfiguracji i start od zera."
+    },
+    "setup": {
+      "title": "Pierwsze uruchomienie: utwórz konto Właściciela",
+      "warning": "x2iot nie ma jeszcze żadnego konta. Do czasu utworzenia Właściciela wszystkie strony i API są zablokowane.",
+      "repeat": "Powtórz hasło",
+      "submit": "Utwórz Właściciela i zaloguj",
+      "mismatch": "Hasła nie są takie same."
+    },
+    "password": {
+      "title": "Zmień hasło",
+      "current": "Obecne hasło",
+      "new": "Nowe hasło",
+      "repeat": "Powtórz nowe hasło",
+      "hint": "Co najmniej 10 znaków.",
+      "logout_others": "Wyloguj moje pozostałe sesje",
+      "saved": "Hasło zostało zmienione.",
+      "mismatch": "Hasła nie są takie same."
+    },
+    "menu": {
+      "change_password": "Zmień hasło",
+      "password_on_main": "Hasło zmienisz na głównym",
+      "sessions": "Moje sesje ({count})",
+      "logout": "Wyloguj",
+      "ha": "Home Assistant"
+    },
+    "sessions": {
+      "title": "Moje sesje",
+      "current": "ta sesja",
+      "remembered": "zapamiętana",
+      "last_seen": "ostatnia aktywność: {time} · {addr}",
+      "logout_others": "Wyloguj pozostałe",
+      "ended": "Zakończono sesji: {count}"
+    },
+    "users": {
+      "title": "Użytkownicy",
+      "add": "+ Użytkownik",
+      "col_name": "Nazwa",
+      "col_role": "Rola",
+      "col_last_login": "Ostatnie logowanie",
+      "col_state": "Stan",
+      "you": "(Ty)",
+      "state_active": "aktywny",
+      "state_blocked": "zablokowany",
+      "never": "nigdy",
+      "card_last": "ostatnio: {time}",
+      "info": "Ostatniego Właściciela nie da się usunąć, zablokować ani zmienić mu roli. Usunięcie lub zablokowanie konta albo ustawienie mu hasła kończy wszystkie jego sesje; usunięcie unieważnia też jego klucze API. Administrator nie może ruszyć konta Właściciela.",
+      "action": {
+        "edit": "Edytuj",
+        "set_password": "Ustaw hasło",
+        "change_password": "Zmień hasło",
+        "block": "Zablokuj",
+        "unblock": "Odblokuj",
+        "delete": "Usuń"
+      }
+    },
+    "user_modal": {
+      "title": "Nowy użytkownik",
+      "name_hint": "Litery, cyfry, „.”, „-”, „_”; 3–32 znaki; bez rozróżniania wielkości liter.",
+      "role": "Rola",
+      "role_hint": "Rolę Właściciela może nadać tylko Właściciel.",
+      "add": "Dodaj"
+    },
+    "role_modal": {
+      "title": "Edytuj użytkownika {name}"
+    },
+    "setpw_modal": {
+      "title": "Ustaw hasło użytkownika {name}",
+      "info": "Ustawienie hasła kończy wszystkie sesje tego konta."
+    },
+    "delete_modal": {
+      "title": "Usuń użytkownika",
+      "text": "Usunąć konto {name}? Kończy to jego sesje i unieważnia jego klucze API.",
+      "confirm": "Usuń"
+    },
+    "revoke_modal": {
+      "title": "Unieważnij klucz API",
+      "text": "Unieważnić klucz {name}? Programy, które go używają, przestaną działać.",
+      "confirm": "Unieważnij"
+    },
+    "keys": {
+      "title": "Klucze API",
+      "add": "+ Klucz API",
+      "intro": "Dla programów i skryptów (nagłówek „Authorization: Bearer …”). Klucz działa w imieniu swojego użytkownika i nigdy nie ma więcej praw niż on.",
+      "col_name": "Nazwa",
+      "col_user": "Użytkownik",
+      "col_scope": "Zakres",
+      "col_expires": "Wygasa",
+      "col_last_used": "Ostatnie użycie",
+      "never_expires": "nigdy",
+      "never_used": "nigdy",
+      "expires_card": "wygasa {date}",
+      "no_expiry": "nie wygasa",
+      "used_card": "użyty: {time}",
+      "not_used": "nigdy nie użyty",
+      "revoke": "Unieważnij"
+    },
+    "key_modal": {
+      "title": "Nowy klucz API",
+      "name": "Nazwa",
+      "user": "Użytkownik",
+      "user_hint": "Klucz dla konta Właściciela może utworzyć tylko Właściciel.",
+      "scope": "Zakres",
+      "scope_read_only": "Tylko odczyt (GET)",
+      "scope_full": "Pełny",
+      "expires": "Wygasa",
+      "exp_90": "po 90 dniach",
+      "exp_30": "po 30 dniach",
+      "exp_365": "po roku",
+      "exp_never": "nigdy",
+      "create": "Utwórz klucz",
+      "shown_warning": "Skopiuj klucz teraz: nie będzie można go zobaczyć ponownie (x2iot przechowuje tylko jego skrót).",
+      "copy": "Kopiuj",
+      "copied": "Skopiowano"
+    },
+    "err": {
+      "network": "Serwer nie odpowiedział.",
+      "internal": "Wewnętrzny błąd serwera.",
+      "origin": "Żądanie przyszło z innej strony i zostało odrzucone.",
+      "setup_done": "Właściciel już istnieje. Zaloguj się.",
+      "invalid_credentials": "Nieprawidłowa nazwa użytkownika lub hasło.",
+      "invalid_key": "Klucz API jest nieważny (błędny, wygasły, unieważniony albo jego użytkownik jest zablokowany).",
+      "blocked": "To konto jest zablokowane.",
+      "throttled": "Za dużo nieudanych prób. Spróbuj ponownie za {seconds} s.",
+      "key_not_allowed": "Klucz API nie może zarządzać kontami, kluczami ani hasłami.",
+      "forbidden": "Nie masz uprawnień do tej czynności.",
+      "owner_protected": "Konto Właściciela może zmienić tylko Właściciel.",
+      "cannot_grant_owner": "Rolę Właściciela może nadać tylko Właściciel.",
+      "last_owner": "Ostatniego Właściciela nie da się usunąć, zablokować ani zdegradować.",
+      "weak_password": "Hasło jest za krótkie (co najmniej 10 znaków).",
+      "bad_name": "Nazwa musi mieć 3–32 znaki: litery, cyfry, „.”, „-”, „_”.",
+      "name_taken": "Konto o tej nazwie już istnieje.",
+      "not_found": "Nie znaleziono.",
+      "wrong_password": "Obecne hasło jest błędne.",
+      "no_account": "Ta tożsamość nie ma własnego konta (Home Assistant). Wybierz użytkownika.",
+      "corrupt": "Plik kont jest uszkodzony: nikt nie może się zalogować, dopóki go nie naprawisz.",
+      "bad_request": "Błędne dane w żądaniu."
+    }
+  },
   "sys_log": {
     "fault_raised": "Usterka klocka",
     "fault_raised_details": "Klocek {block} ({integration}) zgłosił usterkę {code}: {message}",
@@ -2290,7 +2462,41 @@
     "bulk_edit": "Edycja grupowa",
     "bulk_edit_details": "Edytowano razem elementy {kind}: zmieniono {changed}, pominięto {skipped} (operacji: {ops})",
     "bulk_add": "Dodawanie masowe",
-    "bulk_add_details": "Dodano razem elementy {kind}: {count}"
+    "bulk_add_details": "Dodano razem elementy {kind}: {count}",
+    "auth_login_ok": "Logowanie",
+    "auth_login_ok_details": "{user} zalogował się z adresu {addr}",
+    "auth_login_failed": "Nieudane logowanie",
+    "auth_login_failed_details": "Błędne dane logowania dla {user} z adresu {addr}",
+    "auth_login_refused": "Odmowa logowania",
+    "auth_login_refused_details": "Konto {user} jest zablokowane (z adresu {addr})",
+    "auth_throttled": "Zbyt wiele nieudanych prób",
+    "auth_throttled_details": "{addr}: kolejne próby są odrzucane przez {seconds} s",
+    "auth_key_failed": "Błędny klucz API",
+    "auth_key_failed_details": "Klucz API został odrzucony (z adresu {addr})",
+    "auth_logout": "Wylogowanie",
+    "auth_logout_details": "{user} wylogował się ({addr})",
+    "auth_owner_created": "Utworzono Właściciela",
+    "auth_owner_created_details": "Pierwsze konto {user} (Właściciel) utworzono z adresu {addr}",
+    "auth_user_created": "Dodano użytkownika",
+    "auth_user_created_details": "{user} dodał konto {target} ({role}), adres {addr}",
+    "auth_user_role": "Zmieniono rolę",
+    "auth_user_role_details": "{user} ustawił rolę konta {target}: {role} (adres {addr})",
+    "auth_user_password": "Ustawiono hasło",
+    "auth_user_password_details": "{user} ustawił nowe hasło konta {target} (adres {addr})",
+    "auth_password_changed": "Zmieniono hasło",
+    "auth_password_changed_details": "{user} zmienił własne hasło (adres {addr})",
+    "auth_user_blocked": "Zablokowano konto",
+    "auth_user_blocked_details": "{user} zablokował konto {target} (adres {addr})",
+    "auth_user_unblocked": "Odblokowano konto",
+    "auth_user_unblocked_details": "{user} odblokował konto {target} (adres {addr})",
+    "auth_user_deleted": "Usunięto konto",
+    "auth_user_deleted_details": "{user} usunął konto {target} (adres {addr})",
+    "auth_key_created": "Utworzono klucz API",
+    "auth_key_created_details": "{user} utworzył klucz API {key} ({scope}) dla {target} (adres {addr})",
+    "auth_key_revoked": "Unieważniono klucz API",
+    "auth_key_revoked_details": "{user} unieważnił klucz API {key} konta {target} (adres {addr})",
+    "auth_accounts_synced": "Konta z głównego x2iot",
+    "auth_accounts_synced_details": "Otrzymano konta z głównego: {users} kont, {keys} kluczy API, zakończone sesje: {sessions}"
   },
   "bulk": {
     "skip": {
