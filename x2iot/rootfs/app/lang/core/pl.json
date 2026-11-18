@@ -1591,6 +1591,14 @@
   },
   "settings": {
     "title": "Ustawienia",
+    "tabs": {
+      "general": "Ogólne",
+      "access": "Konta i dostęp",
+      "logs": "Logi",
+      "fields": "Pola elementów",
+      "backup": "Kopie i import",
+      "on_main_note": "Te ustawienia przychodzą z głównego x2iot i zmienia się je tylko na głównym."
+    },
     "warnings": {
       "section_title": "Ostrzeżenia",
       "delay_label": "Zwłoka ostrzeżeń elementów po połączeniu integracji",
