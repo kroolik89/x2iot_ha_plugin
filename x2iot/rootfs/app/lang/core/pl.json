@@ -2651,7 +2651,11 @@
     "auth_group_deleted": "Usunięto grupę",
     "auth_group_deleted_details": "{user} usunął grupę {target} (adres {addr})",
     "auth_denied": "Odmowa: brak uprawnienia",
-    "auth_denied_details": "{user} dostał odmowę dla {route} (wymaga: {need}), adres {addr}"
+    "auth_denied_details": "{user} dostał odmowę dla {route} (wymaga: {need}), adres {addr}",
+    "auth_install_mode_set": "Tryb instalacji ustalony",
+    "auth_install_mode_set_details": "Tryb instalacji: {mode} ({reason}); nie zmieni się, dopóki konfiguracja nie zostanie usunięta",
+    "auth_install_mode_mismatch": "Tryb instalacji niezgodny ze środowiskiem",
+    "auth_install_mode_mismatch_details": "Tryb instalacji to {mode}, a token Supervisora: {token} — {effect}"
   },
   "bulk": {
     "skip": {
