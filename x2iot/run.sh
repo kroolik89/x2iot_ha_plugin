@@ -1,5 +1,19 @@
 #!/bin/sh
 
+# The base image starts this script through s6-overlay (/init), which clears the environment: the variables the Supervisor gives the
+# add-on (SUPERVISOR_TOKEN) are only in /run/s6/container_environment. Without the token x2iot does not know it is an add-on
+# (no trust in the HA panel, no login with HA credentials) and the load test cannot reset its option.
+S6_ENV=/run/s6/container_environment
+if [ -z "${SUPERVISOR_TOKEN:-}" ] && [ -r "$S6_ENV/SUPERVISOR_TOKEN" ]; then
+    SUPERVISOR_TOKEN="$(cat "$S6_ENV/SUPERVISOR_TOKEN")"
+    export SUPERVISOR_TOKEN
+fi
+if [ -n "${SUPERVISOR_TOKEN:-}" ]; then
+    echo "Tryb dodatku HA: token Supervisora dostepny."
+else
+    echo "UWAGA: brak SUPERVISOR_TOKEN - x2iot nie rozpozna panelu HA (logowanie haslem x2iot)."
+fi
+
 export X2IOT_CONFIG_PATH="/data/configuration.yaml"
 export LEPTOS_SITE_ADDR="0.0.0.0:8356"
 export LEPTOS_SITE_ROOT="/app/site"

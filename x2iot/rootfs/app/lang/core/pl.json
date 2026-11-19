@@ -2634,6 +2634,8 @@
     "auth_accounts_synced_details": "Otrzymano konta z głównego: {users} kont, {keys} kluczy API, zakończone sesje: {sessions}",
     "auth_ha_user_created": "Konto dla użytkownika Home Assistant",
     "auth_ha_user_created_details": "Utworzono konto {user} ({role}) dla użytkownika Home Assistant {ha} (adres {addr})",
+    "auth_ha_linked_by_name": "Konto powiązano z użytkownikiem Home Assistant",
+    "auth_ha_linked_by_name_details": "Konto {user} powiązano z użytkownikiem HA {ha} (wejście z panelu, ta sama nazwa; adres {addr})",
     "auth_ha_login_unlinked": "Logowanie Home Assistant bez konta",
     "auth_ha_login_unlinked_details": "Home Assistant potwierdził {user}, ale żadne konto nie jest z nim powiązane (adres {addr})",
     "auth_ha_unlinked": "Odłączono powiązanie z Home Assistant",
