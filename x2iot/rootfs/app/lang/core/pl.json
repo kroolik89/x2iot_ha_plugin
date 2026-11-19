@@ -2289,7 +2289,102 @@
     },
     "role": {
       "owner": "Właściciel",
-      "administrator": "Administrator"
+      "administrator": "Administrator",
+      "custom": "Inne grupy"
+    },
+    "group": {
+      "owner": "Właściciel",
+      "administrator": "Administrator",
+      "viewer": "Podgląd"
+    },
+    "groups": {
+      "title": "Grupy uprawnień",
+      "add": "+ Grupa",
+      "builtin": "wbudowana",
+      "users": "Użytkownicy: {n}",
+      "edit": "Edytuj",
+      "view": "Podgląd",
+      "copy": "Kopiuj",
+      "delete": "Usuń",
+      "name": "Nazwa grupy",
+      "nothing": "Ta grupa niczego jeszcze nie daje.",
+      "new_title": "Nowa grupa uprawnień",
+      "edit_title": "Edycja grupy uprawnień",
+      "view_title": "Grupa uprawnień (tylko podgląd)",
+      "copy_title": "Kopiuj grupę",
+      "copy_name": "{name} (kopia)",
+      "delete_title": "Usuń grupę",
+      "delete_text": "Usunąć grupę {name}? Użytkownicy tej grupy tracą jej prawa.",
+      "desc": {
+        "owner": "Wszystko — także przyszłe typy i czynności. Nie da się jej zmienić ani usunąć.",
+        "administrator": "Wszystko, także użytkownicy i grupy — bez kont Właścicieli i bez nadawania praw ponad własne."
+      }
+    },
+    "perm": {
+      "node": {
+        "elements": "Elementy",
+        "logic": "Logika",
+        "devices": "Urządzenia",
+        "system": "System",
+        "di": "Wejścia (DI)",
+        "ti": "Temperatury (TI)",
+        "do": "Wyjścia (DO)",
+        "ar": "Obszary (AR)",
+        "triggers": "Wyzwalacze",
+        "blocks": "Klocki",
+        "gates": "Bramki",
+        "integrations": "Integracje",
+        "nodes": "x2iot wyniesione",
+        "links": "Tory i łączność",
+        "settings": "Ustawienia",
+        "logs": "Logi",
+        "warnings": "Ostrzeżenia",
+        "backup": "Kopie, import / eksport",
+        "updates": "Aktualizacje i pluginy",
+        "access": "Użytkownicy i grupy"
+      },
+      "action": {
+        "view": "Podgląd",
+        "control": "Sterowanie",
+        "edit": "Edycja",
+        "create": "Tworzenie",
+        "delete": "Usuwanie"
+      },
+      "verb": {
+        "view": "Widzi",
+        "control": "Steruje",
+        "edit": "Edytuje",
+        "create": "Tworzy",
+        "delete": "Usuwa"
+      }
+    },
+    "editor": {
+      "summary_prefix": "Ta grupa",
+      "summary_none": "Ta grupa niczego jeszcze nie daje.",
+      "summary_end": "Nic więcej.",
+      "legend_on": "zaznaczone",
+      "legend_inherited": "z gałęzi wyżej",
+      "legend_na": "nie dotyczy",
+      "col_type": "Typ",
+      "col_scope": "Zakres",
+      "fixed_note": "Tej grupy nie da się zmienić: ma wszystko.",
+      "above_own_note": "Ta grupa ma prawa ponad Twoje — możesz ją tylko obejrzeć.",
+      "scope_all": "wszystkie",
+      "scope_n": "wybrane: {n}",
+      "scope_as_above": "jak wyżej",
+      "scope_title": "Zakres: {type}",
+      "scope_opt_all": "Wszystkie",
+      "scope_opt_all_hint": "także dodane w przyszłości",
+      "scope_opt_selected": "Wybrane",
+      "scope_opt_selected_hint": "tylko zaznaczone poniżej",
+      "scope_search": "Szukaj po nazwie lub ID…",
+      "scope_loading": "Ładuję…",
+      "scope_next_version": "Zakres zadziała od następnej wersji — na razie serwer sprawdza tylko typ i czynność.",
+      "scope_done": "Gotowe"
+    },
+    "no_access": {
+      "title": "Brak dostępu",
+      "text": "To konto nie ma prawa do oglądania tej strony. Poproś właściciela x2iot o odpowiednią grupę."
     },
     "scope": {
       "read_only": "tylko odczyt",
@@ -2311,7 +2406,15 @@
       "remember": "Zapamiętaj mnie na tym urządzeniu (30 dni)",
       "submit": "Zaloguj",
       "busy": "Logowanie…",
-      "info": "Bez „Zapamiętaj” sesja kończy się po 12 godzinach bez aktywności. Nie ma „Nie pamiętam hasła”: zgubione hasło jedynego Właściciela oznacza usunięcie konfiguracji i start od zera."
+      "info": "Bez „Zapamiętaj” sesja kończy się po 12 godzinach bez aktywności. Nie ma „Nie pamiętam hasła”: zgubione hasło jedynego Właściciela oznacza usunięcie konfiguracji i start od zera.",
+      "mode_x2iot": "Konto x2iot",
+      "mode_ha": "Konto Home Assistant",
+      "ha_name": "Nazwa użytkownika Home Assistant",
+      "ha_info": "Zaloguj się nazwą użytkownika i hasłem z Home Assistanta. x2iot przekazuje je tylko do Home Assistanta i ich nie zapisuje. W ten sposób zaloguje się tylko użytkownik HA, który już raz otworzył x2iot w panelu Home Assistanta."
+    },
+    "banner": {
+      "text": "Ustaw hasło x2iot — przyda się poza panelem Home Assistanta.",
+      "set": "Ustaw hasło"
     },
     "setup": {
       "title": "Pierwsze uruchomienie: utwórz konto Właściciela",
@@ -2328,7 +2431,9 @@
       "hint": "Co najmniej 10 znaków.",
       "logout_others": "Wyloguj moje pozostałe sesje",
       "saved": "Hasło zostało zmienione.",
-      "mismatch": "Hasła nie są takie same."
+      "mismatch": "Hasła nie są takie same.",
+      "title_set": "Ustaw hasło",
+      "set_info": "Twoje konto powstało z panelu Home Assistanta i nie ma jeszcze hasła x2iot. Hasło pozwoli Ci zalogować się poza panelem."
     },
     "menu": {
       "change_password": "Zmień hasło",
@@ -2350,6 +2455,7 @@
       "add": "+ Użytkownik",
       "col_name": "Nazwa",
       "col_role": "Rola",
+      "col_groups": "Grupy",
       "col_last_login": "Ostatnie logowanie",
       "col_state": "Stan",
       "you": "(Ty)",
@@ -2357,6 +2463,8 @@
       "state_blocked": "zablokowany",
       "never": "nigdy",
       "card_last": "ostatnio: {time}",
+      "ha_badge": "HA: {name}",
+      "no_password": "bez hasła",
       "info": "Ostatniego Właściciela nie da się usunąć, zablokować ani zmienić mu roli. Usunięcie lub zablokowanie konta albo ustawienie mu hasła kończy wszystkie jego sesje; usunięcie unieważnia też jego klucze API. Administrator nie może ruszyć konta Właściciela.",
       "action": {
         "edit": "Edytuj",
@@ -2364,15 +2472,28 @@
         "change_password": "Zmień hasło",
         "block": "Zablokuj",
         "unblock": "Odblokuj",
-        "delete": "Usuń"
+        "delete": "Usuń",
+        "ha_unlink": "Odłącz HA"
       }
+    },
+    "ha_unlink_modal": {
+      "title": "Odłącz użytkownika Home Assistant",
+      "text": "Odłączyć konto {name} od użytkownika Home Assistant {ha}? Ten użytkownik nie zaloguje się już na to konto danymi Home Assistanta; gdy ponownie otworzy x2iot w panelu HA, powstanie dla niego nowe konto Administratora.",
+      "confirm": "Odłącz"
     },
     "user_modal": {
       "title": "Nowy użytkownik",
       "name_hint": "Litery, cyfry, „.”, „-”, „_”; 3–32 znaki; bez rozróżniania wielkości liter.",
       "role": "Rola",
       "role_hint": "Rolę Właściciela może nadać tylko Właściciel.",
-      "add": "Dodaj"
+      "add": "Dodaj",
+      "groups": "Grupy",
+      "add_group": "+ Dodaj grupę",
+      "groups_hint": "Widzisz tylko grupy, których prawa sam masz — nie nadasz więcej, niż masz. Grupy „Właściciel” nie widzi nikt poza Właścicielem.",
+      "can_title": "Co może {name}",
+      "can_nothing": "Bez grup — bez żadnych praw.",
+      "everything": "Wszystko.",
+      "from_group": "z grupy: {group}"
     },
     "role_modal": {
       "title": "Edytuj użytkownika {name}"
@@ -2447,7 +2568,13 @@
       "wrong_password": "Obecne hasło jest błędne.",
       "no_account": "Ta tożsamość nie ma własnego konta (Home Assistant). Wybierz użytkownika.",
       "corrupt": "Plik kont jest uszkodzony: nikt nie może się zalogować, dopóki go nie naprawisz.",
-      "bad_request": "Błędne dane w żądaniu."
+      "bad_request": "Błędne dane w żądaniu.",
+      "ha_not_linked": "To konto Home Assistant nie ma dostępu do x2iot — wejdź raz przez panel Home Assistanta albo poproś Właściciela.",
+      "ha_unavailable": "Home Assistant nie odpowiada. Spróbuj ponownie albo użyj konta x2iot.",
+      "ha_needs_password": "Najpierw ustaw hasło tego konta — inaczej nikt nie mógłby się na nie zalogować.",
+      "bad_permissions": "Te uprawnienia nie pasują do modelu: czynność bez sensu dla typu albo zmiana bez prawa do podglądu.",
+      "group_fixed": "Grup Właściciel i Administrator nie da się zmieniać ani usuwać; żadnej grupy wbudowanej nie da się usunąć.",
+      "grant_above_own": "Nie możesz nadać uprawnień, których sam nie masz."
     }
   },
   "sys_log": {
@@ -2504,7 +2631,25 @@
     "auth_key_revoked": "Unieważniono klucz API",
     "auth_key_revoked_details": "{user} unieważnił klucz API {key} konta {target} (adres {addr})",
     "auth_accounts_synced": "Konta z głównego x2iot",
-    "auth_accounts_synced_details": "Otrzymano konta z głównego: {users} kont, {keys} kluczy API, zakończone sesje: {sessions}"
+    "auth_accounts_synced_details": "Otrzymano konta z głównego: {users} kont, {keys} kluczy API, zakończone sesje: {sessions}",
+    "auth_ha_user_created": "Konto dla użytkownika Home Assistant",
+    "auth_ha_user_created_details": "Utworzono konto {user} ({role}) dla użytkownika Home Assistant {ha} (adres {addr})",
+    "auth_ha_login_unlinked": "Logowanie Home Assistant bez konta",
+    "auth_ha_login_unlinked_details": "Home Assistant potwierdził {user}, ale żadne konto nie jest z nim powiązane (adres {addr})",
+    "auth_ha_unlinked": "Odłączono powiązanie z Home Assistant",
+    "auth_ha_unlinked_details": "{user} odłączył konto {target} od jego użytkownika Home Assistant (adres {addr})",
+    "auth_user_groups": "Zmieniono grupy konta",
+    "auth_user_groups_details": "{user} ustawił grupy konta {target}: {groups} (adres {addr})",
+    "auth_group_created": "Dodano grupę",
+    "auth_group_created_details": "{user} dodał grupę {target} (adres {addr})",
+    "auth_group_copied": "Skopiowano grupę",
+    "auth_group_copied_details": "{user} skopiował grupę jako {target} (adres {addr})",
+    "auth_group_updated": "Zmieniono grupę",
+    "auth_group_updated_details": "{user} zmienił uprawnienia lub opis grupy {target} (adres {addr})",
+    "auth_group_deleted": "Usunięto grupę",
+    "auth_group_deleted_details": "{user} usunął grupę {target} (adres {addr})",
+    "auth_denied": "Odmowa: brak uprawnienia",
+    "auth_denied_details": "{user} dostał odmowę dla {route} (wymaga: {need}), adres {addr}"
   },
   "bulk": {
     "skip": {

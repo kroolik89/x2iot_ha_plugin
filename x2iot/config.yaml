@@ -1,5 +1,5 @@
 name: "X2IOT Gateway"
-version: "1.5.50"
+version: "1.5.51"
 slug: "x2iot"
 description: "IoT Integration Platform - Satel Integra, MQTT i wiecej"
 url: "https://github.com/kroolik89/x2iot"
@@ -33,6 +33,8 @@ panel_admin: true
 webui: "http://[HOST]:[PORT:8356]"
 # Supervisor API: the add-on sets its own option load_test_secs back to 0 once a load test starts (run.sh).
 hassio_api: true
+# UP2: the login with Home Assistant credentials on port 8356 (POST http://supervisor/auth).
+auth_api: true
 # Load test: only its length here; every other parameter is the built-in default of x2iot (one place, PT plan).
 options:
   load_test_secs: 0
