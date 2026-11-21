@@ -2379,7 +2379,7 @@
       "scope_opt_selected_hint": "tylko zaznaczone poniżej",
       "scope_search": "Szukaj po nazwie lub ID…",
       "scope_loading": "Ładuję…",
-      "scope_next_version": "Zakres zadziała od następnej wersji — na razie serwer sprawdza tylko typ i czynność.",
+      "scope_create_off": "Tworzenie jest wyłączone dla wybranych elementów: nowy element nigdy nie trafia do nich sam. Nadaj je na wszystkich albo zostaw wyłączone.",
       "scope_done": "Gotowe"
     },
     "no_access": {
@@ -2440,7 +2440,8 @@
       "password_on_main": "Hasło zmienisz na głównym",
       "sessions": "Moje sesje ({count})",
       "logout": "Wyloguj",
-      "ha": "Home Assistant"
+      "ha": "Home Assistant",
+      "logged_in_via_ha": "Zalogowano przez Home Assistant"
     },
     "sessions": {
       "title": "Moje sesje",
@@ -2465,6 +2466,8 @@
       "card_last": "ostatnio: {time}",
       "ha_badge": "HA: {name}",
       "no_password": "bez hasła",
+      "limit_logs": "Ogranicz logi do widocznych elementów",
+      "limit_logs_hint": "Logi, ich eksport i liczniki problemów pokazują tylko elementy i integracje, które to konto może widzieć; wpisy systemowe zostają. Właściciel i Administrator zawsze widzą wszystko.",
       "info": "Ostatniego Właściciela nie da się usunąć, zablokować ani zmienić mu roli. Usunięcie lub zablokowanie konta albo ustawienie mu hasła kończy wszystkie jego sesje; usunięcie unieważnia też jego klucze API. Administrator nie może ruszyć konta Właściciela.",
       "action": {
         "edit": "Edytuj",
@@ -2574,7 +2577,8 @@
       "ha_needs_password": "Najpierw ustaw hasło tego konta — inaczej nikt nie mógłby się na nie zalogować.",
       "bad_permissions": "Te uprawnienia nie pasują do modelu: czynność bez sensu dla typu albo zmiana bez prawa do podglądu.",
       "group_fixed": "Grup Właściciel i Administrator nie da się zmieniać ani usuwać; żadnej grupy wbudowanej nie da się usunąć.",
-      "grant_above_own": "Nie możesz nadać uprawnień, których sam nie masz."
+      "grant_above_own": "Nie możesz nadać uprawnień, których sam nie masz.",
+      "scoped_create": "Tworzenia nie da się ograniczyć do wybranych elementów — nowy element jeszcze nie istnieje. Nadaj je na wszystkich albo odbierz."
     }
   },
   "sys_log": {
@@ -2624,6 +2628,8 @@
     "auth_user_blocked_details": "{user} zablokował konto {target} (adres {addr})",
     "auth_user_unblocked": "Odblokowano konto",
     "auth_user_unblocked_details": "{user} odblokował konto {target} (adres {addr})",
+    "auth_user_limit_logs": "Zmieniono ograniczenie logów konta",
+    "auth_user_limit_logs_details": "{user} ustawił „ogranicz logi do widocznych elementów” konta {target} na {limit_logs} (adres {addr})",
     "auth_user_deleted": "Usunięto konto",
     "auth_user_deleted_details": "{user} usunął konto {target} (adres {addr})",
     "auth_key_created": "Utworzono klucz API",
@@ -2634,8 +2640,6 @@
     "auth_accounts_synced_details": "Otrzymano konta z głównego: {users} kont, {keys} kluczy API, zakończone sesje: {sessions}",
     "auth_ha_user_created": "Konto dla użytkownika Home Assistant",
     "auth_ha_user_created_details": "Utworzono konto {user} ({role}) dla użytkownika Home Assistant {ha} (adres {addr})",
-    "auth_ha_linked_by_name": "Konto powiązano z użytkownikiem Home Assistant",
-    "auth_ha_linked_by_name_details": "Konto {user} powiązano z użytkownikiem HA {ha} (wejście z panelu, ta sama nazwa; adres {addr})",
     "auth_ha_login_unlinked": "Logowanie Home Assistant bez konta",
     "auth_ha_login_unlinked_details": "Home Assistant potwierdził {user}, ale żadne konto nie jest z nim powiązane (adres {addr})",
     "auth_ha_unlinked": "Odłączono powiązanie z Home Assistant",
