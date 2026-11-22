@@ -1520,8 +1520,8 @@
       "peer_source_unknown": "Odmowa: element {element} nie należy do x2iot, który wysłał to polecenie",
       "peer_consent_needed": "Odmowa: akcja innego x2iot nie ma jeszcze zgody na sterowanie tym wyjściem - zezwól na liście chętnych wyjścia na głównym",
       "command_failed": "Polecenie nie powiodło się: {reason}",
-      "loop": "Polecenie zatrzymane: sygnał wraca do kroku {step}",
-      "path_too_long": "Polecenie zatrzymane: ślad sygnału jest za długi ({len} > {limit})",
+      "loop": "Polecenie zatrzymane: wykryto pętlę {route} (skoków: {hops}, x2iot: {x2iots})",
+      "path_too_long": "Polecenie zatrzymane: sygnał przekroczył limit skoków ({hops} > {limit})",
       "area_missing": "Obszar {area_id} nie istnieje",
       "area_disabled": "Obszar jest wyłączony",
       "area_no_source": "Obszar nie ma źródła stanu",
@@ -1658,8 +1658,8 @@
       "id_label": "Identyfikator instancji",
       "change_advanced": "Zmień (zaawansowane)",
       "warning": "Po zmianie identyfikatora systemy zewnętrzne uznają tę instalację za nową (nowe urządzenia i encje). Używaj tylko przy przenoszeniu x2iot na inny komputer.",
-      "signal_path_limit_label": "Limit śladu sygnału",
-      "signal_path_limit_desc": "Sygnał dłuższy niż limit zostaje zatrzymany (ochrona przed zapętleniem)",
+      "signal_hop_limit_label": "Limit skoków sygnału",
+      "signal_hop_limit_desc": "Skok to przejście sygnału do kolejnego elementu, przez dowolną liczbę x2iot. Sygnał, który wykona więcej skoków niż limit, zostaje zatrzymany (ochrona przed pętlami, których nie rozpoznaje wykrywanie pętli)",
       "save": "Zapisz",
       "saved_success": "Ustawienia zostały pomyślnie zapisane."
     },
@@ -2794,8 +2794,8 @@
       "p2p_down": "Brak połączenia bezpośredniego {a} ↔ {b} (polecenia idą przez główny): sesja między nimi nie stoi po obu stronach, mimo że oba są połączone z głównym. Ostrzeżenie ustępuje, gdy sesja wróci",
       "extra_can_link": "{node} ma więcej niż jeden tor CAN ({links}): działa tylko pierwszy, pozostałe są pominięte i zostają w pliku. Między x2iot jest jedna magistrala — usuń nadmiarowy tor",
       "peer_foreign_sender": "x2iot wyniesiony {peer} wysłał polecenie w imieniu elementu {element}, który nie jest jego - polecenie odrzucono",
-      "signal_loop": "Wykryto zapętlenie na x2iot wyniesionym {node}: akcja elementu {element} ({block}) nie została wykonana — sygnał wrócił do kroku {step}. Potwierdź, gdy przyjrzysz się pętli",
-      "signal_too_long": "Ślad sygnału na x2iot wyniesionym {node} jest za długi ({len} z {limit} kroków): akcja elementu {element} ({block}) nie została wykonana. Potwierdź, gdy przyjrzysz się pętli",
+      "signal_loop": "Wykryto pętlę na x2iot wyniesionym {node}: akcja elementu {element} ({block}) nie została wykonana — sygnał wrócił: {route} (skoków: {hops}, x2iot: {x2iots}). Potwierdź, gdy przyjrzysz się pętli",
+      "signal_too_long": "Sygnał na x2iot wyniesionym {node} przekroczył limit skoków ({hops} z {limit}): akcja elementu {element} ({block}) nie została wykonana. Potwierdź, gdy przyjrzysz się pętli",
       "can_irq_disabled": "Przerwanie sterownika CAN {interface} zostało wyłączone przez jądro: sterownik jest obsługiwany co 100 ms, więc ramki mają opóźnienie do 100 ms. Sprawdź pin przerwania — zworka na płytce / interrupt= w nakładce mcp251xfd",
       "can_irq_storm": "Sterownik CAN {interface} zgłasza lawinę przerwań przy małym ruchu. Sprawdź pin przerwania — zworka na płytce / interrupt= w nakładce mcp251xfd",
       "speed_manual": "{node}: zmień ręcznie na wyniesionym prędkość {bus} na {speed} kbit/s (nie potwierdził zmiany)",
@@ -3220,9 +3220,9 @@
     "target_missing": "Brak celu",
     "target_missing_details": "Akcja {action}: cel {target} nie istnieje",
     "loop": "Wykryto pętlę",
-    "loop_details": "Akcja {action} dla {target} niewykonana: sygnał wrócił do kroku {step} (pętla)",
-    "path_too_long": "Zbyt długi ślad sygnału",
-    "path_too_long_details": "Akcja {action} dla {target} niewykonana: ślad sygnału jest zbyt długi ({len} z {limit} kroków)",
+    "loop_details": "Akcja {action} dla {target} niewykonana: wykryto pętlę {route} (skoków: {hops}, x2iot: {x2iots})",
+    "path_too_long": "Sygnał ponad limitem skoków",
+    "path_too_long_details": "Akcja {action} dla {target} niewykonana: sygnał przekroczył limit {limit} skoków (wykonane skoki: {hops}, x2iot: {x2iots})",
     "executed_code_details": "Akcja {action} wysłana do {target}, kod: {code_name}",
     "area_action_unsupported_details": "Obszar {target} nie ma polecenia {action}",
     "invalid_code_details": "Kod akcji {action} jest rodzaju, którego ta wersja nie zna",
@@ -3283,8 +3283,8 @@
           "no_response": "Brak odpowiedzi urządzenia; polecenie mogło zostać wykonane",
           "queue_overflow": "Akcje odrzucono: zbyt wiele czekało",
           "expired": "Akcje odrzucono: czekały zbyt długo",
-          "loop": "Wykryto pętlę w kroku {step} - akcja nie została wykonana",
-          "path_too_long": "Ślad sygnału jest zbyt długi ({len} z {limit} kroków) - akcja nie została wykonana"
+          "loop": "Wykryto pętlę {route} (skoków: {hops}, x2iot: {x2iots}) - akcja nie została wykonana",
+          "path_too_long": "Sygnał przekroczył limit skoków ({hops} z {limit}) - akcja nie została wykonana"
         }
       }
     }
